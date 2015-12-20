@@ -10,7 +10,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui1.4.4/locale/easyui-lang-zh_CN.js"></script>
 <!-- 引入扩展，用于完善easyUI和Jquery的js -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/syExtEasyUI.js"></script>
-<!-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/syExtJquery.js"></script> -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/syExtJquery.js"></script>
 <!-- 引入自定义扩展的图标 -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/cyExtIcon.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style/cyExtCss.css" />

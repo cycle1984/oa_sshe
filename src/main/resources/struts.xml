@@ -19,6 +19,17 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	
 	<package name="sys" namespace="/" extends="struts-default">
+		
+		<interceptors>
+			<!-- 声明拦截器 -->
+			<interceptor name="checkPrivilege" class="cycle.oa_sshe.utils.CheckMyResourceInterceptor"></interceptor>
+
+			<!-- 重新定义默认的拦截器栈 -->
+			<interceptor-stack name="defaultStack">
+				<interceptor-ref name="checkPrivilege"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
 	
 		<!-- 全局的Result配置 -->
 		<global-results>
