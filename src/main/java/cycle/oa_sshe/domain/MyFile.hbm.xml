@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-8 20:51:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.MyFile" table="MYFILE">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="fileName" type="java.lang.String" length="100">
+            <column name="FILENAME" length="100"/>
+        </property>
+        <property name="filePath" type="java.lang.String" length="100">
+            <column name="FILEPATH" length="100"/>
+        </property>
+        <!-- 附件与公文关系，多对一 -->
+        <many-to-one name="document" class="cycle.oa_sshe.domain.Document" fetch="join">
+            <column name="DOCUMENT_ID_MyFile" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

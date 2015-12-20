@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-25 20:28:09 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.Role" table="ROLE">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" length="20"/>
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" length="100"/>
+        </property>
+        
+        <set name="users" table="USER" inverse="false" lazy="true">
+        	<key>
+                <column name="ROLE_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.User" />
+        </set>
+        <!-- 权限和权限组之间的关系 -->
+        <set name="myResources" table="ROLE_MYRESOURCE" inverse="false" lazy="true">
+            <key>
+                <column name="ROLE_ID" />
+            </key>
+            <many-to-many class="cycle.oa_sshe.domain.MyResource"  column="MYRESOURCE_ID"/>
+        </set>
+    </class>
+</hibernate-mapping>

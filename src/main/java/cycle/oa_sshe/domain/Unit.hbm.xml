@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.Unit" table="UNIT">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="createdatetime" type="java.util.Date">
+            <column name="CREATEDATE_TIME" />
+        </property>
+        <property name="updatedatetime" type="java.util.Date">
+            <column name="UPDATEDATE_TIME" />
+        </property>
+        <property name="name" type="java.lang.String" length="20">
+            <column name="NAME" length="20"/>
+        </property>
+        <property name="tel" type="java.lang.String" length="12">
+            <column name="TEL" length="12"/>
+        </property>
+        <property name="description" type="java.lang.String" length="100">
+            <column name="DESCRIPTION" length="100"/>
+        </property>
+        <many-to-one name="myGroup" class="cycle.oa_sshe.domain.MyGroup" fetch="join">
+            <column name="MyGROUP_ID" />
+        </many-to-one>
+        <!-- 单位和用户关系，一对多 -->
+        <set name="users" table="USER" inverse="false" lazy="true">
+            <key>
+                <column name="UNIT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.User" />
+        </set>
+        <!-- 发布单位和公文关系,一对多-->
+        <set name="documents" table="DOCUMENT" inverse="false" lazy="true">
+            <key>
+                <column name="PUBLISH_UNIT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.Document" />
+        </set>
+        <!-- 收文单位和收文信息关系,一对多 -->
+        <set name="signInfos" table="SIGNINFO" inverse="false" lazy="true">
+            <key>
+                <column name="SIGN_UNIT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.SignInfo" />
+        </set>
+    </class>
+</hibernate-mapping>

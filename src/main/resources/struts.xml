@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+   <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 配置文件改了以后不用重新启动 -->
+	<constant name="struts.devMode" value="true" />
+	<!-- 不使用struts2的主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 设置浏览器是否缓存静态内容 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<!-- 文件上传最大值 -->
+	<constant name="struts.multipart.maxSize" value="1048576000" />
+	<!-- 所有匹配*.action的请求都由struts2处理 -->
+	<constant name="struts.action.extension" value="action,," />
+	
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	
+	<package name="sys" namespace="/" extends="struts-default">
+	
+		<!-- 全局的Result配置 -->
+		<global-results>
+			<result name="loginUI">/WEB-INF/jsp/user/loginUI.jsp</result>
+			<result name="noSession">/noSession.jsp</result>
+			<result name="noLimit">/noLimit.jsp</result>
+		</global-results>
+		
+		<!-- 流程定义 -->
+		<action name="processDefinition_*" class="processDefinitionAction" method="{1}">
+			<result>/WEB-INF/jsp/processDefinition/list.jsp</result>
+		</action>
+		
+		<!-- 公文 -->
+		<action name="document_*" class="documentAction" method="{1}">
+			<result>/WEB-INF/jsp/document/publishList.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/document/saveUI.jsp</result>
+		</action>
+		
+		<!-- 权限树 -->
+		<action name="myResource_*" class="myResourceAction" method="{1}"></action>
+		
+		<!-- 角色 -->
+		<action name="role_*" class="roleAction" method="{1}">
+			<result>/WEB-INF/jsp/role/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/role/saveUI.jsp</result>
+		</action>
+		
+		<!-- 用户 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result>/WEB-INF/jsp/user/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/user/saveUI.jsp</result>
+			<result name="toIndex" type="redirectAction">home_index.action</result>
+		</action>
+		
+		<!-- 单位 -->
+		<action name="unit_*" class="unitAction" method="{1}">
+			<result>/WEB-INF/jsp/unit/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/unit/saveUI.jsp</result>
+		</action>
+		
+		<!-- 类别、群组 -->
+		<action name="myGroup_*" class="myGroupAction" method="{1}">
+			<result>/WEB-INF/jsp/myGroup/list.jsp</result>
+			<result name="saveUI">/WEB-INF/jsp/myGroup/saveUI.jsp</result>
+		</action>
+		
+		<!-- 框架页面 -->
+		<action name="home_*" class="homeAction" method="{1}">
+            <result>/WEB-INF/jsp/home/{1}.jsp</result>
+        </action>
+	</package>
+		
+</struts>    

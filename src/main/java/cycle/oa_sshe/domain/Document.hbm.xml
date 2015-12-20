@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-8 20:51:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.Document" table="DOCUMENT">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="documentTitle" type="java.lang.String" length="50">
+            <column name="DOCUMENT_TITLE" length="50"/>
+        </property>
+        <property name="level" type="java.lang.String" length="2">
+            <column name="LEVEL" length="2"/>
+        </property>
+        <property name="createdatetime" type="java.util.Date">
+            <column name="CREATEDATETIME" />
+        </property>
+        <property name="publishUserName" type="java.lang.String" length="10">
+            <column name="PUBLISHUSERNAME" length="10"/>
+        </property>
+        <property name="description" type="java.lang.String" length="100">
+            <column name="DESCRIPTION" length="100"/>
+        </property>
+        
+        <!-- 公文和发布单位关系,多对一 -->
+        <many-to-one name="publishUnit" class="cycle.oa_sshe.domain.Unit" fetch="join">
+            <column name="PUBLISH_UNIT_ID" />
+        </many-to-one>
+        <!-- 公文和收文信息关系，一对多 -->
+        <set name="signInfos" table="SIGNINFO" inverse="false" lazy="true">
+            <key>
+                <column name="DOCUMENT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.SignInfo" />
+        </set>
+        <!-- 公文和附件信息关系，一对多 -->
+        <set name="myFiles" table="MYFILE" inverse="false" lazy="true">
+            <key>
+                <column name="DOCUMENT_ID_MyFile" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.MyFile" />
+        </set>
+    </class>
+</hibernate-mapping>

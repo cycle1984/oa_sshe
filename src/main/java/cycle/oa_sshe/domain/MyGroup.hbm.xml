@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.MyGroup" table="MyGROUP">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String" length="20">
+            <column name="NAME" length="20"/>
+        </property>
+        <property name="description" type="java.lang.String" length="100">
+            <column name="DESCRIPTION" length="100"/>
+        </property>
+        <set name="units" table="UNIT" inverse="false" lazy="true">
+            <key>
+                <column name="MyGROUP_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.Unit" />
+        </set>
+    </class>
+</hibernate-mapping>

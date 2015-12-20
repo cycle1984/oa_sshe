@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-26 10:58:25 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.MyResource" table="MYRESOURCE">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" length="20"/>
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="URL" length="100"/>
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" length="100"/>
+        </property>
+        <property name="iconCls" type="java.lang.String">
+            <column name="ICONCLS" />
+        </property>
+        <property name="seq" type="java.lang.Integer">
+            <column name="SEQ" length="2"/>
+        </property>
+        <property name="target" type="java.lang.String">
+            <column name="TARGET" length="50"/>
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="TYPE" length="1"/>
+        </property>
+        <many-to-one name="myResource" class="cycle.oa_sshe.domain.MyResource" fetch="join">
+            <column name="PARENT_ID" />
+        </many-to-one>
+        <set name="myResources" table="MYRESOURCE" inverse="false" lazy="true">
+            <key>
+                <column name="PARENT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.MyResource" />
+        </set>
+        <!-- 权限和权限组之间的关系 -->
+        <set name="roles" table="ROLE_MYRESOURCE" inverse="true" lazy="true">
+            <key column="MYRESOURCE_ID"></key>
+            <many-to-many class="cycle.oa_sshe.domain.Role" column="ROLE_ID"></many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
