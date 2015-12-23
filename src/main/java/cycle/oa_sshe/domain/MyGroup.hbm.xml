@@ -10,6 +10,9 @@
         <property name="name" type="java.lang.String" length="20">
             <column name="NAME" length="20"/>
         </property>
+        <property name="ownerUnit" type="java.lang.String">
+            <column name="owner_unit" />
+        </property>
         <property name="description" type="java.lang.String" length="100">
             <column name="DESCRIPTION" length="100"/>
         </property>

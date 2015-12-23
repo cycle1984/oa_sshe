@@ -156,6 +156,20 @@
 	</dependency>
 	<!-- ////////////////////////////////////////// -->
 	
+	<!-- 加入struts2依赖包 -->
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-core</artifactId>
+	    <version>${struts.version}</version>
+	    <exclusions>
+			<!-- 由于hibernate里面已经包含了javassist包，跟struts2的javassist冲突，所以struts2要排除这个引用 -->
+			<exclusion>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
 	<!-- struts2-spring：struts2整合spring插件 -->
 	<dependency>
 		<groupId>org.apache.struts</groupId>
@@ -163,31 +177,6 @@
 		<version>${struts.version}</version>
 		<type>jar</type>
 		<scope>compile</scope>
-		
-		<exclusions>
-			<!-- 排除自带的struts2自带hibernater javassist构件 -->
-			<exclusion>
-				<groupId>javassist</groupId>
-				<artifactId>javassist</artifactId>
-			</exclusion>
-			<!-- 排除自带的struts2自带spring构件 -->
-			<exclusion>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-beans</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-			</exclusion>
-			<exclusion>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-			</exclusion>
-		</exclusions>
 	</dependency>
 	<!-- ///////////////////////////////////// -->
 	

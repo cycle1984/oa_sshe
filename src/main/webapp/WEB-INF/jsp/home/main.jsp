@@ -28,12 +28,13 @@
 		    <s:if test='%{#session.userSession.hasCyResourceByTitle("发文管理")}'>
 		    	<div title="发文管理">
 				</div>
-		    </s:if>
+			</s:if>
 	    </s:if>
-	     <s:else>
-	    <div title="发文管理">
-		</div>
-		 </s:else>
+	    <s:else>
+		    <div title="发文管理">
+		    	<jsp:include page="../document/publishList.jsp"></jsp:include>
+			</div>
+		</s:else>
 	</div>
 </body>
 </html>

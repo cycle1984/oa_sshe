@@ -156,8 +156,8 @@ public class UnitAction extends BaseAction<Unit> {
 			Set<Unit> cyUnits = myGroup.getUnits();//获得当前机构下的所有单位
 			for (Unit unit : cyUnits) {
 				Tree node3 = new Tree();//三级节点
-				node3.setText(myGroup.getName());
-				node3.setId(myGroup.getId());
+				node3.setText(unit.getName());
+				node3.setId(unit.getId());
 				tree3.add(node3);//添加到三级节点树
 				
 				node2.setChildren(tree3);//将节点设置为当前机构的三级节点

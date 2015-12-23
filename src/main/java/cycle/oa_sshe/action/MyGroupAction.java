@@ -1,10 +1,15 @@
 package cycle.oa_sshe.action;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import cycle.oa_sshe.domain.MyGroup;
+import cycle.oa_sshe.domain.Unit;
 import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.easyui.Grid;
 import cycle.oa_sshe.domain.easyui.Json;
@@ -85,7 +90,7 @@ public class MyGroupAction extends BaseAction<MyGroup> {
 			// json.setObj(o);
 		} catch (Exception e) {
 			e.printStackTrace();
-			json.setMsg("删除失败");
+			json.setMsg("删除失败,请检查是否还存在所辖单位");
 		}
 		writeJson(json);
 	}
@@ -98,7 +103,20 @@ public class MyGroupAction extends BaseAction<MyGroup> {
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		grid.setTotal(myGroupService.countByFilter(hqlFilter));//总记录数
-		grid.setRows(myGroupService.findByFilter(hqlFilter,page,rows));//获得当前页显示的数据
+		List<MyGroup> list = myGroupService.findByFilter(hqlFilter, page, rows);
+		for (MyGroup myGroup : list) {
+				List<Unit>  units = (List<Unit>) unitService.find("from Unit where myGroup.id="+myGroup.getId());
+				String tempName = "";
+				if(units!=null){
+					for (Unit unit : units) {
+						tempName+=unit.getName()+",";
+					}
+					tempName+="共"+units.size()+"个单位。";
+					myGroup.setOwnerUnit(tempName);
+				}
+			
+		}
+		grid.setRows(list);//获得当前页显示的数据
 		writeJson(grid);
 	}
 	
