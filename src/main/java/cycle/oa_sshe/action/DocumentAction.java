@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
@@ -94,6 +95,64 @@ public class DocumentAction extends BaseAction<Document> {
 		
 		
 		
+		writeJson(json);
+	}
+	
+	/**
+	 * 删除
+	 */
+	public void delete(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");
+		Integer[] docIds = MyUtils.string2Integer(ids);
+		try {
+			if(user!=null){
+				for (Integer integer : docIds) {
+					Document document = documentService.getById(integer);
+					if("admin".equals(user.getLoginName())){//超级管理员,能删除任何公文
+						Set<MyFile> myFiles = document.getMyFiles();//获得公文管理的附件，需要把附件一起删除
+						for (MyFile myFile : myFiles) {//删除硬盘里的附件
+							File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+							if(f.exists()){
+								f.delete();
+							}
+							myFileService.delete(myFile);//删除附件对应数据库内容
+						}
+						Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
+						for (SignInfo signInfo : signInfos) {
+							//signInfoService.delete(signInfo);
+						}
+						documentService.delete(document);//删除公文
+					}else{//非超级管理员，只能删除属于自己单位发布的公文
+						if(user.getUnit().getId().equals(document.getPublishUnit())){//判断用户是否属于公文的发文单位
+							Set<MyFile> myFiles = document.getMyFiles();//获得公文管理的附件，需要把附件一起删除
+							for (MyFile myFile : myFiles) {//删除硬盘里的附件
+								File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+								if(f.exists()){
+									f.delete();
+								}
+								myFileService.delete(myFile);//删除附件对应数据库内容
+							}
+							Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
+							for (SignInfo signInfo : signInfos) {
+								//signInfoService.delete(signInfo);
+							}
+							documentService.delete(document);//删除公文
+						}else{
+							json.setMsg("删除失败！您没有权限删除不属于自己单位的公文！");
+						}
+					}
+				}
+				
+				json.setSuccess(true);
+				json.setMsg("成功删除【" + docIds.length + "】条数据！");
+			}else{
+				json.setMsg("删除失败！您还没有登录或登录已经失效！");
+			}
+		} catch (Exception e) {
+			json.setMsg("删除失败");
+			e.printStackTrace();
+		}
 		writeJson(json);
 	}
 	

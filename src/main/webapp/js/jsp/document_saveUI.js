@@ -143,7 +143,7 @@ var document_saveUI_submit =function($dialog){
 							//}
 						,function(result){
 								if(result.success){
-									//$dialog.dialog('close');
+									$dialog.dialog('close');
 									$.messager.show({
 										title : '提示',
 										msg : result.msg

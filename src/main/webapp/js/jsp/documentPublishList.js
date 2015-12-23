@@ -14,6 +14,12 @@ $(function(){
 		border:false,//是否显示面板边框
 		pageSize : 20,//每页显示记录数
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
+		rowStyler:function(index,row){
+			if(row.level=="特提"){
+				return 'color:red;';
+			}
+		},
+		sortOrder : 'desc',
 		columns:[[{
 			field : 'id',
 			title : '主键',
@@ -33,7 +39,7 @@ $(function(){
 			field : 'documentTitle',
 			title : '标题',
 			width : 200	,
-			align:'center',
+			halign:'center',
 			sortable : true
 		}, {
 			field : 'publishUnit.name',
@@ -49,6 +55,13 @@ $(function(){
 			field : 'signInfos',
 			title : '签收情况',
 			width : 50,
+			formatter: function(value,row,index){
+				if (!value){
+					return "<div style='color:red;'>未签收</div>";
+				} else {
+					return value;
+				}
+			},
 			sortable : true
 		}]],
 		onLoadError:function(){
@@ -76,4 +89,45 @@ var addFunDocumentPublish = function(){
 			}
 		} ]
 	});
+};
+
+/**
+ *删除
+ */
+var delFunDocumentPublish = function(){
+	var rows = $('#document_publishList_grid').datagrid('getChecked');//获得已选择的数据
+	var ids = "";
+	if(rows.length>0){
+		$.messager.confirm('提示信息', '即将删除' + rows.length + '条数据,确认删除？',
+		function(r){
+			$.messager.progress({
+				text : '数据删除中....'
+			});
+			if(r){
+				// 将id拼成字符串
+				for (var i = 0; i < rows.length; i++) {
+					ids += rows[i].id + ',';
+				}
+				ids = ids.substring(0, ids.length - 1);
+				$.post('document_delete.action',{ids : ids},function(r){
+					if(r.success){
+						$('#document_publishList_grid').datagrid('load');
+						$('#document_publishList_grid').datagrid('uncheckAll');
+						$.messager.show({
+							title : '提示',
+							msg : r.msg
+						});
+					}else{
+	    				$.messager.alert('提示', r.msg,'error');
+	    			}
+				},'json');
+				$.messager.progress('close');
+			}
+		});
+	}else {
+		$.messager.show({
+			title : '提示',
+			msg : "请选择要删除的记录"
+		});
+	}
 };
