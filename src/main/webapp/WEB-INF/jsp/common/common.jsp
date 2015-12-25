@@ -18,3 +18,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plupload-2.1.8/js/plupload.full.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plupload-2.1.8/js/jquery.plupload.queue/jquery.plupload.queue.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/plupload-2.1.8/js/i18n/zh_CN.js"></script>
+<!-- 公用附件下载方法 -->
+<script type="text/javascript">
+      function fileDown(fileId)
+      {
+    	  window.location.href="${pageContext.request.contextPath}/document_fileDown.action?fileId="+fileId;
+      }
+</script>

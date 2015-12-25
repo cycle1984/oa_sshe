@@ -13,12 +13,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import cycle.oa_sshe.domain.Role;
+import cycle.oa_sshe.domain.SignInfo;
 import cycle.oa_sshe.domain.Unit;
 import cycle.oa_sshe.domain.User;
 import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.easyui.Grid;
 import cycle.oa_sshe.domain.easyui.Json;
 import cycle.oa_sshe.utils.HqlFilter;
+import cycle.oa_sshe.utils.IpUtil;
 import cycle.oa_sshe.utils.MyUtils;
 
 /**
@@ -208,10 +210,12 @@ public class UserAction extends BaseAction<User> {
 				}
 				if("待审核用户".equals(user.getRole().getName())){
 					j.setMsg("您是待审核用户，请联系管理员开通相应权限后再登陆！");
+				}else{
+					session.setAttribute("userSession", user);//将用户信息放到session域
+					j.setSuccess(true);
+					j.setMsg("登录成功!");
 				}
-				session.setAttribute("userSession", user);//将用户信息放到session域
-				j.setSuccess(true);
-				j.setMsg("登录成功!");
+				
 			}
 		}else{
 			j.setMsg("登陆失败，账号或密码不正确!");
@@ -256,7 +260,35 @@ public class UserAction extends BaseAction<User> {
 		}
 		writeJson(json);
 	}
-
+	
+	/**
+	 * 签收
+	 */
+	public void searchByLoginNameAndPwd(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");//获得session中的当前登录用户
+		if(user!=null){
+			if(user.getPwd().equals(DigestUtils.md5Hex(model.getPwd()))){//和当前登录用户密码一致
+				SignInfo si = signInfoService.getById(model.getId());//获得本单位的签收信息对象
+				si.setState(true);//设为已签收
+				si.setSignDate(new Date());//设置签收时间
+				si.setSignUserName(user.getName());//签收人姓名
+				si.setIp(IpUtil.getIpAddr(request));//签收IP
+				try {
+					signInfoService.update(si);
+					json.setSuccess(true);
+					json.setMsg("签收成功");
+				} catch (Exception e) {
+					json.setMsg("操作失败!!");
+					e.printStackTrace();
+				}
+			}else{
+				json.setMsg("密码错误，请重新输入!!");
+			}
+		}
+		writeJson(json);
+	}
+	
 	public Integer getUnitId() {
 		return unitId;
 	}

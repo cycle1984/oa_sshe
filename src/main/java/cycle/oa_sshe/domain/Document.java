@@ -24,6 +24,7 @@ public class Document implements Serializable {
 	private Date createdatetime;//创建日期
 	private String publishUserName;//发布人姓名
 	private String description;//描述、备注
+	private String signInfoString;//用来显示已签收多少单位，未签收多少单位
 	
 	private Unit publishUnit;//发布人的单位
 	private Set<SignInfo> signInfos = new HashSet<SignInfo>(); //签收信息列表
@@ -82,6 +83,12 @@ public class Document implements Serializable {
 	}
 	public void setMyFiles(Set<MyFile> myFiles) {
 		this.myFiles = myFiles;
+	}
+	public String getSignInfoString() {
+		return signInfoString;
+	}
+	public void setSignInfoString(String signInfoString) {
+		this.signInfoString = signInfoString;
 	}
 	
 }

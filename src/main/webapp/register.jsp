@@ -53,11 +53,11 @@
                 </tr>
                 <tr>
                   <th>所属机构</th>
-                  <td><select id="register_myGroupCombobox" name="myGroupId" style="width: 155px" data-options="prompt:'请选择所属机构'"></select></td>
+                  <td><select id="register_myGroupCombobox" name="myGroupId" style="width: 145px" data-options="prompt:'请选择所属机构'"></select></td>
                 </tr>
                 <tr>
                   <th>所属单位</th>
-                  <td><select id="register_unitCombobox" name="unitId" style="width: 155px" data-options="prompt:'请选择所属单位'"></select></td>
+                  <td><select id="register_unitCombobox" name="unitId" style="width: 145px" data-options="prompt:'请选择所属单位'"></select></td>
                 </tr>
                 <tr>
 					<th>部门</th>

@@ -43,10 +43,26 @@
 			<result>/WEB-INF/jsp/processDefinition/list.jsp</result>
 		</action>
 		
+		<!-- 签收信息 -->
+		<action name="signInfo_*" class="signInfoAction" method="{1}">
+			<result name="toViewInfoJsp">/WEB-INF/jsp/signInfo/signInfoList.jsp</result>
+			<result name="signInfoDetails">/WEB-INF/jsp/signInfo/signInfoDetails.jsp</result>
+		</action>
+		
 		<!-- 公文 -->
 		<action name="document_*" class="documentAction" method="{1}">
 			<result>/WEB-INF/jsp/document/publishList.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/document/saveUI.jsp</result>
+			<!-- 用于下载  -->
+			<result name="download" type="stream">
+				<!-- 对应web中下载配置：application/x-msdownload octet-stream-->
+				<param name="contentType">text/plain</param>
+				<param name="inputName">inputStream</param>
+				<!-- 对应web中下载配置：response.setHeader("Content-Disposition", "attachment;filename="+newUser.getFilename()); -->
+				<param name="contentDisposition">attachment;filename="${fileFileName}"</param>
+				<!-- 对应web中下载配置：byte[] b = new byte[1024]; -->
+				<param name="bufferSize">1024</param>
+			</result>
 		</action>
 		
 		<!-- 权限树 -->

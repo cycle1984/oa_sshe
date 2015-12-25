@@ -36,12 +36,12 @@
                 <tr>
                    <th style="width: 100;font-size: 13px;">公文标题</th>
                    <td>
-                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-validatebox" data-options="required:true" style="width:100%;"> 
+                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true" style="width:100%;"> 
                    </td>
                </tr>
                <tr>
                    <th style="width: 100;font-size: 13px;">备注</th>
-                   <td><input id="document_saveUI_description" class="easyui-validatebox"  style="width:100%;" name="description"> </td>
+                   <td><input id="document_saveUI_description" class="easyui-textbox" data-options="multiline:true,height:40"  style="width:100%;" name="description"> </td>
                </tr>
                <tr>
                    <th style="width: 100;font-size: 13px;">文件上传</th>

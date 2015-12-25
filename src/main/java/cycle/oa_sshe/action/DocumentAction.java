@@ -1,9 +1,14 @@
 package cycle.oa_sshe.action;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -11,11 +16,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.Document;
 import cycle.oa_sshe.domain.MyFile;
 import cycle.oa_sshe.domain.SignInfo;
+import cycle.oa_sshe.domain.Unit;
 import cycle.oa_sshe.domain.User;
-import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.easyui.Grid;
 import cycle.oa_sshe.domain.easyui.Json;
 import cycle.oa_sshe.utils.HqlFilter;
@@ -31,7 +37,10 @@ public class DocumentAction extends BaseAction<Document> {
 	 private String fileContentType;    //文件类型  
 	 private String fileFileName;    //文件名
 	 private String fileNewNames;//获得修改后的附件名称拼接字符串
+	 
+	 private InputStream inputStream;//输入流
 
+	 private Integer fileId;
 	/**
 	 * 已发公文列表
 	 */
@@ -43,7 +52,22 @@ public class DocumentAction extends BaseAction<Document> {
 			hqlFilter.addFilter("QUERY_t#publishUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));
 		}
 		grid.setTotal(documentService.countByFilter(hqlFilter));//总记录数
-		grid.setRows(documentService.findByFilter(hqlFilter,page,rows));//获得当前页显示的数据
+		List<Document> list = documentService.findByFilter(hqlFilter,page,rows);
+		for (Document document : list) {
+			List<SignInfo> ls = signInfoService.find("from SignInfo where document.id="+document.getId());
+			String tempName = "";
+			if(ls!=null){
+				int i = 0;
+				for (SignInfo si : ls) {
+					if(si.getState()){
+						i++;
+					}
+				}
+				tempName="已签收单位"+i+"个，未签收单位"+(ls.size()-i)+"个";
+			}
+			document.setSignInfoString(tempName);
+		}
+		grid.setRows(list);//获得当前页显示的数据
 		writeJson(grid);
 	}
 	
@@ -82,10 +106,15 @@ public class DocumentAction extends BaseAction<Document> {
 					si.setPublishUserName(user.getName());//发布人姓名
 					if(user.getUnit()!=null){
 						si.setPublishUnitName(user.getUnit().getName());//发布人所属单位
+						if(integer==user.getUnit().getId()){//如果发文单位也属于收文单位
+							si.setState(true);
+							si.setSignDate(new Date());
+							si.setSignUnit(user.getUnit());
+							si.setSignUserName("本单位发布");
+						}
 					}
 				}
-				
-				
+				signInfoService.save(si);
 			}
 			json.setSuccess(true);
 			json.setMsg("公文发布成功！");
@@ -179,6 +208,57 @@ public class DocumentAction extends BaseAction<Document> {
 			e.printStackTrace();
 		}
 	}
+	
+
+	/**
+	 * 附件下载
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public String fileDown() throws UnsupportedEncodingException{
+		MyFile myFile = myFileService.getById(fileId);
+		User user = (User) session.getAttribute("userSession");
+		Boolean sign = false;//是否能签收
+		if(!user.isAdmin()){
+			if(myFile.getDocument().getPublishUnit()!=null){
+				if(user.getUnit().getId().equals(myFile.getDocument().getPublishUnit().getId())){
+					sign=true;//如果是发文单位，可以下载
+				}else{
+					Set<SignInfo> signInfos = myFile.getDocument().getSignInfos();
+					for (SignInfo signInfo : signInfos) {
+						Unit u = signInfo.getSignUnit();
+						if(u.getId().equals(user.getUnit().getId())){
+							sign=true;//如果是收文单位，可以下载
+						}
+					}
+				}
+			}else{
+				Set<SignInfo> signInfos = myFile.getDocument().getSignInfos();
+				for (SignInfo signInfo : signInfos) {
+					Unit u = signInfo.getSignUnit();
+					if(u.getId().equals(user.getUnit().getId())){
+						sign=true;//如果是收文单位，可以下载
+					}
+				}
+			}
+		}else{
+			sign=true;//管理员 可以下载
+		}
+		//只有超级管理员admin、属于发文单位的用户、收文单位的用户才能下载该文件
+		if(sign){
+			String fileName = myFile.getFileName();
+			int i =fileName.indexOf("-");
+			fileFileName = java.net.URLEncoder.encode(fileName.substring(i+1, fileName.length()), "UTF-8");//写出到硬盘的文件名（去掉时间前缀）
+			
+			File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+			try {
+				inputStream = new FileInputStream(f);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		return "download";
+	}
 
 	public File getFile() {
 		return file;
@@ -211,5 +291,23 @@ public class DocumentAction extends BaseAction<Document> {
 	public void setFileNewNames(String fileNewNames) {
 		this.fileNewNames = fileNewNames;
 	}
+
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+
+	public Integer getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(Integer fileId) {
+		this.fileId = fileId;
+	}
+	
+	
 	
 }

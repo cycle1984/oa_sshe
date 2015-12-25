@@ -14,41 +14,126 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录页面</title>
 	<script type="text/javascript">
-	var submitForm = function(){
-		if ($('#user_loginUI_form').form('validate')) {
-			$('#loginBtn').linkbutton('disable');
-			$('#regBtn').linkbutton('disable');
-			//$('#home_login_loginForm').submit();
-			$.post('${pageContext.request.contextPath}/user_login.action',$('#user_loginUI_form').serialize(),function(r) {
-				if (r.success) {
-					$.messager.show({
-						title : '提示',
-						msg : r.msg
-					});
-					location.replace('home_index.action');
-
-				} else {
-					/*IE6-9出错
-					$.messager.alert('错误提示',r.msg,'error',function(date){
-						$('input[name="pwd"]').val('').focus();
-						$('#loginBtn').linkbutton('enable');
-					});
-					 */
-					$.messager.alert(
-						'错误提示',
-						r.msg,
-						'error',
-						function(){
-							$('#user_loginUI_pwd').textbox('clear').textbox('textbox').focus();//密码框获得焦点
+		var submitForm = function(){
+			if ($('#user_loginUI_form').form('validate')) {
+				$('#loginBtn').linkbutton('disable');
+				$('#regBtn').linkbutton('disable');
+				//$('#home_login_loginForm').submit();
+				$.post('${pageContext.request.contextPath}/user_login.action',$('#user_loginUI_form').serialize(),function(r) {
+					if (r.success) {
+						$.messager.show({
+							title : '提示',
+							msg : r.msg
+						});
+						location.replace('home_index.action');
+	
+					} else {
+						/*IE6-9出错
+						$.messager.alert('错误提示',r.msg,'error',function(date){
+							$('input[name="pwd"]').val('').focus();
 							$('#loginBtn').linkbutton('enable');
-							$('#regBtn').linkbutton('enable');
-						}
-					);
-					
-				}
-			}, 'json');
+						});
+						 */
+						$.messager.alert(
+							'错误提示',
+							r.msg,
+							'error',
+							function(){
+								$('#user_loginUI_pwd').textbox('clear').textbox('textbox').focus();//密码框获得焦点
+								$('#loginBtn').linkbutton('enable');
+								$('#regBtn').linkbutton('enable');
+							}
+						);
+						
+					}
+				}, 'json');
+			}
 		}
-	}
+		
+		/**
+		*用户注册弹出的窗口
+		*/
+		var regForm = function(){
+			var dialog = sy.modalDialog({//创建一个模式化的dialog
+				title:'用户注册',
+				width : 400,//dialog宽度
+				top:'10%',//dialog离页面顶部的距离
+				href:'${pageContext.request.contextPath}/register.jsp',//从URL读取远程数据并且显示到面板。注意：内容将不会被载入，直到面板打开或扩大，在创建延迟加载面板时是非常有用的
+				buttons: [ {
+					id:'registerBtn',
+					text : '提交',
+					iconCls:'icon-ok',
+					handler : function() {
+						registerFun();
+					}
+				},{
+	    			id:'back_login',
+	    			text : '返回登陆',
+	    			handler : function() {
+	    				location.replace('${pageContext.request.contextPath}/index.jsp');
+	    			}
+	    		} ],
+				onLoad:function(){//在加载远程数据时触发,初始化机构和单位的下拉菜单
+					/**
+		    		 * 机构下拉菜单初始化
+		    		 */
+		    		$("#register_myGroupCombobox").combobox({
+		    			//value:'-==请选择所属系统==-',
+		    			//mode:'remote',
+		    		    url:"myGroup_findAll.action",
+		    		    valueField:"id",
+		    		    textField:"name",
+		    		    required:true,
+		    		    editable:false,
+		    		    onSelect:function(){
+		    		    	var myGroupId = $("#register_myGroupCombobox").combobox("getValue");
+		    		    	//$('#register_unitCombobox').combobox('setValue' , '');
+		    		    	$("#register_unitCombobox").combobox('reload','unit_getUnitsByMyGroupId.action?myGroupId='+myGroupId);
+		    		    }
+		    		});
+		    		
+		    		/**
+		    		 * unit下拉菜单
+		    		 */
+		    		$("#register_unitCombobox").combobox({
+		    		    valueField:"id",
+		    		    textField:"name",
+		    		    editable:false,
+		    		    required:true
+		    		});
+		    		$('#register_loginName').textbox('textbox').focus();
+	    			$('#register_form :input').keyup(function(event) {
+	    				if (event.keyCode == 13) {
+	    					registerFun();
+	    				}
+	    			});
+				},
+				onOpen : function() {
+	    			
+	    		}
+			});
+		}
+		
+		var registerFun = function() {
+			if ($('#register_form').form('validate')) {
+				$('#registerBtn').linkbutton('disable');
+				$('#back_login').linkbutton('disable');
+				$.post('${pageContext.request.contextPath}/user_register.action', $('#register_form').serialize(), function(result) {
+					if (result.success) {
+						$.messager.alert('提示', result.msg, 'info', function() {
+							location.replace('${pageContext.request.contextPath}/index.jsp');
+						});
+
+					} else {
+						$.messager.alert('提示', result.msg, 'error', function() {
+							$('register_form :input:eq(1)').focus();
+						});
+						$('#registerBtn').linkbutton('enable');
+						$('#back_login').linkbutton('enable');
+					}
+				}, 'json');
+			}
+		};
 		$(function(){
 			$('form :input').keyup(function(event) {
 				if (event.keyCode == 13) {

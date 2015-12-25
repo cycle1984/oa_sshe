@@ -23,7 +23,7 @@
 	<div id="home_main_tabs" class="easyui-tabs" data-options="fit:true,plain:false">
 		<s:if test="%{#session.userSession.loginName!='admin'}"><!-- 如果不是超级管理员，则显示收文列表 -->
 		    <div title="收文列表">
-		        
+		        <jsp:include page="../signInfo/documentAcceptList.jsp" ></jsp:include>
 		    </div>
 		    <s:if test='%{#session.userSession.hasCyResourceByTitle("发文管理")}'>
 		    	<div title="发文管理">
