@@ -7,6 +7,8 @@ $(function(){
 		url:'${pageContext.request.contextPath}/document_publishListGrid.action',//URL从远程站点请求数据
 		fit:true,//当设置为true的时候面板大小将自适应父容器
 		fitColumns:true,//适应网格的宽度，防止水平滚动
+		autoRowHeight:true,//定义设置行的高度，根据该行的内容。设置为false可以提高负载性能。
+		nowrap:false,//如果为true，则在同一行中显示数据。设置为true可以提高加载性能。
 		striped : true,//是否显示斑马线
 		rownumbers : true,//显示一个行号列
 		pagination : true,//DataGrid控件底部显示分页工具栏

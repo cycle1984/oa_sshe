@@ -38,7 +38,7 @@ public class UserAction extends BaseAction<User> {
 	private Integer unitId;//前台传过来的单位主键
 	private Integer roleId;//前台传过来的角色主键
 	
-	
+	private String oldPwd;//用于获得用户旧密码
 	/**
 	 * 新增
 	 */
@@ -289,6 +289,58 @@ public class UserAction extends BaseAction<User> {
 		writeJson(json);
 	}
 	
+	/**
+	 * 修改自己的密码
+	 */
+	public void updateCurrentPwd(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");
+		if(DigestUtils.md5Hex(oldPwd).equals(user.getPwd())){
+			User u = userService.getById(user.getId());
+			u.setPwd(DigestUtils.md5Hex(model.getPwd()));
+			u.setUpdatedatetime(new Date());
+			try {
+				userService.update(u);
+				json.setMsg("密码修改成功，请使用新的密码重新登陆!");
+				json.setSuccess(true);
+			} catch (Exception e) {
+				json.setMsg("密码修改失败!");
+				e.printStackTrace();
+			}
+		}else{
+			json.setMsg("输入的旧密码与当前使用的密码不匹配，修改失败!");
+		}
+		writeJson(json);
+	}
+	
+	//用户修改自己个人信息页面
+	public String modifyInfoUI(){
+		return "modifyInfoUI";
+	}
+	
+	//用户修改个人信息
+	public void modifyInfo(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");
+		if(user.getPwd().equals(DigestUtils.md5Hex(model.getPwd()))){
+			User u = userService.getById(user.getId());
+			u.setTel(model.getTel());
+			u.setPhone(model.getPhone());
+			u.setGender(model.getGender());
+			try {
+				userService.update(u);
+				json.setSuccess(true);
+				json.setMsg("修改成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("userSession", u);//更新session信息
+		}else{
+			json.setMsg("登陆密码验证错误");
+		}
+		writeJson(json);
+	}
+	
 	public Integer getUnitId() {
 		return unitId;
 	}
@@ -305,4 +357,13 @@ public class UserAction extends BaseAction<User> {
 		this.roleId = roleId;
 	}
 
+	public String getOldPwd() {
+		return oldPwd;
+	}
+
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+
+	
 }

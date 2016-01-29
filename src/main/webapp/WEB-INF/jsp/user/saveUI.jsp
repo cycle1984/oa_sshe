@@ -43,7 +43,9 @@
 				required : true,
 				onShowPanel : function() {//当下拉面板显示的时候触发
 					var myGroupId = $("#user_saveUI__myGroupCombobox").combobox("getValue");
-					$("#user_saveUI_unitCombobox").combobox('reload','unit_getUnitsByMyGroupId.action?myGroupId='+myGroupId);
+					if(myGroupId!=null&&myGroupId!=""){
+						$("#user_saveUI_unitCombobox").combobox('reload','unit_getUnitsByMyGroupId.action?myGroupId='+myGroupId);
+					}
 				}
 			});
 

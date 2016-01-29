@@ -79,6 +79,7 @@
 			<result>/WEB-INF/jsp/user/list.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/user/saveUI.jsp</result>
 			<result name="toIndex" type="redirectAction">home_index.action</result>
+			<result name="modifyInfoUI">/WEB-INF/jsp/user/modifyInfoUI.jsp</result>
 		</action>
 		
 		<!-- 单位 -->

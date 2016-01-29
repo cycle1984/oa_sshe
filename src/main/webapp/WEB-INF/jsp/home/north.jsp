@@ -35,13 +35,13 @@
 			title : '修改联系电话',
 			width:500,
 			top:'10%',
-			url : '${pageContext.request.contextPath}/cyUser_modifyInfoUI.action',
+			url : '${pageContext.request.contextPath}/user_modifyInfoUI.action',
 			buttons : [ {
 				id:'modifyInfoUI_OKbtn',
 				text : '确定',
 				iconCls:'icon-ok',
 				handler : function() {
-					cyUser_modifyInfo_submitForm(dialog);
+					user_modifyInfo_submitForm(dialog);
 				}
 			} ]
 		});
@@ -55,15 +55,19 @@
 				text : '修改',
 				handler : function() {
 					if ($('#passwordDialog form').form('validate')) {
-						$.post('${pageContext.request.contextPath}/cyUser_updateCurrentPwd.action', {
+						$.post('${pageContext.request.contextPath}/user_updateCurrentPwd.action', {
 							'oldPwd' : $('#oldPwd').val(),
 							'pwd':$('#pwd').val()
 						}, function(result) {
 							if (result.success) {
-								$.messager.alert('提示', result.msg, 'info');
+								$.messager.alert('提示', result.msg, 'info',function(){
+									logoutFun();//退出登录
+								});
 								$('#passwordDialog').dialog('close');
 							}else{
-								$.messager.alert('提示',result.msg, 'error');
+								$.messager.alert('提示',result.msg, 'error',function(){
+									$('#passwordDialog form').form('reset');
+								});
 							}
 						}, 'json');
 					}
@@ -71,6 +75,7 @@
 			} ],
 			onOpen : function() {
 				$('#passwordDialog form :input').val('');
+				
 			}
 		}).dialog('close');
 	});

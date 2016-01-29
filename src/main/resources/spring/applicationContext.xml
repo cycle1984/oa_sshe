@@ -112,8 +112,17 @@
 		<aop:pointcut expression="execution(* cycle.oa_sshe.dao.*.*(..))" id="securityMethods"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="securityMethods"/>
 	</aop:config>
-	 
-	 <!-- 注解搜索路径 -->
+	
+	<!-- 登录日志aop
+	<bean id="loginLog" class="cycle.oa_sshe.aop.LoginLog"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* cycle.oa_sshe.action.UserAction.login())" id="loginLogMethod"/>
+		<aop:aspect ref="loginLog">
+			<aop:after method="log" pointcut-ref="loginLogMethod"/>
+		</aop:aspect>		
+	</aop:config>
+	 -->
+	<!-- 注解搜索路径 -->
 	<context:component-scan base-package="cycle.oa_sshe"></context:component-scan>
 	<!-- 支持注解依赖注入，可以不要 -->
 	<context:annotation-config></context:annotation-config>
