@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +53,14 @@ public class DocumentAction extends BaseAction<Document> {
 		if(!user.isAdmin()){//非管理员查询单位所发布的信息
 			hqlFilter.addFilter("QUERY_t#publishUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));
 		}
+		Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);//获取年份
+        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+        int day=cal.get(Calendar.DATE);//获取日
+		//SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+		//String da = dateFormater.format(new Date());
+		String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+		hqlFilter.addFilter("QUERY_t#createdatetime_D_GE", da);//只查询一年内的发文记录
 		grid.setTotal(documentService.countByFilter(hqlFilter));//总记录数
 		List<Document> list = documentService.findByFilter(hqlFilter,page,rows);
 		for (Document document : list) {

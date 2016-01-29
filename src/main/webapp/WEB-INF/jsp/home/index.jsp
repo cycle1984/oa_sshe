@@ -18,7 +18,7 @@
 	</script>
 </head>
 <body>
-	<div id="home_index" class="easyui-layout" style="width:80%;height:100%;margin:0 auto; ">   
+	<div id="home_index" class="easyui-layout" style="width:90%;height:100%;margin:0 auto; ">   
 	    <div data-options="region:'north',split:true" style="height:98px;"><jsp:include page="north.jsp"></jsp:include></div>   
 	    <div data-options="region:'south',split:true" style="height:50;"></div>   
 	    <div id="home_index_west_div" data-options="region:'west',split:true" style="width:200px;padding: 1px"></div>   

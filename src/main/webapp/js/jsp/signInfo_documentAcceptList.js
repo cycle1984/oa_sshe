@@ -66,6 +66,17 @@ $(function(){
 		sortName : 'document.createdatetime',
 		sortOrder : 'desc',
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
+		rowStyler:function(index,row){
+			if(row.document){
+				if(row.document.level=="特提"&&row.signUserName!="本单位发布"){
+					return 'color:red;';
+				}
+				if(row.signUserName=="本单位发布"){
+					return 'color:green;';
+				}
+			}
+			
+		},
 		columns:[[{
 			field : 'document.createdatetime',
 			title : '发布时间',
