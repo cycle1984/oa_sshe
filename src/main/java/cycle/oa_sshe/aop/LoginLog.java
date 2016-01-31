@@ -1,14 +1,17 @@
 package cycle.oa_sshe.aop;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import cycle.oa_sshe.domain.User;
 
-public class LoginLog {
+public class LoginLog extends ActionSupport{
 
-	public void log(HttpServletRequest request){
-		HttpSession session = request.getSession();
+	public void log(){
+		HttpSession session = ServletActionContext.getRequest().getSession();
 		User u = (User) session.getAttribute("userSession");
 		if(u!=null){
 			System.out.println("u="+u.getName());

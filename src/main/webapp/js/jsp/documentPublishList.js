@@ -23,6 +23,7 @@ $(function(){
 				return 'color:red;';
 			}
 		},
+		sortName : 'createdatetime',
 		sortOrder : 'desc',
 		columns:[[{
 			field : 'id',
@@ -71,6 +72,22 @@ $(function(){
 			 
 		},
 		toolbar:'#document_publishList_toolbar'//工具面板
+	});
+	$('#document_publishList_searchForm_unit_td').on('click', function(){
+		dialog = sy.modalDialog({
+			title:'选择单位查询',
+			width : 640,
+			top:'10%',
+			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
+			buttons : [ {
+				id:'document_saveUI_OKbtn',
+				text : '确定',
+				iconCls:'icon-ok',
+				handler : function() {
+					document_saveUI_submit(dialog);//在document/saveUI.jsp页面定义
+				}
+			} ]
+		});
 	});
 	
 });
@@ -150,3 +167,4 @@ var viewSignInfos = function(docId,index){
 		}
 	});
 };
+

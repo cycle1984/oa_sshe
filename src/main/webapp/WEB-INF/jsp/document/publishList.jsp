@@ -20,11 +20,11 @@
 								<td><input name="QUERY_t#documentTitle_S_LK" style="width: 120px; " class="easyui-textbox"/></td>
 								<s:if test="%{#session.userSession.loginName=='admin'}">
 									<td>发文单位</td>
-									<td><select id="document_publishList_searchForm_unit" name="QUERY_t#publishUnit.id_I_EQ" style="width: 80px" ></select></td>
+									<td id="document_publishList_searchForm_unit_td"><input id="document_publishList_searchForm_unit" name="QUERY_t#publishUnit.id_I_EQ" class="easyui-textbox" style="width: 80px" ></input></td>
 								</s:if>
 								<td>发布时间</td>
-								<td><input type="text" name="QUERY_t#createdatetime_D_GE" class="easyui-datetimebox" data-options="showSeconds:false,editable:false" style="width: 120px;"/>-<input name="QUERY_t#createdatetime_D_LE" type="text" class="easyui-datetimebox"  data-options="showSeconds:false,editable:false" style="width: 120px;"/></td>
-								<td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom',plain:true" onclick="$('#document_publishList_grid').datagrid('load',sy.serializeObject($('#document_publishList_searchForm')));">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom_out',plain:true" onclick="$('#cyDocument_cyDocumentPublishList_searchForm input').val('');$('#document_publishList_grid').datagrid('load',{});">重置过滤</a></td>
+								<td><input type="text" name="QUERY_t#createdatetime_D_GE" class="easyui-datebox" data-options="showSeconds:false,editable:false" style="width: 135px;"/>-<input id="document_publishList_QUERY_tcreatedatetime_D_LE" name="QUERY_t#createdatetime_D_LE" type="text" class="easyui-datetimebox"  data-options="showSeconds:false,editable:false" style="width: 135px;"/></td>
+								<td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom',plain:true" onclick="filtersubmit()">过滤</a><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'ext-icon-zoom_out',plain:true" onclick="$('#cyDocument_cyDocumentPublishList_searchForm input').val('');$('#document_publishList_grid').datagrid('load',{});">重置过滤</a></td>
 							</tr>
 						</table>
 					</form></td>
@@ -43,5 +43,18 @@
 		</table>
 	</div>
 	<table id="document_publishList_grid"></table>
+	<script type="text/javascript">
+	var filtersubmit = function(){
+			$('#document_publishList_QUERY_tcreatedatetime_D_LE').datebox().datebox('calendar').calendar({
+				validator: function(date){
+					var now = new Date();
+					var d1 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+					var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+10);
+					return d1<=date && date<=d2;
+				}
+			});
+		$('#document_publishList_grid').datagrid('load',sy.serializeObject($('#document_publishList_searchForm')));
+	}
+	</script>
 </body>
 </html>

@@ -171,6 +171,10 @@ public class UnitAction extends BaseAction<Unit> {
 		writeJson(tree);
 		
 	}
+	
+	public String searchByUnit(){
+		return "searchByUnit";
+	}
 
 	public Integer getMyGroupId() {
 		return myGroupId;

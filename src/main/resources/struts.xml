@@ -86,6 +86,7 @@
 		<action name="unit_*" class="unitAction" method="{1}">
 			<result>/WEB-INF/jsp/unit/list.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/unit/saveUI.jsp</result>
+			<result name="searchByUnit">/WEB-INF/jsp/unit/searchByUnit.jsp</result>
 		</action>
 		
 		<!-- 类别、群组 -->
