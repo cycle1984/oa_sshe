@@ -15,31 +15,31 @@
             <column name="UPDATEDATE_TIME" />
         </property>
         <property name="loginName" type="java.lang.String" length="20">
-            <column name="LOGIN_NAME" />
+            <column name="LOGIN_NAME" length="20"/>
         </property>
         <property name="pwd" type="java.lang.String" length="20">
-            <column name="PWD" />
+            <column name="PWD" length="20"/>
         </property>
         <property name="name" type="java.lang.String" length="20">
-            <column name="NAME" />
+            <column name="NAME" length="20"/>
         </property>
         <property name="phone" type="java.lang.String" length="15">
-            <column name="PHONE" />
+            <column name="PHONE" length="15"/>
         </property>
         <property name="tel" type="java.lang.String" length="12">
-            <column name="TEL" />
+            <column name="TEL" length="12"/>
         </property>
         <property name="gender" type="java.lang.String" length="1">
-            <column name="GENDER" />
+            <column name="GENDER" length="1"/>
         </property>
         <property name="photo" type="java.lang.String">
             <column name="PHOTO" />
         </property>
         <property name="description" type="java.lang.String" length="100">
-            <column name="DESCRIPTION" />
+            <column name="DESCRIPTION" length="100"/>
         </property>
         <property name="dep" type="java.lang.String" length="20">
-            <column name="DEP" />
+            <column name="DEP" length="20"/>
         </property>
         <many-to-one name="unit" class="cycle.oa_sshe.domain.Unit" fetch="join">
             <column name="UNIT_ID" />

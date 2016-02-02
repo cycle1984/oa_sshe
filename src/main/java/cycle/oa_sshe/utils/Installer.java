@@ -52,9 +52,9 @@ public class Installer {
 		MyResource menu2 = new MyResource("信息管理",null,menu,0);
 		MyResource menu21 = new MyResource("发文管理","document_toGridJsp",menu2,0);
 		
-		MyResource menu3 = new MyResource("公文库",null,menu,0);
-		MyResource menu31 = new MyResource("历史发文","document_archiveCyDocumentPublishGridJSP",menu3,0);
-		MyResource menu32 = new MyResource("历史收文","documentInfo_archiveCyDocumentRecieveGridJSP",menu3,0);
+		MyResource menu3 = new MyResource("历史公文库",null,menu,0);
+		MyResource menu31 = new MyResource("历史发文","document_historyPublishGridJSP",menu3,0);
+		MyResource menu32 = new MyResource("历史收文","documentInfo_historytAcceptGridJSP",menu3,0);
 		
 		MyResource menu4 = new MyResource("常用工具",null,menu,0);
 		MyResource menu41 = new MyResource("用户通讯录","user_contacts",menu4,0);
@@ -64,7 +64,7 @@ public class Installer {
 		MyResource menu12 = new MyResource("单位管理","unit_toGridJsp",menu1,0);
 		MyResource menu13 = new MyResource("机构管理","myGroup_toGridJsp",menu1,0);
 		MyResource menu14 = new MyResource("权限组管理","role_toGridJsp",menu1,0);
-		MyResource menu15 = new MyResource("登陆日志","myLog_cyLogListJSP",menu1,0);
+		MyResource menu15 = new MyResource("登陆日志","loginLog_LoginLogListJSP",menu1,0);
 		MyResource menu16 = new MyResource("系统配置","sysBase_getConfig",menu1,0);
 		
 		session.save(menu);

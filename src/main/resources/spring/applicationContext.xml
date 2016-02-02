@@ -114,10 +114,10 @@
 	</aop:config>
 	
 	<!-- 登录日志aop -->
-	<bean id="loginLog" class="cycle.oa_sshe.aop.LoginLog"></bean>
+	<bean id="loginLogAop" class="cycle.oa_sshe.aop.LoginLogAop"></bean>
 	<aop:config>
 		<aop:pointcut expression="execution(* cycle.oa_sshe.action.UserAction.login(..))" id="loginLogMethod"/>
-		<aop:aspect ref="loginLog">
+		<aop:aspect ref="loginLogAop">
 			<aop:after method="log" pointcut-ref="loginLogMethod"/>
 		</aop:aspect>		
 	</aop:config>

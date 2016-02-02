@@ -47,6 +47,7 @@
 		<action name="signInfo_*" class="signInfoAction" method="{1}">
 			<result name="toViewInfoJsp">/WEB-INF/jsp/signInfo/signInfoList.jsp</result>
 			<result name="signInfoDetails">/WEB-INF/jsp/signInfo/signInfoDetails.jsp</result>
+			<result name="historytAcceptGridJSP">/WEB-INF/jsp/signInfo/historyDocumentAcceptList.jsp</result>
 		</action>
 		
 		<!-- 公文 -->
@@ -63,6 +64,7 @@
 				<!-- 对应web中下载配置：byte[] b = new byte[1024]; -->
 				<param name="bufferSize">1024</param>
 			</result>
+			<result name="historyPublishGridJSP">/WEB-INF/jsp/document/historyPublishList.jsp</result>
 		</action>
 		
 		<!-- 权限树 -->
@@ -98,6 +100,11 @@
 		<!-- 框架页面 -->
 		<action name="home_*" class="homeAction" method="{1}">
             <result>/WEB-INF/jsp/home/{1}.jsp</result>
+        </action>
+        
+        <!-- 登录日志 -->
+        <action name="loginLog_*" class="loginLogAction" method="{1}">
+            <result name="loginLogListJSP">/WEB-INF/jsp/loginLog/loginLogList.jsp</result>
         </action>
 	</package>
 		

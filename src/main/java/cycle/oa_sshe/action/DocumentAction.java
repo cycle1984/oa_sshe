@@ -6,13 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -134,8 +131,6 @@ public class DocumentAction extends BaseAction<Document> {
 			json.setMsg("公文发布失败！");
 		}
 		
-		
-		
 		writeJson(json);
 	}
 	
@@ -161,7 +156,7 @@ public class DocumentAction extends BaseAction<Document> {
 						}
 						Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
 						for (SignInfo signInfo : signInfos) {
-							//signInfoService.delete(signInfo);
+							signInfoService.delete(signInfo);
 						}
 						documentService.delete(document);//删除公文
 					}else{//非超级管理员，只能删除属于自己单位发布的公文
@@ -176,7 +171,7 @@ public class DocumentAction extends BaseAction<Document> {
 							}
 							Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
 							for (SignInfo signInfo : signInfos) {
-								//signInfoService.delete(signInfo);
+								signInfoService.delete(signInfo);
 							}
 							documentService.delete(document);//删除公文
 						}else{
@@ -270,6 +265,53 @@ public class DocumentAction extends BaseAction<Document> {
 			}
 		}
 		return "download";
+	}
+	
+	/**
+	 * 跳转到历史发文列表
+	 * @return
+	 */
+	public String historyPublishGridJSP(){
+		return "historyPublishGridJSP";
+	}
+	
+	/**
+	 * 历史发文列表数据
+	 * @return
+	 */
+	public void historyPublishGrid(){
+		Grid grid = new Grid();
+		User user = (User) session.getAttribute("userSession");//获得session中的用户
+		HqlFilter hqlFilter = new HqlFilter(getRequest());
+		if(!user.isAdmin()){//非管理员查询单位所发布的信息
+			hqlFilter.addFilter("QUERY_t#publishUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));
+		}
+		Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);//获取年份
+        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+        int day=cal.get(Calendar.DATE);//获取日
+		//SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+		//String da = dateFormater.format(new Date());
+		String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+		hqlFilter.addFilter("QUERY_t#createdatetime_D_LT", da);//只查询一年前的发文记录
+		grid.setTotal(documentService.countByFilter(hqlFilter));//总记录数
+		List<Document> list = documentService.findByFilter(hqlFilter,page,rows);
+		for (Document document : list) {
+			List<SignInfo> ls = signInfoService.find("from SignInfo where document.id="+document.getId());
+			String tempName = "";
+			if(ls!=null){
+				int i = 0;
+				for (SignInfo si : ls) {
+					if(si.getState()){
+						i++;
+					}
+				}
+				tempName="已签收单位"+i+"个，未签收单位"+(ls.size()-i)+"个";
+			}
+			document.setSignInfoString(tempName);
+		}
+		grid.setRows(list);//获得当前页显示的数据
+		writeJson(grid);
 	}
 
 	public File getFile() {

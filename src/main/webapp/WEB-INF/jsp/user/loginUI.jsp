@@ -150,12 +150,12 @@
     		<table cellpadding="10">
     			<tr>
     				<td>
-    					<input id="user_loginUI_loginName" name=loginName class="easyui-textbox" data-options="iconCls:'icon-man',height:30,prompt:'登录名',required:true,missingMessage:'请输入登录名'" style="width:300px;"> 
+    					<input id="user_loginUI_loginName" name=loginName class="easyui-textbox" data-options="iconCls:'icon-man',height:30,prompt:'登录名',required:true,missingMessage:'请输入登录名',iconAlign:'left'" style="width:300px;"> 
     				</td>
     			</tr>
     			<tr>
     				<td>
-    					<input id="user_loginUI_pwd" name="pwd" class="easyui-textbox" data-options="iconCls:'icon-lock',height:30,type:'password',prompt:'密码',required:true,missingMessage:'请输入密码'" style="width:300px" > 
+    					<input id="user_loginUI_pwd" name="pwd" class="easyui-textbox" data-options="iconCls:'icon-lock',height:30,type:'password',prompt:'密码',required:true,missingMessage:'请输入密码',iconAlign:'left'" style="width:300px" > 
     				</td>
     			</tr>
     		</table>
