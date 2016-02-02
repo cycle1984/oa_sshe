@@ -17,8 +17,8 @@
         <property name="loginName" type="java.lang.String" length="20">
             <column name="LOGIN_NAME" length="20"/>
         </property>
-        <property name="pwd" type="java.lang.String" length="20">
-            <column name="PWD" length="20"/>
+        <property name="pwd" type="java.lang.String" length="40">
+            <column name="PWD" length="40"/>
         </property>
         <property name="name" type="java.lang.String" length="20">
             <column name="NAME" length="20"/>

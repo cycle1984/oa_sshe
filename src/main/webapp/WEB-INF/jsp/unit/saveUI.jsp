@@ -86,8 +86,12 @@
 				<input name="id" id="unit_saveUI_form_id" type="hidden"><!-- 隐藏单位的ID主键  -->
 				<table style="margin:0px auto;">
 					<tr>
-						<th>单位名称</th>
+						<th>单位简称</th>
 						<td><input name="name" id="unit_saveUI_form_name" class="easyui-textbox" data-options="required:true"></td>
+					</tr>
+					<tr>
+						<th>单位全称</th>
+						<td><input name="fullName" class="easyui-textbox" data-options="required:true"></td>
 					</tr>
 					<tr>
 						<th>办公室电话</th>

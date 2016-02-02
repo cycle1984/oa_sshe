@@ -16,12 +16,19 @@
         <property name="name" type="java.lang.String" length="20">
             <column name="NAME" length="20"/>
         </property>
+        <property name="fullName" type="java.lang.String" length="30">
+            <column name="full_Name" length="30"/>
+        </property>
         <property name="tel" type="java.lang.String" length="12">
             <column name="TEL" length="12"/>
         </property>
         <property name="description" type="java.lang.String" length="100">
             <column name="DESCRIPTION" length="100"/>
         </property>
+        <property name="state" type="java.lang.Integer" length="1">
+            <column name="state" length="1"/>
+        </property>
+        
         <many-to-one name="myGroup" class="cycle.oa_sshe.domain.MyGroup" fetch="join">
             <column name="MyGROUP_ID" />
         </many-to-one>

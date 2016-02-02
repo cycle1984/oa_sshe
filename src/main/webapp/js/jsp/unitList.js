@@ -19,15 +19,20 @@ $(function(){
 			checkbox : true
 		}, {
 			field : 'name',
-			title : '名称',
+			title : '简称',
 			width : 100,
 			sortable : true
-		},  {
+		}, {
+			field : 'fullName',
+			title : '全称',
+			width : 100,
+			sortable : true
+		}, {
 			field : 'tel',
 			title : '办公室电话',
 			width : 100,
 			sortable : true
-		},  {
+		}, {
 			field : 'myGroup',
 			title : '所属单位',
 			width : 100,

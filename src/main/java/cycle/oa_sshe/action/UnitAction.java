@@ -122,6 +122,16 @@ public class UnitAction extends BaseAction<Unit> {
 	}
 	
 	/**
+	 * 查询所有单位
+	 */
+	public void list(){
+		Grid grid = new Grid();
+		grid.setTotal(unitService.count());//总记录数
+		grid.setRows(unitService.find());//获得当前页显示的数据
+		writeJson(grid);
+	}
+	
+	/**
 	 * 根据机构ID获得单位
 	 */
 	public void getUnitsByMyGroupId(){

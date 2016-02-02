@@ -64,7 +64,7 @@ public class Installer {
 		MyResource menu12 = new MyResource("单位管理","unit_toGridJsp",menu1,0);
 		MyResource menu13 = new MyResource("机构管理","myGroup_toGridJsp",menu1,0);
 		MyResource menu14 = new MyResource("权限组管理","role_toGridJsp",menu1,0);
-		MyResource menu15 = new MyResource("登陆日志","loginLog_LoginLogListJSP",menu1,0);
+		MyResource menu15 = new MyResource("登陆日志","loginLog_loginLogListJSP",menu1,0);
 		MyResource menu16 = new MyResource("系统配置","sysBase_getConfig",menu1,0);
 		
 		session.save(menu);

@@ -21,8 +21,10 @@ public class Unit implements Serializable {
 	private Date createdatetime;//创建时间
 	private Date updatedatetime;//最后更新时间
 	private String name;//单位名称
+	private String fullName;//单位全称
 	private String tel;//办公室电话
 	private String description;//描述
+	private Integer state=0;//状态，0表示正常状态，1表示禁用状态
 	
 	private MyGroup myGroup;//所属类别
 	private Set<User> users = new HashSet<User>();
@@ -53,6 +55,12 @@ public class Unit implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 	public String getTel() {
 		return tel;
 	}
@@ -64,6 +72,13 @@ public class Unit implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	public Set<User> getUsers() {
 		return users;
