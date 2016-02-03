@@ -74,22 +74,25 @@ $(function(){
 		toolbar:'#document_publishList_toolbar'//工具面板
 	});
 	$('#document_publishList_searchForm_unit_td').on('click', function(){
+		$('#document_publishList_searchForm_unit').textbox('clear');
 		dialog = sy.modalDialog({
 			title:'选择单位查询',
 			width : 640,
 			top:'10%',
 			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
 			buttons : [ {
-				id:'document_saveUI_OKbtn',
+				id:'document_searchByUnit_OKbtn',
 				text : '确定',
 				iconCls:'icon-ok',
 				handler : function() {
-					document_saveUI_submit(dialog);//在document/saveUI.jsp页面定义
+					$('#document_publishList_searchForm_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
+					$('#document_publishList_searchForm_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
+					dialog.dialog('close');
 				}
 			} ]
 		});
 	});
-	
+
 });
 /**
  * 发布公文

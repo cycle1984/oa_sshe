@@ -10,6 +10,11 @@ $(function(){
 		pagination : true,//DataGrid控件底部显示分页工具栏
 		singleSelect : false,//如果为true，则只允许选择一行
 		border:false,//是否显示面板边框
+		rowStyler:function(index,row){
+			if(row.state==1){
+				return 'color:#ff3399;';
+			}
+		},
 		pageSize : 20,//每页显示记录数
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
 		columns:[[{
@@ -42,6 +47,18 @@ $(function(){
 					return row.myGroup.name;
 				}else {
 					return value;
+				}
+			}
+		}, {
+			field : 'state',
+			title : '是否允许接收公文',
+			width : 60,
+			sortable : true,
+			formatter:function(value,row,index){
+				if(value==0){
+					return '是';
+				}else{
+					return '否';
 				}
 			}
 		}, {

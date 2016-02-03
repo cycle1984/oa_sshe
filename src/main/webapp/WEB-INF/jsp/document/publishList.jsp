@@ -16,11 +16,11 @@
 				<td><form id="document_publishList_searchForm" style="margin:0px;"><!--style="margin:0px;"可以处理加form表单后，tr间隙变大的问题  -->
 						<table style="font-size: 13px;">
 							<tr>
-								<td>公文标题(可模糊查询)</td>
-								<td><input name="QUERY_t#documentTitle_S_LK" style="width: 120px; " class="easyui-textbox"/></td>
+								<td>公文标题</td>
+								<td><input name="QUERY_t#documentTitle_S_LK" style="width: 120px; " class="easyui-textbox" data-options="prompt:'支持模糊查询'"/></td>
 								<s:if test="%{#session.userSession.loginName=='admin'}">
 									<td>发文单位</td>
-									<td id="document_publishList_searchForm_unit_td"><input id="document_publishList_searchForm_unit" name="QUERY_t#publishUnit.id_I_EQ" class="easyui-textbox" style="width: 80px" ></input></td>
+									<td id="document_publishList_searchForm_unit_td"><input id="document_publishList_searchForm_unit" name="QUERY_t#publishUnit.name_S_LK" class="easyui-textbox" data-options="prompt:'支持模糊查询'" style="width:150px" ></input></td>
 								</s:if>
 								<td>发布时间</td>
 								<td><input type="text" name="QUERY_t#createdatetime_D_GE" class="easyui-datetimebox" data-options="showSeconds:false,editable:false" style="width: 135px;"/>-<input id="document_publishList_QUERY_tcreatedatetime_D_LE" name="QUERY_t#createdatetime_D_LE" type="text" class="easyui-datetimebox"  data-options="showSeconds:false,editable:false" style="width: 135px;"/></td>

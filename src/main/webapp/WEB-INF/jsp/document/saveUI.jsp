@@ -13,7 +13,7 @@
 			<table>
 				<tr>
 					<th style="width: 100;font-size: 13px;">接收单位</th>
-					<td><select id="document_saveUI_unitCombotree" style="width: 100%;height: 100px;"></select></td>
+					<td id="document_saveUI_unit_td" ><input id="document_saveUI_unitCombotree" style="width: 550px;height: 100px;" class="easyui-textbox" data-options="required: true"></input></td>
 				</tr>
 				<tr>
                     <th style="width: 100;font-size: 13px;">级别</th>

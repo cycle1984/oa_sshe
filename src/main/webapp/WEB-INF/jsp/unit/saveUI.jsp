@@ -98,8 +98,12 @@
 						<td><input name="tel" id="unit_saveUI_form_tel" class="easyui-textbox" data-options="required:true"></td>
 					</tr>
 					<tr>
-						<th>所属单位</th>
+						<th>所属系统</th>
 						<td><input name="myGroupId" id="unit_SaveUI_unitSelect"></td>
+					</tr>
+					<tr>
+						<th>是否允许接收文件</th>
+						<td style="font-size: 18px;">是<input type="radio" name="state" value="0" checked="checked">否<input type="radio" name="state" value="1"></td>
 					</tr>
 					<tr>
 						<th>描述</th>

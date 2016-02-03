@@ -49,54 +49,73 @@ $(function(){
 		up.refresh();
 	});
 
-
-	//初始化收文单位树形菜单
-	$('#document_saveUI_unitCombotree').combotree({
-		url: '${pageContext.request.contextPath}/unit_getUnitTree.action',
-		multiple:true,//是否允许多选
-		multiline:true,//定义是否是多行文本框
-		checkbox:true,//定义是否在每一个借点之前都显示复选框。
-		required: true,//是否为必选
-		prompt:'点击下拉列表左侧白色小三角形可展开单位列表',//提示信息
-		width:550,
-		onClick:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
-	    	var nodes = $('#document_saveUI_unitCombotree').combotree('tree').tree('getChecked');//勾选的节点数
-	    	var num=0;//收文的单位数
-	    	var text = '';//文本框内容
-	    	for(var i =0;i<nodes.length;i++){
-	    		var isLeaf = $('#document_saveUI_unitCombotree').combotree('tree').tree('isLeaf',nodes[i].target);
-				if(isLeaf){
-					num++;
-					if(i!=nodes.length-1){
-						text+=nodes[i].text+",";
-					}else{
-						text+=nodes[i].text+",      共"+num+"个单位";
-					}
-					
+	$('#document_saveUI_unit_td').on('click',function(){
+		$('#document_publishList_searchForm_unit').textbox('clear');
+		dialog = sy.modalDialog({
+			title:'选择单位查询',
+			width : 640,
+			top:'10%',
+			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
+			buttons : [ {
+				id:'document_searchByUnit_OKbtn',
+				text : '确定',
+				iconCls:'icon-ok',
+				handler : function() {
+					$('#document_publishList_searchForm_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
+					$('#document_publishList_searchForm_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
+					dialog.dialog('close');
 				}
-	    	}
-	    	$('#document_saveUI_unitCombotree').combotree('setText',text);//设置combotree文本框内容
-	    }, 
-	    onCheck:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
-	    	var nodes = $('#document_saveUI_unitCombotree').combotree('tree').tree('getChecked');//勾选的节点数
-	    	var num=0;//收文的单位数
-	    	var text = '';
-	    	
-	    	for(var i =0;i<nodes.length;i++){
-	    		var isLeaf = $('#document_saveUI_unitCombotree').combotree('tree').tree('isLeaf',nodes[i].target);
-				if(isLeaf){
-					num++;
-					if(i!=nodes.length-1){
-						text+=nodes[i].text+",";
-					}else{
-						text+=nodes[i].text+",      共"+num+"个单位";
-					}
-					
-				}
-	    	}
-	    	$('#document_saveUI_unitCombotree').combotree('setText',text);
-	    }
+			} ]
+		});
 	});
+	
+	//初始化收文单位树形菜单
+//	$('#document_saveUI_unitCombotree').combotree({
+//		url: '${pageContext.request.contextPath}/unit_getUnitTree.action',
+//		multiple:true,//是否允许多选
+//		multiline:true,//定义是否是多行文本框
+//		checkbox:true,//定义是否在每一个借点之前都显示复选框。
+//		required: true,//是否为必选
+//		prompt:'点击下拉列表左侧白色小三角形可展开单位列表',//提示信息
+//		width:550,
+//		onClick:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
+//	    	var nodes = $('#document_saveUI_unitCombotree').combotree('tree').tree('getChecked');//勾选的节点数
+//	    	var num=0;//收文的单位数
+//	    	var text = '';//文本框内容
+//	    	for(var i =0;i<nodes.length;i++){
+//	    		var isLeaf = $('#document_saveUI_unitCombotree').combotree('tree').tree('isLeaf',nodes[i].target);
+//				if(isLeaf){
+//					num++;
+//					if(i!=nodes.length-1){
+//						text+=nodes[i].text+",";
+//					}else{
+//						text+=nodes[i].text+",      共"+num+"个单位";
+//					}
+//					
+//				}
+//	    	}
+//	    	$('#document_saveUI_unitCombotree').combotree('setText',text);//设置combotree文本框内容
+//	    }, 
+//	    onCheck:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
+//	    	var nodes = $('#document_saveUI_unitCombotree').combotree('tree').tree('getChecked');//勾选的节点数
+//	    	var num=0;//收文的单位数
+//	    	var text = '';
+//	    	
+//	    	for(var i =0;i<nodes.length;i++){
+//	    		var isLeaf = $('#document_saveUI_unitCombotree').combotree('tree').tree('isLeaf',nodes[i].target);
+//				if(isLeaf){
+//					num++;
+//					if(i!=nodes.length-1){
+//						text+=nodes[i].text+",";
+//					}else{
+//						text+=nodes[i].text+",      共"+num+"个单位";
+//					}
+//					
+//				}
+//	    	}
+//	    	$('#document_saveUI_unitCombotree').combotree('setText',text);
+//	    }
+//	});
 	
 });
 

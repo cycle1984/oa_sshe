@@ -165,12 +165,15 @@ public class UnitAction extends BaseAction<Unit> {
 			List<Tree> tree3 =  new ArrayList<Tree>();//三级节点集合
 			Set<Unit> cyUnits = myGroup.getUnits();//获得当前机构下的所有单位
 			for (Unit unit : cyUnits) {
-				Tree node3 = new Tree();//三级节点
-				node3.setText(unit.getName());
-				node3.setId(unit.getId());
-				tree3.add(node3);//添加到三级节点树
+				if(unit.getState()==0){//state=0的才允许接收公文
+					Tree node3 = new Tree();//三级节点
+					node3.setText(unit.getName());
+					node3.setId(unit.getId());
+					tree3.add(node3);//添加到三级节点树
+					
+					node2.setChildren(tree3);//将节点设置为当前机构的三级节点
+				}
 				
-				node2.setChildren(tree3);//将节点设置为当前机构的三级节点
 			}
 			if(node2.getChildren()!=null){//如果当前机构存在单位（既当前二级节点的子节点不为空）
 				tree2.add(node2);//将此节点设置为树的二级节点
