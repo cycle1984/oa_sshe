@@ -216,13 +216,33 @@ $(function(){
 		    		}
 				
 				});
-				$('#accept_pwd').textbox('textbox').focus();
+				$('#accept_pwd').textbox('clear').textbox('textbox').focus();
 				$('#cyDocument_cyDocumentReceiveList_receiveDialog_id').val(row.id);//将公文ID赋值到隐藏的id表单
 			}
 		},
 		onLoadError:function(){
 			 
 		},
+	});
+	
+	$('#signInfo_documentAcceptList_searchForm_unit_td').on('click', function(){
+		$('#signInfo_documentAcceptList_searchForm_unit').textbox('clear');
+		dialog = sy.modalDialog({
+			title:'选择单位查询',
+			width : 350,
+			top:'10%',
+			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
+			buttons : [ {
+				id:'document_searchByUnit_OKbtn',
+				text : '确定',
+				iconCls:'icon-ok',
+				handler : function() {
+					$('#signInfo_documentAcceptList_searchForm_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
+					$('#signInfo_documentAcceptList_searchForm_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
+					dialog.dialog('close');
+				}
+			} ]
+		});
 	});
 	
 });

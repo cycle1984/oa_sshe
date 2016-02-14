@@ -77,7 +77,7 @@ $(function(){
 		$('#document_publishList_searchForm_unit').textbox('clear');
 		dialog = sy.modalDialog({
 			title:'选择单位查询',
-			width : 640,
+			width : 350,
 			top:'10%',
 			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
 			buttons : [ {

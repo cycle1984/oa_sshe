@@ -1,8 +1,14 @@
 package cycle.oa_sshe.action;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
@@ -132,6 +138,31 @@ public class UnitAction extends BaseAction<Unit> {
 	}
 	
 	/**
+	 * 查询单位名称，按首字母排序
+	 */
+	public void listByInitial(){
+		HqlFilter hqlFilter = new HqlFilter(getRequest());
+		hqlFilter.addFilter("QUERY_t#state_I_EQ", "0");
+		List<Unit> list = unitService.findByFilter(hqlFilter);
+		Comparator comparator = Collator.getInstance(java.util.Locale.CHINA);
+		String[] unitNames =new String[list.size()];
+		int i =0;
+		for (Unit unit : list) {
+			unitNames[i]=unit.getName();
+			i++;
+		}
+		Arrays.sort(unitNames, comparator);
+		List<Unit> l = new ArrayList<Unit>();
+		for (String string : unitNames) {
+			
+			Unit u = new Unit();
+			u.setName(string);
+			l.add(u);
+		}
+		writeJson(l);
+	}
+	
+	/**
 	 * 根据机构ID获得单位
 	 */
 	public void getUnitsByMyGroupId(){
@@ -185,6 +216,48 @@ public class UnitAction extends BaseAction<Unit> {
 		
 	}
 	
+	/**
+	 *  根据发文单位查询菜单
+	 */
+	public void getUnitTree2(){
+		
+		List<Tree> tree = new ArrayList<Tree>();//用于放树的顶点
+		List<Tree> tree2 = new ArrayList<Tree>();//二级节点集合
+//		Tree node = new Tree();//顶点
+//		node.setText("全选");//顶点名称
+//		node.setId(999999);//设置顶点的id
+		
+		String hql = "from MyGroup";
+		List<MyGroup> myGroups = myGroupService.find(hql);//获得所有的机构（类别）
+		for (MyGroup myGroup : myGroups) {//遍历二级节点（所有机构）
+			Tree node2 = new Tree();//二级节点
+			node2.setText(myGroup.getName());
+			node2.setId(myGroup.getId());
+			node2.setState("closed");//二级菜单默认不展开
+			
+			List<Tree> tree3 =  new ArrayList<Tree>();//三级节点集合
+			Set<Unit> cyUnits = myGroup.getUnits();//获得当前机构下的所有单位
+			for (Unit unit : cyUnits) {
+				if(unit.getState()==0){//state=0的才允许接收公文
+					Tree node3 = new Tree();//三级节点
+					node3.setText(unit.getName());
+					node3.setId(unit.getId());
+					tree3.add(node3);//添加到三级节点树
+					
+					node2.setChildren(tree3);//将节点设置为当前机构的三级节点
+				}
+				
+			}
+			if(node2.getChildren()!=null){//如果当前机构存在单位（既当前二级节点的子节点不为空）
+				tree2.add(node2);//将此节点设置为树的二级节点
+			}
+		}
+//		node.setChildren(tree2);//将二级节点集合设为顶点的二级节点
+//		tree.add(node);
+		writeJson(tree2);
+		
+	}
+	
 	public String searchByUnit(){
 		return "searchByUnit";
 	}
@@ -196,6 +269,7 @@ public class UnitAction extends BaseAction<Unit> {
 	public void setMyGroupId(Integer myGroupId) {
 		this.myGroupId = myGroupId;
 	}
+
 	
 	
 }

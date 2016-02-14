@@ -54,6 +54,7 @@ public class CheckMyResourceInterceptor extends AbstractInterceptor {
 		if(user==null){//session空
 			if(
 					url.startsWith("user_login")//去登录
+					||url.startsWith("user_logout")//去退出
 					//注册
 					||url.startsWith("myGroup_findAll")//注册页面需要查询的所有机构列表
 					||url.startsWith("unit_getUnitsByMyGroupId")//注册页面需要根据机构Id查询的所有单位列表

@@ -85,6 +85,9 @@ var editFunMyGroup = function(){
 			} ],
 			onLoad:function(){
 				myGroup_saveUI_editForm(arr[0]);//回显数据
+			},
+			onBeforeClose:function(){//关闭窗口后，取消勾选
+				myGroupGrid.datagrid('uncheckAll');
 			}
 		});
 	}

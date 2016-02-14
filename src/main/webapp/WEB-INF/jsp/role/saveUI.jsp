@@ -76,7 +76,7 @@
 					</tr>
 					<tr>
 						<th>描述</th>
-						<td><input name="description" class="easyui-textbox" data-options="multiline:true,height:50"></td>
+						<td><input name="description" class="easyui-textbox" data-options="multiline:true,height:150"></td>
 					</tr>
 				</table>
 			</form>

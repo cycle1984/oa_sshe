@@ -150,7 +150,11 @@ var editFunUser = function(){
 			} ],
 			onLoad:function(){
 				user_saveUI_editForm(arr[0]);//回显数据
+			},
+			onBeforeClose:function(){//关闭窗口后，取消勾选
+				userGrid.datagrid('uncheckAll');
 			}
+			
 		});
 	}
 };

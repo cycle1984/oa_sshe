@@ -91,7 +91,10 @@ var addFunUnit = function(){
 			handler : function() {
 				unit_saveUI_submitForm(dialog,unitGrid);//定义在saveUI.jsp
 			}
-		} ]
+		} ],
+		onLoad:function(){
+			$('#unit_saveUI_form_name').textbox('textbox').focus();
+		},
 	});
 };
 
@@ -121,6 +124,9 @@ var editFunUnit = function(){
 			} ],
 			onLoad:function(){
 				unit_saveUI_editForm(arr[0]);//回显数据
+			},
+			onBeforeClose:function(){//关闭窗口后，取消勾选
+				unitGrid.datagrid('uncheckAll');
 			}
 		});
 	}

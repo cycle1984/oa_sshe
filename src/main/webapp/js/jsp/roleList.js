@@ -81,6 +81,9 @@ var editFunRole = function(){
 			} ],
 			onLoad:function(){
 				role_saveUI_editForm(arr[0]);//回显数据
+			},
+			onBeforeClose:function(){//关闭窗口后，取消勾选
+				roleGrid.datagrid('uncheckAll');
 			}
 		});
 	}
@@ -137,7 +140,6 @@ var setFunMyResource = function(){
 		});
 	}else{
 		var roleId = arr[0].id;
-		console.info('rows:'+roleId);
 		$('#role_setMyResource_tree').tree({
 			url : 'role_setMyResourceUI.action',//准备回显到前台没有勾选之前的权限树
 			parentField : 'pid',//父节点id
