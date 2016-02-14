@@ -3,6 +3,7 @@ package cycle.oa_sshe.action;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -144,22 +145,67 @@ public class UnitAction extends BaseAction<Unit> {
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		hqlFilter.addFilter("QUERY_t#state_I_EQ", "0");
 		List<Unit> list = unitService.findByFilter(hqlFilter);
-		Comparator comparator = Collator.getInstance(java.util.Locale.CHINA);
-		String[] unitNames =new String[list.size()];
-		int i =0;
-		for (Unit unit : list) {
-			unitNames[i]=unit.getName();
-			i++;
-		}
-		Arrays.sort(unitNames, comparator);
-		List<Unit> l = new ArrayList<Unit>();
-		for (String string : unitNames) {
-			
-			Unit u = new Unit();
-			u.setName(string);
-			l.add(u);
-		}
-		writeJson(l);
+		
+		//start单位列表按照首字母排序
+		Comparator<Unit> cmp = new Comparator<Unit>() {  
+			  
+		    public int compare(Unit o1, Unit o2) {  
+		        Comparator<Object> cmp = Collator.getInstance(java.util.Locale.CHINA);  
+		  
+		        String[] strs1 = new String[2];  
+		        strs1[0] = o1.getName();  
+		        strs1[1] = o2.getName();  
+		  
+		        String[] strs2 = new String[2];  
+		        strs2[0] = o1.getName();  
+		        strs2[1] = o2.getName();  
+		  
+		        Arrays.sort(strs1, cmp);  
+		        Arrays.sort(strs2, cmp);  
+		  
+		        if (strs1[0].equals(strs1[1])) {  
+		            if (strs2[0].equals(strs2[1])) {  
+		                return 0;  
+		            }  
+		  
+		            if (strs2[0].equals(o1.getName())) {  
+		                return -1;  
+		            } else {  
+		                return 1;  
+		            }  
+		        } else {  
+		            if (strs1[0].equals(o1.getName())) {  
+		                return -1;  
+		            } else if (strs1[0].equals(o2.getName())) {  
+		                return 1;  
+		            }  
+		        }  
+		  
+		        // 在这里实现你的比较  
+		  
+		        return 0;  
+		    }  
+		};  
+
+		Collections.sort(list,cmp);
+		//end单位列表按照首字母排序
+		
+//		Comparator comparator = Collator.getInstance(java.util.Locale.CHINA);
+//		String[] unitNames =new String[list.size()];
+//		int i =0;
+//		for (Unit unit : list) {
+//			unitNames[i]=unit.getName();
+//			i++;
+//		}
+//		Arrays.sort(unitNames, comparator);
+//		List<Unit> l = new ArrayList<Unit>();
+//		for (String string : unitNames) {
+//			
+//			Unit u = new Unit();
+//			u.setName(string);
+//			l.add(u);
+//		}
+		writeJson(list);
 	}
 	
 	/**
@@ -206,6 +252,51 @@ public class UnitAction extends BaseAction<Unit> {
 				}
 				
 			}
+			
+			//单位列表按照首字母排序
+			Comparator<Tree> cmp = new Comparator<Tree>() {  
+				  
+			    public int compare(Tree o1, Tree o2) {  
+			        Comparator<Object> cmp = Collator.getInstance(java.util.Locale.CHINA);  
+			  
+			        // start在这里实现你的比较 
+			        String[] strs1 = new String[2];  
+			        strs1[0] = o1.getText();  
+			        strs1[1] = o2.getText();  
+			  
+			        String[] strs2 = new String[2];  
+			        strs2[0] = o1.getText();  
+			        strs2[1] = o2.getText();  
+			  
+			        Arrays.sort(strs1, cmp);  
+			        Arrays.sort(strs2, cmp);  
+			  
+			        if (strs1[0].equals(strs1[1])) {  
+			            if (strs2[0].equals(strs2[1])) {  
+			                return 0;  
+			            }  
+			  
+			            if (strs2[0].equals(o1.getText())) {  
+			                return -1;  
+			            } else {  
+			                return 1;  
+			            }  
+			        } else {  
+			            if (strs1[0].equals(o1.getText())) {  
+			                return -1;  
+			            } else if (strs1[0].equals(o2.getText())) {  
+			                return 1;  
+			            }  
+			        }  
+			  
+			        // end在这里实现你的比较  
+			  
+			        return 0;  
+			    }  
+			};  
+
+			Collections.sort(tree3,cmp);
+			
 			if(node2.getChildren()!=null){//如果当前机构存在单位（既当前二级节点的子节点不为空）
 				tree2.add(node2);//将此节点设置为树的二级节点
 			}
@@ -221,11 +312,7 @@ public class UnitAction extends BaseAction<Unit> {
 	 */
 	public void getUnitTree2(){
 		
-		List<Tree> tree = new ArrayList<Tree>();//用于放树的顶点
 		List<Tree> tree2 = new ArrayList<Tree>();//二级节点集合
-//		Tree node = new Tree();//顶点
-//		node.setText("全选");//顶点名称
-//		node.setId(999999);//设置顶点的id
 		
 		String hql = "from MyGroup";
 		List<MyGroup> myGroups = myGroupService.find(hql);//获得所有的机构（类别）
@@ -248,12 +335,55 @@ public class UnitAction extends BaseAction<Unit> {
 				}
 				
 			}
+			
+			//单位列表按照首字母排序
+			Comparator<Tree> cmp = new Comparator<Tree>() {  
+				  
+			    public int compare(Tree o1, Tree o2) {  
+			        Comparator<Object> cmp = Collator.getInstance(java.util.Locale.CHINA);  
+			  
+			     // start在这里实现你的比较 
+			        String[] strs1 = new String[2];  
+			        strs1[0] = o1.getText();  
+			        strs1[1] = o2.getText();  
+			  
+			        String[] strs2 = new String[2];  
+			        strs2[0] = o1.getText();  
+			        strs2[1] = o2.getText();  
+			  
+			        Arrays.sort(strs1, cmp);  
+			        Arrays.sort(strs2, cmp);  
+			  
+			        if (strs1[0].equals(strs1[1])) {  
+			            if (strs2[0].equals(strs2[1])) {  
+			                return 0;  
+			            }  
+			  
+			            if (strs2[0].equals(o1.getText())) {  
+			                return -1;  
+			            } else {  
+			                return 1;  
+			            }  
+			        } else {  
+			            if (strs1[0].equals(o1.getText())) {  
+			                return -1;  
+			            } else if (strs1[0].equals(o2.getText())) {  
+			                return 1;  
+			            }  
+			        }  
+			  
+			        // end在这里实现你的比较    
+			  
+			        return 0;  
+			    }  
+			};  
+
+			Collections.sort(tree3,cmp);
+			
 			if(node2.getChildren()!=null){//如果当前机构存在单位（既当前二级节点的子节点不为空）
 				tree2.add(node2);//将此节点设置为树的二级节点
 			}
 		}
-//		node.setChildren(tree2);//将二级节点集合设为顶点的二级节点
-//		tree.add(node);
 		writeJson(tree2);
 		
 	}

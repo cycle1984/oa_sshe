@@ -57,7 +57,7 @@ public class Installer {
 		MyResource menu32 = new MyResource("历史收文","documentInfo_historytAcceptGridJSP",menu3,0);
 		
 		MyResource menu4 = new MyResource("常用工具",null,menu,0);
-		MyResource menu41 = new MyResource("用户通讯录","user_contacts",menu4,0);
+		MyResource menu41 = new MyResource("通讯录","user_contactsJsp",menu4,0);
 		
 		MyResource menu1 = new MyResource("系统管理",null,menu,0);
 		MyResource menu11 = new MyResource("用户管理","user_toGridJsp",menu1,0);

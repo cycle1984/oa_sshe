@@ -9,15 +9,15 @@
 <body>
 	<input id="unit_searchByUnit_unit" class="easyui-validatebox" style="width: 100%">
 	<div class="easyui-tabs" style="height:400px">
-		<div title="群组列表选择" style="padding:10px">
+		<div title="群组列表" style="padding:10px">
 			<ul id="document_searchByUnit_tree">
 			</ul>
 		</div>
-		<div title="按首字母排序" >
+		<div title="所有单位列表" >
 			<table id="unit_searchByUnit_table"></table>
 		</div>
-		<div title="Help" data-options="iconCls:'icon-help',closable:true" style="padding:10px">
-			This is the help content.
+		<div title="按热度排序"  style="padding:10px">
+			开发中。。。
 		</div>
 	</div>
 	

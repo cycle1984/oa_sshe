@@ -152,12 +152,18 @@ public class DocumentAction extends BaseAction<Document> {
 							if(f.exists()){
 								f.delete();
 							}
+							myFile.setDocument(null);
 							myFileService.delete(myFile);//删除附件对应数据库内容
 						}
 						Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
 						for (SignInfo signInfo : signInfos) {
+							signInfo.setSignUnit(null);
+							signInfo.setDocument(null);
 							signInfoService.delete(signInfo);
 						}
+						document.setMyFiles(null);
+						document.setPublishUnit(null);
+						document.setSignInfos(null);
 						documentService.delete(document);//删除公文
 					}else{//非超级管理员，只能删除属于自己单位发布的公文
 						if(user.getUnit().getId().equals(document.getPublishUnit())){//判断用户是否属于公文的发文单位
@@ -167,12 +173,18 @@ public class DocumentAction extends BaseAction<Document> {
 								if(f.exists()){
 									f.delete();
 								}
+								myFile.setDocument(null);
 								myFileService.delete(myFile);//删除附件对应数据库内容
 							}
 							Set<SignInfo> signInfos = document.getSignInfos();//获得签收信息列表,需要删除
 							for (SignInfo signInfo : signInfos) {
+								signInfo.setSignUnit(null);
+								signInfo.setDocument(null);
 								signInfoService.delete(signInfo);
 							}
+							document.setMyFiles(null);
+							document.setPublishUnit(null);
+							document.setSignInfos(null);
 							documentService.delete(document);//删除公文
 						}else{
 							json.setMsg("删除失败！您没有权限删除不属于自己单位的公文！");

@@ -73,6 +73,7 @@ $(function(){
 		},
 		toolbar:'#document_publishList_toolbar'//工具面板
 	});
+	//按单位查询输入框点击事件
 	$('#document_publishList_searchForm_unit_td').on('click', function(){
 		$('#document_publishList_searchForm_unit').textbox('clear');
 		dialog = sy.modalDialog({
@@ -139,11 +140,13 @@ var delFunDocumentPublish = function(){
 							title : '提示',
 							msg : r.msg
 						});
+						$.messager.progress('close');
 					}else{
 	    				$.messager.alert('提示', r.msg,'error');
+	    				$.messager.progress('close');
 	    			}
 				},'json');
-				$.messager.progress('close');
+				
 			}
 		});
 	}else {

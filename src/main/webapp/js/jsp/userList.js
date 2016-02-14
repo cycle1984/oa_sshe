@@ -50,7 +50,7 @@ $(function(){
 			sortable : true
 		}, {
 			field : 'unit',
-			title : '所属用户',
+			title : '所属单位',
 			width : 100,
 			sortable : true,
 			formatter: function(value,row,index){//value：字段值,row：行记录数据,index: 行索引
@@ -102,6 +102,29 @@ $(function(){
 		},
 		toolbar:'#user_list_toolbar'//工具面板
 	});
+	
+	
+	//按单位查询输入框点击事件
+	$('#user_list_toolbar_form_unit_td').on('click', function(){
+		$('#user_list_toolbar_form_unit').textbox('clear');
+		dialog = sy.modalDialog({
+			title:'选择单位查询',
+			width : 350,
+			top:'10%',
+			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
+			buttons : [ {
+				id:'document_searchByUnit_OKbtn',
+				text : '确定',
+				iconCls:'icon-ok',
+				handler : function() {
+					$('#user_list_toolbar_form_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
+					$('#user_list_toolbar_form_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
+					dialog.dialog('close');
+				}
+			} ]
+		});
+	});
+	
 });
 
 /**

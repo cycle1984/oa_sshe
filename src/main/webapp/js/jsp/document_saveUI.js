@@ -88,10 +88,13 @@ $(function(){
 					if(i!=nodes.length-1){
 						text+=nodes[i].text+",";
 					}else{
-						text+=nodes[i].text+",      共"+num+"个单位";
+						text+=nodes[i].text;
 					}
 					
 				}
+	    	}
+	    	if(num!=0){
+	    		text="共"+num+"个单位:"+text;
 	    	}
 	    	$('#document_saveUI_unitCombotree').combotree('setText',text);//设置combotree文本框内容
 	    }, 
@@ -107,10 +110,13 @@ $(function(){
 					if(i!=nodes.length-1){
 						text+=nodes[i].text+",";
 					}else{
-						text+=nodes[i].text+",      共"+num+"个单位";
+						text+=nodes[i].text;
 					}
 					
 				}
+	    	}
+	    	if(num!=0){
+	    		text="共"+num+"个单位:"+text;
 	    	}
 	    	$('#document_saveUI_unitCombotree').combotree('setText',text);
 	    }
@@ -126,6 +132,9 @@ $(function(){
 var document_saveUI_submit =function($dialog){
 	if($('#document_saveUI_form').form('validate')){//验证表单
 		if (uploader.files.length > 0) {//>0则有附件
+			$.messager.progress({
+				text : '数据发布中....'
+			});
 			$('#document_saveUI_OKbtn').linkbutton('disable');//发布按钮变灰，防止重复提交
 			uploader.start();//开始上传附件
 			var fileNewNames="";//上传后的所有附件名称
@@ -168,10 +177,12 @@ var document_saveUI_submit =function($dialog){
 									});
 									$('#document_publishList_grid').datagrid('load');//重新加载发文列表
 									$('#home_main_tabs').tabs('select','发文管理');//选择发文菜单
+									$.messager.progress('close');
 									
 								}else {
 									$.messager.alert('提示', result.msg, 'error');
 									$('#document_saveUI_OKbtn').linkbutton('enable');
+									$.messager.progress('close');
 								}
 								
 				}, 'json');

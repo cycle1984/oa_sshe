@@ -341,6 +341,14 @@ public class UserAction extends BaseAction<User> {
 		writeJson(json);
 	}
 	
+	/**
+	 * 跳转到通讯录页面
+	 * @return
+	 */
+	public String contactsJsp(){
+		return "contactsJsp";
+	}
+	
 	public Integer getUnitId() {
 		return unitId;
 	}
