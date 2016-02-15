@@ -71,14 +71,14 @@ $(function(){
 		},
 		toolbar:'#document_historyPublishList_toolbar'//工具面板
 	});
-	$('#document_publishList_searchForm_unit_td').on('click', function(){
+	$('#document_historyPublishList_searchForm_unit_td').on('click', function(){
 		dialog = sy.modalDialog({
 			title:'选择单位查询',
 			width : 640,
 			top:'10%',
 			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
 			buttons : [ {
-				id:'document_saveUI_OKbtn',
+				id:'document_historyPublishList_OKbtn',
 				text : '确定',
 				iconCls:'icon-ok',
 				handler : function() {

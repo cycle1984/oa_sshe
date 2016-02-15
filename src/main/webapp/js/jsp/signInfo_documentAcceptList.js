@@ -242,7 +242,7 @@ $(function(){
 			top:'10%',
 			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
 			buttons : [ {
-				id:'document_searchByUnit_OKbtn',
+				id:'signInfo_documentAcceptList_searchForm_OKbtn',
 				text : '确定',
 				iconCls:'icon-ok',
 				handler : function() {

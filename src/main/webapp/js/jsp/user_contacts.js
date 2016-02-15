@@ -59,22 +59,41 @@ $(function(){
 			var rowspan =1;
 			
 			for(var i=0; i<rows.length; i++){
-				console.info(rows[i]);
 				if((i+1)<=rows.length-1){
-					if(rows[i].unit.id!=rows[i+1].unit.id){//单位不相等，index下标+1
-						index+=1;
-					}else{//单位相等，rowspan+1
-						rowspan+=1;
-					}
-					if(rowspan!=1&&rowspan!=(rowspan-1)){
+					if(rows[i].unit.id!=rows[i+1].unit.id){//单位不相等，立即合并前面的数据，index下标+1，
 						contactsGrip.datagrid('mergeCells',{
 							index: index,
 							field: 'unit.id',
 							rowspan: rowspan
 						});
+						index++;
+						
 						rowspan=1;//合并后重置rowspan
 						index = contactsGrip.datagrid("getRowIndex",rows[i])+1;//合并后更新index值
+					}else{//单位相等，rowspan+1
+						rowspan++;
 					}
+					
+					//最后一行的数据没办法再比较一次，强制合并一次
+					contactsGrip.datagrid('mergeCells',{
+						index: index,
+						field: 'unit.id',
+						rowspan: rowspan
+					});
+					
+					console.info("i="+index+",r="+rowspan);
+//					if(rowspan!=1&&(rowspan!=(rowspan-1))){
+//						contactsGrip.datagrid('mergeCells',{
+//							index: index,
+//							field: 'unit.id',
+//							rowspan: rowspan
+//						});
+//						rowspan=1;//合并后重置rowspan
+//						index = contactsGrip.datagrid("getRowIndex",rows[i])+1;//合并后更新index值
+//						console.info("aa");
+//					}else{
+//						
+//					}
 				}
 				
 				

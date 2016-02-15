@@ -9,7 +9,7 @@
   <url>http://maven.apache.org</url>
   <properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <activiti.version>5.18.0</activiti.version>
+	   <!--  <activiti.version>5.18.0</activiti.version> -->
 	    <spring.version>4.2.2.RELEASE</spring.version>
 	    <hibernate.version>4.3.11.Final</hibernate.version>
 	    <struts.version>2.3.24.1</struts.version>
@@ -21,33 +21,33 @@
   
   	<!-- activit begin -->
   	<!-- activiti核心构件：流程引擎构件,比如ProcessEngine, RepositoryService, TaskServcie等 -->
-	<dependency>
+	<!--<dependency>
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-engine</artifactId>
            <version>${activiti.version}</version>
-	</dependency>
-	<!-- 整合spring -->
+	</dependency> -->
+	<!-- 整合spring
 	<dependency>
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-spring</artifactId>
 		<version>${activiti.version}</version>
 		<scope>compile</scope>
-	</dependency>
+	</dependency> -->
 	
 	<!-- activit end -->
   	
-  	<!-- 流程管理和模拟项目 -->
+  	<!-- 流程管理和模拟项目
 	<dependency>
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-explorer</artifactId>
 		<version>${activiti.version}</version>
-		<exclusions>
-			<!-- ui构件 -->
+		<exclusions> -->
+			<!-- ui构件 
 			<exclusion>
 				<artifactId>vaadin</artifactId>
 				<groupId>com.vaadin</groupId>
-			</exclusion>
-			<!-- 图表构件 -->
+			</exclusion>-->
+			<!-- 图表构件
 			<exclusion>
 				<artifactId>dcharts-widget</artifactId>
 				<groupId>org.vaadin.addons</groupId>
@@ -57,13 +57,13 @@
 				<groupId>org.activiti</groupId>
 			</exclusion>
 		</exclusions>
-	</dependency>
-	<!-- 网页流程设计器 -->
+	</dependency> -->
+	<!-- 网页流程设计器 
 	<dependency>
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-modeler</artifactId>
 		<version>${activiti.version}</version>
-	</dependency>
+	</dependency>-->
 	<!-- activiti end -->
   	
   	<!-- spring -->
@@ -225,6 +225,12 @@
 	    <groupId>com.alibaba</groupId>
 	    <artifactId>fastjson</artifactId>
 	    <version>1.2.7</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
 	</dependency>
 	
 	<!-- 提供用户密码加密工具类 -->
