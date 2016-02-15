@@ -1,12 +1,16 @@
-var refleshtime ;
+var refleshtime ;//定时的时间
+var ref;//定时器
 /**
  * 定时刷新
  */
 var rf = function (){
 	$('#signInfo_documentAcceptList_grid').datagrid('load');
 };
+//var setreflesh = function(){
+//	setTimeout(rf,refleshtime);//定时（refleshtime），执行一次rf方法
+//};
 var setreflesh = function(){
-	setTimeout(rf,refleshtime);//定时（refleshtime），执行一次rf方法
+	ref = setInterval(rf,refleshtime);//定时（refleshtime），执行一次rf方法 
 };
 
 /**
@@ -159,6 +163,7 @@ $(function(){
 					num++;
 				}
 			}
+			clearInterval(ref);//销毁前一个定时器，防止重复
 			if(num>0){
 				//获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp  
 			    var curWwwPath=window.document.location.href;  
@@ -179,7 +184,11 @@ $(function(){
 				refleshtime = 1000*60*2;//文件都未签收的情况2分钟刷新一次
 				setreflesh();
 			}else{//文件都签收的情况
-				refleshtime=1000*60*10;//10分钟刷新一次
+				var i = $('#signInfo_documentAcceptList_refleshtime').val();
+				refleshtime=1000*60*10;//默认10分钟刷新一次
+				if(i!=undefined){
+					refleshtime=1000*60*i;
+				}
 				setreflesh();
 			}
 		},

@@ -107,6 +107,11 @@
         <action name="loginLog_*" class="loginLogAction" method="{1}">
             <result name="loginLogListJSP">/WEB-INF/jsp/loginLog/loginLogList.jsp</result>
         </action>
+        
+        <!-- 系统基本配置 -->
+        <action name="sysBase_*" class="sysBaseAction" method="{1}">
+            <result name="config">/WEB-INF/jsp/sysBase/config.jsp</result>
+        </action> 
 	</package>
 		
 </struts>    

@@ -25,6 +25,7 @@ import cycle.oa_sshe.service.MyGroupService;
 import cycle.oa_sshe.service.MyResourceService;
 import cycle.oa_sshe.service.RoleService;
 import cycle.oa_sshe.service.SignInfoService;
+import cycle.oa_sshe.service.SysBaseService;
 import cycle.oa_sshe.service.UnitService;
 import cycle.oa_sshe.service.UserService;
 import cycle.oa_sshe.utils.FastjsonFilter;
@@ -83,6 +84,10 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	//签收信息组件
 	@Resource(name="signInfoService")
 	protected SignInfoService signInfoService;
+	
+	//系统基本配置组件
+	@Resource(name="sysBaseService")
+	protected SysBaseService sysBaseService;
 		
 	public BaseService<T> getBaseService() {
 		return baseService;

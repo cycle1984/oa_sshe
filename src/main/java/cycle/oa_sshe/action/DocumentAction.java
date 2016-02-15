@@ -21,6 +21,7 @@ import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.Document;
 import cycle.oa_sshe.domain.MyFile;
 import cycle.oa_sshe.domain.SignInfo;
+import cycle.oa_sshe.domain.SysBase;
 import cycle.oa_sshe.domain.Unit;
 import cycle.oa_sshe.domain.User;
 import cycle.oa_sshe.domain.easyui.Grid;
@@ -100,7 +101,15 @@ public class DocumentAction extends BaseAction<Document> {
 			for (String fs : fileN) {
 				MyFile myFile = new MyFile();
 				myFile.setFileName(fs);
-				myFile.setFilePath("D:/upload");
+				String path= "D:/upload";
+				List<SysBase> sysBases = sysBaseService.find("from SysBase");
+				if(sysBases.size()>0){
+					SysBase s = sysBases.get(0);
+					if(s!=null&&s.getDefPath()!=null&&!"".equals(s.getDefPath())){
+						path = s.getDefPath();
+					}
+				}
+				myFile.setFilePath(path);
 				myFile.setDocument(d);
 				myFileService.save(myFile);//附件信息
 			}

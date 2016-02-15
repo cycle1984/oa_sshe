@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>页脚</title>
-</head>
-<body>
 
-</body>
-</html>
+
+<div class="panel-header panel-title"  style="text-align: center;height: 100%;">
+	靖西市党政机关公文传输系统
+	<br>
+	靖西市委机要局 技术支持
+</div>

@@ -13,6 +13,10 @@
 </head>
 <body>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jsp/signInfo_documentAcceptList.js"></script>
+	
+	<!-- 公文全部签收情况下，刷新的频率 -->
+	<input type="hidden" id="signInfo_documentAcceptList_refleshtime" value="${session.config.refleshTime }">
+	
 	<!-- 菜单栏 -->
 	<div id="signInfo_documentAcceptList_toolbar" style="display: none;">
 		 <table>

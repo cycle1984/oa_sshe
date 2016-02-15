@@ -19,11 +19,11 @@
 					<form id="user_list_toolbar_form" style="margin:0px;"><!--style="margin:0px;"可以处理加form表单后，tr间隙变大的问题  -->
 						<table style="font-size: 13px;">
 							<tr>
-								<td >姓名(可模糊查询)</td>
-								<td><input name="QUERY_t#name_S_LK" style="width: 100px; " class="easyui-textbox"/></td>
+								<td >姓名</td>
+								<td><input name="QUERY_t#name_S_LK" style="width: 100px; " class="easyui-textbox" data-options="prompt:'可模糊查询'"/></td>
 								<td>所属单位</td>
 								<!--<td><select class="easyui-combobox" id="cyUser_cyUserList_searchForm_cyUnit" name="QUERY_t#cyUnit.id_L_EQ" style="width: 100px" data-options="valueField:'id',textField:'name',url:'cyUnit_findAllCyUnit.action'"></select></td> -->
-								<td id="user_list_toolbar_form_unit_td"><input id="user_list_toolbar_form_unit" name="QUERY_t#unit.name_S_LK" class="easyui-textbox" style="width: 100px"></input></td>
+								<td id="user_list_toolbar_form_unit_td"><input id="user_list_toolbar_form_unit" name="QUERY_t#unit.name_S_LK" class="easyui-textbox" data-options="prompt:'可模糊查询'" style="width: 100px"></input></td>
 								<td>权限级别</td>
 								<td><select class="easyui-combobox" name="QUERY_t#role.id_I_EQ" style="width: 100px" data-options="valueField:'id',textField:'name',editable:false,url:'role_findAll.action'"></select></td>
 								<td>创建时间</td>

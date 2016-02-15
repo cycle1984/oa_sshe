@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cycle.oa_sshe.domain.MyResource;
 import cycle.oa_sshe.domain.Role;
+import cycle.oa_sshe.domain.SysBase;
 import cycle.oa_sshe.domain.User;
 
 /**
@@ -38,7 +39,9 @@ public class Installer {
 		user.setName("超级管理员");
 		user.setCreatedatetime(new Date());
 		session.save(user); // 保存
-		// ==============================系统参数设置================================a
+		// ==============================系统参数设置================================
+		SysBase sysBase = new SysBase("D:/upload", 10);//附件存储路径和收文列表刷新频率
+		session.save(sysBase);
 		// ==============================================================
 		Role r = new Role();
 		r.setName("待审核用户");

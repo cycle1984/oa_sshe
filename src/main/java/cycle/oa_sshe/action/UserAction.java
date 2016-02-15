@@ -2,6 +2,7 @@ package cycle.oa_sshe.action;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import cycle.oa_sshe.domain.Role;
 import cycle.oa_sshe.domain.SignInfo;
+import cycle.oa_sshe.domain.SysBase;
 import cycle.oa_sshe.domain.Unit;
 import cycle.oa_sshe.domain.User;
 import cycle.oa_sshe.base.BaseAction;
@@ -198,11 +200,19 @@ public class UserAction extends BaseAction<User> {
 		Json j = new Json();
 		User user = userService.login(model.getLoginName(), model.getPwd());
 		if(user!=null){
+			
 			if("admin".equals(user.getLoginName())){//是管理员登录的情况
 				session.setAttribute("userSession", user);//将用户信息放到session域
 				j.setSuccess(true);
 				j.setMsg("登录成功!");
 			}else{//非管理员登录
+				
+				//系统配置存入session，主要是存刷新时间
+				List<SysBase> l = sysBaseService.find("from SysBase");
+				if(!l.isEmpty()){
+					SysBase config = l.get(0);
+					session.setAttribute("config", config);
+				}
 				Hibernate.initialize(user.getRole());//强制加载对象内容
 				if(user.getRole()!=null){
 					Hibernate.initialize(user.getRole().getMyResources());

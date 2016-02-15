@@ -16,9 +16,9 @@
 		<div title="所有单位列表" >
 			<table id="unit_searchByUnit_table"></table>
 		</div>
-		<div title="按热度排序"  style="padding:10px">
+		<!-- <div title="按热度排序"  style="padding:10px">
 			开发中。。。
-		</div>
+		</div> -->
 	</div>
 	
 	<script type="text/javascript">
@@ -26,13 +26,25 @@
 				url : '${pageContext.request.contextPath}/unit_getUnitTree2.action',
 				parentField : 'pid',
 				onClick:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
-			    	var node = $('#document_searchByUnit_tree').tree('getSelected');//获得选择的节点
+					
+			    	//var node = $('#document_searchByUnit_tree').tree('getSelected');//获得选择的节点
 			    	var text = '';//文本框内容
 		    		var isLeaf = $('#document_searchByUnit_tree').tree('isLeaf',node.target);
 					if(isLeaf){
 						text=node.text;
+					}else{
+						$(this).tree(node.state === 'closed' ? 'expand' : 'collapse', node.target);  
+				        node.state = node.state === 'closed' ? 'open' : 'closed';
 					}
 			    	$('#unit_searchByUnit_unit').val(text);
+			    },
+			    onSelect:function(node){
+			    	var isLeaf = $('#document_searchByUnit_tree').tree('isLeaf',node.target);
+					if(isLeaf){
+					}else{
+						$(this).tree(node.state === 'closed' ? 'expand' : 'collapse', node.target);  
+				        node.state = node.state === 'closed' ? 'open' : 'closed';
+					}
 			    }
 			});
 			$(function(){
