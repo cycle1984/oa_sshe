@@ -38,9 +38,14 @@
 			<result name="noLimit">/noLimit.jsp</result>
 		</global-results>
 		
-		<!-- 流程定义 -->
+		<!-- 流程定义 
 		<action name="processDefinition_*" class="processDefinitionAction" method="{1}">
 			<result>/WEB-INF/jsp/processDefinition/list.jsp</result>
+		</action>-->
+		
+		<!-- 新闻、信息报送 -->
+		<action name="news_*" class="newsAction" method="{1}">
+			<result name="saveUI">/WEB-INF/jsp/news/saveUI.jsp</result>
 		</action>
 		
 		<!-- 签收信息 -->

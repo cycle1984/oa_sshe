@@ -53,5 +53,12 @@
             </key>
             <one-to-many class="cycle.oa_sshe.domain.SignInfo" />
         </set>
+        <!-- 单位和新闻关系，一对多 -->
+        <set name="newsList" table="NEWS" inverse="false" lazy="true">
+        	 <key>
+                <column name="UNIT_ID" />
+            </key>
+            <one-to-many class="cycle.oa_sshe.domain.News" />
+        </set>
     </class>
 </hibernate-mapping>

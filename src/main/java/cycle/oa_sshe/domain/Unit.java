@@ -30,6 +30,7 @@ public class Unit implements Serializable {
 	private Set<User> users = new HashSet<User>();
 	private Set<Document> documents = new HashSet<Document>();//单位发布的文件
 	private Set<SignInfo> signInfos = new HashSet<SignInfo>();//签收信息列表
+	private Set<News> newsList = new HashSet<News>();
 	
 	public Integer getId() {
 		return id;
@@ -103,6 +104,12 @@ public class Unit implements Serializable {
 	}
 	public void setSignInfos(Set<SignInfo> signInfos) {
 		this.signInfos = signInfos;
+	}
+	public Set<News> getNewsList() {
+		return newsList;
+	}
+	public void setNewsList(Set<News> newsList) {
+		this.newsList = newsList;
 	}
 	
 }

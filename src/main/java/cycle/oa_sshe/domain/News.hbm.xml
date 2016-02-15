@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-2-15 21:51:29 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="cycle.oa_sshe.domain.News" table="NEWS">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="title" type="java.lang.String" length="100">
+            <column name="TITLE" />
+        </property>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" sql-type="text"/>
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATE_TIME" />
+        </property>
+        <property name="editTime" type="java.util.Date">
+            <column name="EDIT_TIME" />
+        </property>
+        <property name="userName" type="java.lang.String" length="20">
+            <column name="USER_NAME" length="20"/>
+        </property>
+        <many-to-one name="unit" class="cycle.oa_sshe.domain.Unit" fetch="join">
+            <column name="UNIT_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
