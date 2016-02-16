@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>发布</title>
+<meta name="renderer" content="webkit">
 	<style>
 			form {
 				margin: 0;
@@ -25,12 +25,22 @@
 					}
 				});
 			});
+			
+			//定义确定按钮
+			var news_saveUI_submitForm = function($dialog,$newsGrid){
+				console.info("bb");
+			}
 		</script>
+		
 </head>
 <body>
-	<h3>自动调整高度</h3>
+	
 	<form>
-		<textarea name="content" style="width:800px;height:200px;"></textarea>
+		<br>
+		标题：<input name="title" type="text" style="width: 550px">
+		<br>
+		<br>
+		<textarea name="content" style="width:400px;height:200px;"></textarea>
 	</form>
 </body>
 </html>

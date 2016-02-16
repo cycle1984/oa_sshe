@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>公文传输系统</title>
-	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="renderer" content="webkit">
 </head>
 <body>
 	<%

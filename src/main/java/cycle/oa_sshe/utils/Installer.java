@@ -62,6 +62,9 @@ public class Installer {
 		MyResource menu4 = new MyResource("常用工具",null,menu,0);
 		MyResource menu41 = new MyResource("通讯录","user_contactsJsp",menu4,0);
 		
+		MyResource menu5 = new MyResource("信息资讯",null,menu,0);
+		MyResource menu51 = new MyResource("信息资讯管理","news_toGridJsp",menu5,0);
+		
 		MyResource menu1 = new MyResource("系统管理",null,menu,0);
 		MyResource menu11 = new MyResource("用户管理","user_toGridJsp",menu1,0);
 		MyResource menu12 = new MyResource("单位管理","unit_toGridJsp",menu1,0);
@@ -80,6 +83,9 @@ public class Installer {
 		
 		session.save(menu4);
 		session.save(menu41);
+		
+		session.save(menu5);
+		session.save(menu51);
 		
 		session.save(menu1);
 		session.save(menu11);

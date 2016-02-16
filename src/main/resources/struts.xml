@@ -45,6 +45,7 @@
 		
 		<!-- 新闻、信息报送 -->
 		<action name="news_*" class="newsAction" method="{1}">
+			<result>/WEB-INF/jsp/news/list.jsp</result>
 			<result name="saveUI">/WEB-INF/jsp/news/saveUI.jsp</result>
 		</action>
 		
