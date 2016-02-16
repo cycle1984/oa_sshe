@@ -1,46 +1,39 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>发布</title>
 <meta name="renderer" content="webkit">
-	<style>
-			form {
-				margin: 0;
-			}
-			textarea {
-				display: block;
-			}
-		</style>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/js/kindeditor-4.1.10/themes/default/default.css" />
-		<script charset="utf-8" src="${pageContext.request.contextPath}/js/kindeditor-4.1.10/kindeditor-min.js"></script>
-		<script charset="utf-8" src="${pageContext.request.contextPath}/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
-		<script>
-			KindEditor.ready(function(K) {
-				K.create('textarea[name="content"]', {
-					autoHeightMode : true,
-					afterCreate : function() {
-						this.loadPlugin('autoheight');
-					}
-				});
-			});
-			
-			//定义确定按钮
-			var news_saveUI_submitForm = function($dialog,$newsGrid){
-				console.info("bb");
-			}
-		</script>
-		
-</head>
-<body>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui1.4.4/jquery.min.js"></script>
 	
-	<form>
+</head>
+<body style="width: 95%;height: 95%;">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/xheditor-1.2.2/xheditor-1.2.2.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/xheditor-1.2.2/xheditor_lang/zh-cn.js"></script>
+<%-- 	<script charset="utf-8" src="${pageContext.request.contextPath}/js/kindeditor-4.1.7/kindeditor.js"></script> --%>
+<%-- 	<script charset="utf-8" src="${pageContext.request.contextPath}/js/kindeditor-4.1.7/lang/zh_CN.js"></script> --%>
+	<form id="news_saveUI_form" method="post">
+		<input type="hidden" id="news_saveUI_form_id" name="id">
 		<br>
-		标题：<input name="title" type="text" style="width: 550px">
+		标题：<input id="news_saveUI_title" name="title" type="text" style="width: 550px">
 		<br>
 		<br>
-		<textarea name="content" style="width:400px;height:200px;"></textarea>
+		<textarea id="news_saveUI_content" name="content"  style="width:800px;height:400px;"></textarea>
 	</form>
+	<script type="text/javascript">
+		$(function(){
+			
+		})
+		$('#news_saveUI_content').xheditor({
+			html5Upload:false,upMultiple:'1',
+			upLinkUrl:"upload.php",
+			upLinkExt:"zip,rar,txt",
+			upImgUrl:"news_uploadImg.action",
+			upImgExt:"jpg,jpeg,gif,png",
+			upFlashUrl:"upload.php",
+			upFlashExt:"swf",
+			upMediaUrl:"upload.php",
+			upMediaExt:"avi"});
+	</script>
 </body>
 </html>
