@@ -17,9 +17,6 @@
         <property name="createTime" type="java.util.Date">
             <column name="CREATE_TIME" />
         </property>
-        <property name="editTime" type="java.util.Date">
-            <column name="EDIT_TIME" />
-        </property>
         <property name="userName" type="java.lang.String" length="20">
             <column name="USER_NAME" length="20"/>
         </property>

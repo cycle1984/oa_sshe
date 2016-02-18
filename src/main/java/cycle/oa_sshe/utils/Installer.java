@@ -52,7 +52,7 @@ public class Installer {
 		
 		MyResource menu = new MyResource("公文传输系统",null,null,0);//根节点
 		
-		MyResource menu2 = new MyResource("信息管理",null,menu,0);
+		MyResource menu2 = new MyResource("公文管理",null,menu,0);
 		MyResource menu21 = new MyResource("发文管理","document_toGridJsp",menu2,0);
 		
 		MyResource menu3 = new MyResource("历史公文库",null,menu,0);
@@ -63,7 +63,8 @@ public class Installer {
 		MyResource menu41 = new MyResource("通讯录","user_contactsJsp",menu4,0);
 		
 		MyResource menu5 = new MyResource("信息资讯",null,menu,0);
-		MyResource menu51 = new MyResource("信息资讯管理","news_toGridJsp",menu5,0);
+		MyResource menu51 = new MyResource("信息列表","news_toGridJsp",menu5,0);
+		MyResource menu52 = new MyResource("已发信息","news_toMyGridJsp",menu5,0);
 		
 		MyResource menu1 = new MyResource("系统管理",null,menu,0);
 		MyResource menu11 = new MyResource("用户管理","user_toGridJsp",menu1,0);
@@ -86,6 +87,7 @@ public class Installer {
 		
 		session.save(menu5);
 		session.save(menu51);
+		session.save(menu52);
 		
 		session.save(menu1);
 		session.save(menu11);
@@ -99,11 +101,15 @@ public class Installer {
 		session.save(new MyResource("公文添加","document_save",menu21,1));
 		session.save(new MyResource("公文删除","document_delete",menu21,1));
 		
+		
+		
 		session.save(new MyResource("用户列表","user_grid",menu11,1));
 		session.save(new MyResource("用户添加","user_save",menu11,1));
 		session.save(new MyResource("用户修改","user_edit",menu11,1));
 		session.save(new MyResource("用户删除","user_delete",menu11,1));
 		session.save(new MyResource("用户密码重置","user_initPassword",menu11,1));
+		
+		
 		
 		session.save(new MyResource("单位列表","unit_grid",menu12,1));
 		session.save(new MyResource("单位添加","unit_save",menu12,1));
@@ -120,6 +126,11 @@ public class Installer {
 		session.save(new MyResource("权限组修改","role_edit",menu14,1));
 		session.save(new MyResource("权限组删除","role_delete",menu14,1));
 		session.save(new MyResource("设置权限","role_setMyResourceUI",menu14,1));
+		
+		session.save(new MyResource("信息列表","news_grid",menu51,1));
+		session.save(new MyResource("信息添加","news_save",menu51,1));
+		session.save(new MyResource("信息修改","news_edit",menu51,1));
+		session.save(new MyResource("信息删除","news_delete",menu51,1));
 		
 	}
 	

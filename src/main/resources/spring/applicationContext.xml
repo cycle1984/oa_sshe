@@ -24,41 +24,84 @@
         </property>
     </bean>
     
+    
+     <!-- 配置数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.jdbcUrl}" />
+		<property name="driverClassName" value="${jdbc.driverClass}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="0" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="20" />
+		<!-- 连接池最大空闲 -->
+		<property name="maxIdle" value="20" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="0" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+
+		<!-- <property name="validationQuery" value="${validationQuery}" />  -->
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+
+		<!-- 监控数据库 -->
+		<!-- <property name="filters" value="stat" /> -->
+		<property name="filters" value="mergeStat" />
+	</bean>
+    
     <!-- dataSource -->
-	<bean id="dataSource"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+<!-- 	<bean id="dataSource" -->
+<!-- 		class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close"> -->
 		
 		<!--加载数据库驱动 -->
-		<property name="driverClass" value="${jdbc.driverClass}"></property>
+<!-- 		<property name="driverClass" value="${jdbc.driverClass}"></property> -->
 		
 		<!-- 数据库url -->
-		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+<!-- 		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property> -->
 		
 		<!-- 数据库账号密码 -->
-		<property name="user" value="${jdbc.user}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+<!-- 		<property name="user" value="${jdbc.user}"></property> -->
+<!-- 		<property name="password" value="${jdbc.password}"></property> -->
 		
 		<!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3-->  
-		<property name="initialPoolSize" value="5"></property>
+<!-- 		<property name="initialPoolSize" value="5"></property> -->
 		
 		<!-- 连接池中保留的最小连接数，默认为：3-->  
-		<property name="minPoolSize" value="5"></property>
+<!-- 		<property name="minPoolSize" value="5"></property> -->
 		
 		 <!--连接池中保留的最大连接数。默认值: 15 -->
-		<property name="maxPoolSize" value="100"></property>
+<!-- 		<property name="maxPoolSize" value="100"></property> -->
 		
 		<!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->  
-		<property name="checkoutTimeout" value="5000"></property>
+<!-- 		<property name="checkoutTimeout" value="5000"></property> -->
 		
 		<!--最大空闲时间，xx秒内未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 -->   
-		<property name="maxIdleTime" value="1800"></property>
+<!-- 		<property name="maxIdleTime" value="1800"></property> -->
 		
 		<!--每xx秒检查所有连接池中的空闲连接。默认值: 0，不检查 --> 
-		<property name="idleConnectionTestPeriod" value="3000"></property>
+<!-- 		<property name="idleConnectionTestPeriod" value="3000"></property> -->
 		
 		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。默认值: 3 -->   
-		<property name="acquireIncrement" value="5"></property>
-	</bean>
+<!-- 		<property name="acquireIncrement" value="5"></property> -->
+<!-- 	</bean> -->
 
 		
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

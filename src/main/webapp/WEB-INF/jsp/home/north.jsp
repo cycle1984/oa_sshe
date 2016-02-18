@@ -79,7 +79,9 @@
 		}).dialog('close');
 	});
 	</script>
-	<div style="overflow: scroll;overflow: hidden;background: url(style/images/sys/login_topBg.jpg);background-color: white;"><!--  --><img  src="style/images/sys/top_np.jpg"><!-- <img  src="style/images/sys/top_jx.jpg"> -->
+	<div style="overflow: scroll;overflow: hidden;background: url(style/images/sys/login_topBg.jpg);background-color: white;">
+<!-- 		<img  src="style/images/sys/top_np.jpg"> -->
+		<img  src="style/images/sys/top_jx.jpg">
 		<div id="sessionInfoDiv" style="position: absolute; right: 10px; top: 5px;display: none;">
 		sss
 		</div>

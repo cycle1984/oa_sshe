@@ -11,7 +11,6 @@ public class News implements Serializable {
 	private String title;//标题
 	private String content;//内容
 	private Date createTime;//创建时间
-	private Date editTime;//最后修改时间
 	private String userName;//作者
 	
 	private Unit unit;//发布单位
@@ -48,13 +47,6 @@ public class News implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public Date getEditTime() {
-		return editTime;
-	}
-
-	public void setEditTime(Date editTime) {
-		this.editTime = editTime;
-	}
 
 	public String getUserName() {
 		return userName;
