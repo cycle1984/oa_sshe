@@ -13,6 +13,8 @@
 </head>
 <body>
 	<script type="text/javascript">
+	
+	
 	//注销、退出
 	var logoutFun = function() {
 		$.post('user_logout.action', function(result) {
@@ -45,7 +47,32 @@
 			} ]
 		});
 	};
+	
+	var north_span_click = function($id){
+		var dialog = sy.modalDialog({//创建一个模式化的dialog
+			//title:$title,
+			width : 900,//dialog宽度
+			height:500,
+			maximizable:true,
+			top:'10%',//dialog离页面顶部的距离
+			//content:'<iframe name="news_saveUI_frame"  src="'+url+'" frameborder="0" style="height:100%;width:100%;" "></iframe>',
+			href:'news_newsDetails.action?id='+$id//从URL读取远程数据并且显示到面板。注意：内容将不会被载入，直到面板打开或扩大，在创建延迟加载面板时是非常有用的
+		});
+	}
+	
 	$(function(){
+		
+		//取出10条news资讯数据
+		$.post('news_newsJSON10.action', function(result) {
+			if(result){
+				for(var i in result){//此处i是下标的意思
+// 					$("#home_north_news_span").append("<a href='#'>"+result[i].title+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+					//$("#home_north_news_span").append
+					$("#home_north_news_span").append("<sapn onclick='"+"north_span_click("+result[i].id+")"+"'>"+result[i].title+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+				}
+			}
+		}, 'json');
+		
 		$('#passwordDialog').show().dialog({
 			modal : true,
 			closable : true,
@@ -82,10 +109,15 @@
 	<div style="overflow: scroll;overflow: hidden;background: url(style/images/sys/login_topBg.jpg);background-color: white;">
 <!-- 		<img  src="style/images/sys/top_np.jpg"> -->
 		<img  src="style/images/sys/top_jx.jpg">
-		<div id="sessionInfoDiv" style="position: absolute; right: 10px; top: 5px;display: none;">
-		sss
+		<div id="sessionInfoDiv" style="color: white;position: absolute; right: 350px; bottom: -10px;">
+			<marquee direction="left" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="4" behavior="scroll"  scrolldelay="0" loop="-1" width="500" height="25" hspace="10" vspace="10">
+			<span style="color:red;">最新消息：</span>
+			<span id="home_north_news_span"  style="color: white;"></span>
+			</marquee>
 		</div>
+		<span > </span>
 		<div style="position: absolute; right: 0px; bottom: 0px;">
+			
 			<span style="color: white;">当前用户:<% if(user!=null){out.print(user.getName());} %>&nbsp; &nbsp; </span>
 			<s:if test="%{#session.userSession.loginName!='admin'}">
 				<span style="color: white;">单位:<% if(user!=null){ if(user.getUnit()!=null){out.print(user.getUnit().getName());} } %>&nbsp; &nbsp; </span>

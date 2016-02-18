@@ -7,7 +7,7 @@
 	
 	
 </head>
-<body style="width: 95%;height: 95%; ">
+<body >
 
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/xheditor-1.2.2/xheditor-1.2.2.min.js"></script> --%>
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/xheditor-1.2.2/xheditor_lang/zh-cn.js"></script> --%>
@@ -34,7 +34,7 @@
 // 				upMediaUrl:"upload.php",
 // 				upMediaExt:"avi"});
 // 		})
-		var ck = CKEDITOR.replace('news_saveUI_content',{ 
+		var ck = CKEDITOR.replace('news_saveUI_content',{
             filebrowserImageUploadUrl:"news_uploadImg.action"  //上传action 
 		});
 		

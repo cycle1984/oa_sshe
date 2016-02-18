@@ -12,6 +12,8 @@ $(function(){
 		border:false,//是否显示面板边框
 		pageSize : 20,//每页显示记录数
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
+		sortName : 'createTime',
+		sortOrder : 'desc',
 		columns:[[{
 			field : 'id',
 			title : '主键',
@@ -66,6 +68,7 @@ var addFunNews = function(){
 		title:'发布信息资讯',
 		width : 900,//dialog宽度
 		height:500,
+		maximizable:true,
 		top:'10%',//dialog离页面顶部的距离
 		//content:'<iframe name="news_saveUI_frame"  src="'+url+'" frameborder="0" style="height:100%;width:100%;" "></iframe>',
 		href:'news_saveUI.action',//从URL读取远程数据并且显示到面板。注意：内容将不会被载入，直到面板打开或扩大，在创建延迟加载面板时是非常有用的

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -73,6 +74,12 @@ public class NewsAction extends BaseAction<News> {
 		grid.setTotal(newsService.countByFilter(hqlFilter));//总记录数
 		grid.setRows(newsService.findByFilter(hqlFilter,page,rows));//获得当前页显示的数据
 		writeJson(grid);
+	}
+	
+	public void newsJSON10(){//取出10条信息
+		HqlFilter hqlFilter = new HqlFilter(getRequest());
+		List<News> newsList = newsService.findByFilter(hqlFilter, 0, 10);
+		writeJson(newsList);
 	}
 	
 	public void uploadImg() throws IOException{
