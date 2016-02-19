@@ -144,7 +144,7 @@ public class User implements Serializable {
 	/**
 	 * 
 	 * 判断本用户是否有显示<a>超链接的的权限
-	 * 用<a>标签的title和权限里的name对比
+	 * 用<a>标签的url和权限里的url对比
 	 */
 	public Boolean hasMyResourceByUrl(String url){
 		if(isAdmin()){
@@ -158,6 +158,9 @@ public class User implements Serializable {
 		// >> 去掉UI后缀
 		if(url.endsWith("UI")){
 			url=url.substring(0, url.length()-2);
+		}
+		if(url.endsWith("Jsp")){
+			url=url.substring(0, url.length()-3);
 		}
 		// 本URL不需要控制，用户登录就可以使用的情况(url不在数据库中，则不需要控制)
 		Collection<String> allMyResourceUrls = (Collection<String>) ActionContext.getContext().getApplication().get("allMyResourceUrls");

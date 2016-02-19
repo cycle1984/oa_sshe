@@ -105,7 +105,7 @@ public class RoleAction extends BaseAction<Role> {
 	 * 分页查询角色
 	 * 为Grid准备数据
 	 */
-	public void listGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		grid.setTotal(roleService.countByFilter(hqlFilter));//总记录数

@@ -99,7 +99,7 @@ public class MyGroupAction extends BaseAction<MyGroup> {
 	 * 分页查询机构
 	 * 为Grid准备数据
 	 */
-	public void listGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		grid.setTotal(myGroupService.countByFilter(hqlFilter));//总记录数

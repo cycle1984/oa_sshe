@@ -1,7 +1,7 @@
 var contactsGrip = $("#user_contacts_table");
 $(function(){
 	contactsGrip.datagrid({    
-	    url:'${pageContext.request.contextPath}/user_listGrid.action',
+	    url:'${pageContext.request.contextPath}/user_grid.action',
 	    fit:true,//当设置为true的时候面板大小将自适应父容器
 		fitColumns:true,//适应网格的宽度，防止水平滚动
 		striped : true,//是否显示斑马线

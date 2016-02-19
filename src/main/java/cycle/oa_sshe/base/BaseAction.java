@@ -98,7 +98,7 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	}
 
 	
-	public String toGridJsp(){
+	public String gridJsp(){
 		
 		return SUCCESS;
 	}

@@ -53,25 +53,25 @@ public class Installer {
 		MyResource menu = new MyResource("公文传输系统",null,null,0);//根节点
 		
 		MyResource menu2 = new MyResource("公文管理",null,menu,0);
-		MyResource menu21 = new MyResource("发文管理","document_toGridJsp",menu2,0);
+		MyResource menu21 = new MyResource("发文管理","document_gridJsp",menu2,0);
 		
 		MyResource menu3 = new MyResource("历史公文库",null,menu,0);
-		MyResource menu31 = new MyResource("历史发文","document_historyPublishGridJSP",menu3,0);
-		MyResource menu32 = new MyResource("历史收文","documentInfo_historytAcceptGridJSP",menu3,0);
+		MyResource menu31 = new MyResource("历史发文","document_historyPublishGridJsp",menu3,0);
+		MyResource menu32 = new MyResource("历史收文","documentInfo_historytAcceptGridJsp",menu3,0);
 		
 		MyResource menu4 = new MyResource("常用工具",null,menu,0);
 		MyResource menu41 = new MyResource("通讯录","user_contactsJsp",menu4,0);
 		
 		MyResource menu5 = new MyResource("信息资讯",null,menu,0);
-		MyResource menu51 = new MyResource("信息列表","news_toGridJsp",menu5,0);
-		MyResource menu52 = new MyResource("已发信息","news_toMyGridJsp",menu5,0);
+		MyResource menu51 = new MyResource("信息列表","news_gridJsp",menu5,0);
+		MyResource menu52 = new MyResource("已发信息","news_myGridJsp",menu5,0);
 		
 		MyResource menu1 = new MyResource("系统管理",null,menu,0);
-		MyResource menu11 = new MyResource("用户管理","user_toGridJsp",menu1,0);
-		MyResource menu12 = new MyResource("单位管理","unit_toGridJsp",menu1,0);
-		MyResource menu13 = new MyResource("机构管理","myGroup_toGridJsp",menu1,0);
-		MyResource menu14 = new MyResource("权限组管理","role_toGridJsp",menu1,0);
-		MyResource menu15 = new MyResource("登陆日志","loginLog_loginLogListJSP",menu1,0);
+		MyResource menu11 = new MyResource("用户管理","user_gridJsp",menu1,0);
+		MyResource menu12 = new MyResource("单位管理","unit_gridJsp",menu1,0);
+		MyResource menu13 = new MyResource("机构管理","myGroup_gridJsp",menu1,0);
+		MyResource menu14 = new MyResource("权限组管理","role_gridJsp",menu1,0);
+		MyResource menu15 = new MyResource("登陆日志","loginLog_gridJsp",menu1,0);
 		MyResource menu16 = new MyResource("系统配置","sysBase_getConfig",menu1,0);
 		
 		session.save(menu);
@@ -121,7 +121,7 @@ public class Installer {
 		session.save(new MyResource("机构修改","myGroup_edit",menu13,1));
 		session.save(new MyResource("机构删除","myGroup_delete",menu13,1));
 		
-		session.save(new MyResource("权限组列表","role_toGridJsp",menu14,1));
+		session.save(new MyResource("权限组列表","role_gridJsp",menu14,1));
 		session.save(new MyResource("权限组添加","role_save",menu14,1));
 		session.save(new MyResource("权限组修改","role_edit",menu14,1));
 		session.save(new MyResource("权限组删除","role_delete",menu14,1));

@@ -46,7 +46,7 @@ public class DocumentAction extends BaseAction<Document> {
 	/**
 	 * 已发公文列表
 	 */
-	public void publishListGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		User user = (User) session.getAttribute("userSession");//获得session中的用户
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
@@ -292,8 +292,8 @@ public class DocumentAction extends BaseAction<Document> {
 	 * 跳转到历史发文列表
 	 * @return
 	 */
-	public String historyPublishGridJSP(){
-		return "historyPublishGridJSP";
+	public String historyPublishGridJsp(){
+		return "historyPublishGridJsp";
 	}
 	
 	/**

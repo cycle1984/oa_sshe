@@ -178,7 +178,7 @@ public class UserAction extends BaseAction<User> {
 	 * 分页查询用户
 	 * Grid
 	 */
-	public void listGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		hqlFilter.addFilter("QUERY_t#loginName_S_NE", "admin");//添加过滤条件,不显示超级管理员

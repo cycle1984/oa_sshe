@@ -20,19 +20,11 @@ public class LoginLogAction extends BaseAction<LoginLog> {
 	@Resource(name="loginLogService")
 	private LoginLogService loginLogService;
 
-	/**
-	 * 跳转到日志页面
-	 * @return
-	 */
-	public String loginLogListJSP(){
-		
-		return "loginLogListJSP";
-	}
 	
 	/**
 	 * 日志数据
 	 */
-	public void list(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		grid.setTotal(loginLogService.countByFilter(hqlFilter));

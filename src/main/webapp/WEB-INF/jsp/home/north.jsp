@@ -48,9 +48,9 @@
 		});
 	};
 	
-	var north_span_click = function($id){
+	var north_span_click = function($id,$node){
 		var dialog = sy.modalDialog({//创建一个模式化的dialog
-			//title:$title,
+			title:$node.title,
 			width : 900,//dialog宽度
 			height:500,
 			maximizable:true,
@@ -68,7 +68,11 @@
 				for(var i in result){//此处i是下标的意思
 // 					$("#home_north_news_span").append("<a href='#'>"+result[i].title+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 					//$("#home_north_news_span").append
-					$("#home_north_news_span").append("<sapn onclick='"+"north_span_click("+result[i].id+")"+"'>"+result[i].title+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+					var ti="" ;
+						if(result[i].unit){
+							ti+=result[i].unit.name+":";
+						}
+					$("#home_north_news_span").append("<sapn title='"+result[i].title+"' onclick='"+"north_span_click("+result[i].id+",this)"+"'>"+ti+result[i].title+"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 				}
 			}
 		}, 'json');

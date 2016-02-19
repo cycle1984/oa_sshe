@@ -120,7 +120,7 @@ public class UnitAction extends BaseAction<Unit> {
 	/**
 	 * grid表格查询所有单位
 	 */
-	public void listGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		grid.setTotal(unitService.countByFilter(hqlFilter));//总记录数

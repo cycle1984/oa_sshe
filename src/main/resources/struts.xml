@@ -72,7 +72,7 @@
 				<!-- 对应web中下载配置：byte[] b = new byte[1024]; -->
 				<param name="bufferSize">1024</param>
 			</result>
-			<result name="historyPublishGridJSP">/WEB-INF/jsp/document/historyPublishList.jsp</result>
+			<result name="historyPublishGridJsp">/WEB-INF/jsp/document/historyPublishList.jsp</result>
 		</action>
 		
 		<!-- 权限树 -->
@@ -113,7 +113,7 @@
         
         <!-- 登录日志 -->
         <action name="loginLog_*" class="loginLogAction" method="{1}">
-            <result name="loginLogListJSP">/WEB-INF/jsp/loginLog/loginLogList.jsp</result>
+            <result>/WEB-INF/jsp/loginLog/loginLogList.jsp</result>
         </action>
         
         <!-- 系统基本配置 -->

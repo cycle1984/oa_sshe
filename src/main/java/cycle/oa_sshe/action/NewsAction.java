@@ -39,14 +39,14 @@ public class NewsAction extends BaseAction<News> {
 	
     
     //跳转到已发布信息页面
-    public String toMyGridJsp(){
+    public String myGridJsp(){
     	return "myList";
     }
 	/**
 	 * 分页自己查询信息资讯
 	 * Grid
 	 */
-	public void myListGrid(){
+	public void myGrid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		
@@ -67,7 +67,7 @@ public class NewsAction extends BaseAction<News> {
 	 * 分页查询信息资讯
 	 * Grid
 	 */
-	public void listGrid(){
+	public void grid(){
 		Grid grid = new Grid();
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
 		
@@ -78,6 +78,8 @@ public class NewsAction extends BaseAction<News> {
 	
 	public void newsJSON10(){//取出10条信息
 		HqlFilter hqlFilter = new HqlFilter(getRequest());
+		hqlFilter.addSort("createTime");
+		hqlFilter.addOrder("desc");
 		List<News> newsList = newsService.findByFilter(hqlFilter, 0, 10);
 		writeJson(newsList);
 	}
@@ -109,9 +111,9 @@ public class NewsAction extends BaseAction<News> {
 	            out.println("</script>");  
 	        }  
 	          
-	        if(upload.length() > 600*1024){  
+	        if(upload.length() > 6000*1024){  
 	            out.println("<script type=\"text/javascript\">");    
-	            out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",''," + "'文件大小不得大于600k');");   
+	            out.println("window.parent.CKEDITOR.tools.callFunction(" + callback + ",''," + "'文件大小不得大于6000k');");   
 	            out.println("</script>");  
 	        }  
 	          

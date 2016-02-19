@@ -1,7 +1,7 @@
 $(function(){
 	$('#loginLog_loginLogList_grid').datagrid({
 		idField : 'id',
-		url : 'loginLog_list.action',
+		url : 'loginLog_grid.action',
 		fit : true,
 		fitColumns:true,//适应网格的宽度，防止水平滚动
 		striped : true,
