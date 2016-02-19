@@ -17,6 +17,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.Document;
 import cycle.oa_sshe.domain.MyFile;
@@ -101,15 +103,7 @@ public class DocumentAction extends BaseAction<Document> {
 			for (String fs : fileN) {
 				MyFile myFile = new MyFile();
 				myFile.setFileName(fs);
-				String path= "D:/upload";
-				List<SysBase> sysBases = sysBaseService.find("from SysBase");
-				if(sysBases.size()>0){
-					SysBase s = sysBases.get(0);
-					if(s!=null&&s.getDefPath()!=null&&!"".equals(s.getDefPath())){
-						path = s.getDefPath();
-					}
-				}
-				myFile.setFilePath(path);
+				
 				myFile.setDocument(d);
 				myFileService.save(myFile);//附件信息
 			}
@@ -154,10 +148,22 @@ public class DocumentAction extends BaseAction<Document> {
 			if(user!=null){
 				for (Integer integer : docIds) {
 					Document document = documentService.getById(integer);
+					
+					//获得文件存储路径
+					String path= "D:/upload";
+					List<SysBase> sysBases = sysBaseService.find("from SysBase");
+					if(sysBases.size()>0){
+						SysBase s = sysBases.get(0);
+						if(s!=null&&s.getDefPath()!=null&&!"".equals(s.getDefPath())){
+							path = s.getDefPath();
+						}
+					}
+					
 					if("admin".equals(user.getLoginName())){//超级管理员,能删除任何公文
 						Set<MyFile> myFiles = document.getMyFiles();//获得公文管理的附件，需要把附件一起删除
+						
 						for (MyFile myFile : myFiles) {//删除硬盘里的附件
-							File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+							File f = new File(path+"/"+myFile.getFileName());
 							if(f.exists()){
 								f.delete();
 							}
@@ -178,7 +184,7 @@ public class DocumentAction extends BaseAction<Document> {
 						if(user.getUnit().getId().equals(document.getPublishUnit())){//判断用户是否属于公文的发文单位
 							Set<MyFile> myFiles = document.getMyFiles();//获得公文管理的附件，需要把附件一起删除
 							for (MyFile myFile : myFiles) {//删除硬盘里的附件
-								File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+								File f = new File(path+"/"+myFile.getFileName());
 								if(f.exists()){
 									f.delete();
 								}
@@ -278,7 +284,12 @@ public class DocumentAction extends BaseAction<Document> {
 			int i =fileName.indexOf("-");
 			fileFileName = java.net.URLEncoder.encode(fileName.substring(i+1, fileName.length()), "UTF-8");//写出到硬盘的文件名（去掉时间前缀）
 			
-			File f = new File(myFile.getFilePath()+"/"+myFile.getFileName());
+			List<SysBase> li = sysBaseService.find("from SysBase");
+			SysBase config = null;
+			if(!li.isEmpty()){
+				config = li.get(0);
+			}
+			File f = new File(config.getDefPath()  +"/"+myFile.getFileName());
 			try {
 				inputStream = new FileInputStream(f);
 			} catch (FileNotFoundException e) {

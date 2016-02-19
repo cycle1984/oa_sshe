@@ -14,7 +14,7 @@ public class MyFile implements Serializable {
 
 	private Integer id;
 	private String fileName;//文件名
-	private String filePath;//文件存储路径
+//	private String filePath;//文件存储路径
 	
 	private Document document;//所属公文
 	
@@ -37,13 +37,6 @@ public class MyFile implements Serializable {
 		this.fileName = fileName;
 	}
 
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
 
 	public Document getDocument() {
 		return document;

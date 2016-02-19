@@ -6,7 +6,7 @@ $(function(){
 		//flash_swf_url : sy.contextPath + '/jslib/plupload_1_5_7/plupload/js/plupload.flash.swf',// Flash环境路径设置
 		url : 'document_uploadFile.action',//服务器端接收和处理上传文件的脚本地址
 		filters:{//可以使用该参数来限制上传文件的类型，大小等，该参数以对象的形式传入
-			max_file_size : '10mb',//用来限定上传文件的大小，如果文件体积超过了该值，则不能被选取
+			max_file_size : '20mb',//用来限定上传文件的大小，如果文件体积超过了该值，则不能被选取
 			prevent_duplicates : true //不允许选取重复文件
 		},
 		chunk_size : '10mb',//分块大小，小于这个大小的不分块

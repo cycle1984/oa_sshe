@@ -36,7 +36,7 @@
                 <tr>
                    <th style="width: 100;font-size: 13px;">公文标题</th>
                    <td>
-                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true" style="width:100%;"> 
+                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true,prompt:'不能包含空格和+号等特殊字符'" style="width:100%;"> 
                    </td>
                </tr>
                <tr>
@@ -46,7 +46,7 @@
                <tr>
                    <th style="width: 100;font-size: 13px;">文件上传</th>
                    <td><div id="container">
-                       <a id="pickfiles" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'">选择文件</a>
+                       <a id="pickfiles" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'">选择文件</a><span style="font-size: 13px;">(最大20Mb)</span>
                        <div id="filelist">您的浏览器没有安装Flash插件,或不支持HTML5!</div>
                    </div> </td>
                </tr>

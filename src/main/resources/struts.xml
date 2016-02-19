@@ -11,8 +11,8 @@
 	<constant name="struts.ui.theme" value="simple" />
 	<!-- 设置浏览器是否缓存静态内容 -->
 	<constant name="struts.serve.static.browserCache" value="false" />
-	<!-- 文件上传最大值 -->
-	<constant name="struts.multipart.maxSize" value="1048576000" />
+	<!-- 文件上传最大值 ，默认maxSize=2097152,即2M-->
+	<constant name="struts.multipart.maxSize" value="20971520" />
 	<!-- 所有匹配*.action的请求都由struts2处理 -->
 	<constant name="struts.action.extension" value="action,," />
 	

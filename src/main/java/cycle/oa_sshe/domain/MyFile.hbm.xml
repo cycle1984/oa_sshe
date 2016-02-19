@@ -11,9 +11,6 @@
         <property name="fileName" type="java.lang.String" length="100">
             <column name="FILENAME" length="100"/>
         </property>
-        <property name="filePath" type="java.lang.String" length="100">
-            <column name="FILEPATH" length="100"/>
-        </property>
         <!-- 附件与公文关系，多对一 -->
         <many-to-one name="document" class="cycle.oa_sshe.domain.Document" fetch="join">
             <column name="DOCUMENT_ID_MyFile" />
