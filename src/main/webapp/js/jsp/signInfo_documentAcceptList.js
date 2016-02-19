@@ -181,7 +181,7 @@ $(function(){
 					timeout:5000,
 					showType:'slide'
 				});
-				refleshtime = 1000*60*2;//文件都未签收的情况2分钟刷新一次
+				refleshtime = 1000*60*5;//文件都未签收的情况5分钟刷新一次
 				setreflesh();
 			}else{//文件都签收的情况
 				var i = $('#signInfo_documentAcceptList_refleshtime').val();

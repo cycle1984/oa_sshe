@@ -67,9 +67,6 @@ $(function(){
 			width : 100,
 			sortable : true
 		}]],
-		onLoadError:function(){
-			 $.messager.alert('信息提示','登录超时请重新登录!','error');
-		},
 		toolbar:'#unit_list_toolbar'//工具面板
 	});
 	
@@ -94,7 +91,7 @@ var addFunUnit = function(){
 		} ],
 		onLoad:function(){
 			$('#unit_saveUI_form_name').textbox('textbox').focus();
-		},
+		}
 	});
 };
 

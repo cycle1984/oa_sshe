@@ -55,7 +55,7 @@
 		<action name="signInfo_*" class="signInfoAction" method="{1}">
 			<result name="toViewInfoJsp">/WEB-INF/jsp/signInfo/signInfoList.jsp</result>
 			<result name="signInfoDetails">/WEB-INF/jsp/signInfo/signInfoDetails.jsp</result>
-			<result name="historytAcceptGridJSP">/WEB-INF/jsp/signInfo/historyDocumentAcceptList.jsp</result>
+			<result name="historytAcceptGridJsp">/WEB-INF/jsp/signInfo/historyDocumentAcceptList.jsp</result>
 		</action>
 		
 		<!-- 公文 -->
@@ -91,6 +91,7 @@
 			<result name="toIndex" type="redirectAction">home_index.action</result>
 			<result name="modifyInfoUI">/WEB-INF/jsp/user/modifyInfoUI.jsp</result>
 			<result name="contactsJsp">/WEB-INF/jsp/user/contacts.jsp</result>
+			<result name="checkUser">/WEB-INF/jsp/user/checkUser.jsp</result>
 		</action>
 		
 		<!-- 单位 -->

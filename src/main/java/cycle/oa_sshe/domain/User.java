@@ -159,8 +159,8 @@ public class User implements Serializable {
 		if(url.endsWith("UI")){
 			url=url.substring(0, url.length()-2);
 		}
-		if(url.endsWith("Jsp")){
-			url=url.substring(0, url.length()-3);
+		if(url.endsWith("rid")){
+			url+="Jsp";
 		}
 		// 本URL不需要控制，用户登录就可以使用的情况(url不在数据库中，则不需要控制)
 		Collection<String> allMyResourceUrls = (Collection<String>) ActionContext.getContext().getApplication().get("allMyResourceUrls");
@@ -168,6 +168,7 @@ public class User implements Serializable {
 			System.out.println("url不在数据库，不需要控制");
 			return true;
 		}else{
+			System.out.println("url数据库，需要控制");
 			// 登录用户要判断是否含有这个权限
 			for (MyResource mr : role.getMyResources()) {
 				if(url.equals(mr.getUrl())){//需要控制的url

@@ -38,10 +38,11 @@
 				<td>
 					<table>
 						<tr>
-							<td><s:a onclick="addFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" title="用户添加">添加</s:a></td>
-							<td><s:a onclick="editFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'" title="用户修改">修改</s:a></td>
-							<td><s:a onclick="deleteFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" title="用户删除">删除</s:a></td>
+							<td><s:a onclick="addFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="iconCls:'ext-icon-user_add',plain:true" title="用户添加">添加</s:a></td>
+							<td><s:a onclick="editFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'ext-icon-user_edit'" title="用户修改">修改</s:a></td>
+							<td><s:a onclick="deleteFunUser();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'ext-icon-user_delete'" title="用户删除">删除</s:a></td>
 							<td><s:a onclick="resetPwdFun();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'ext-icon-bullet_key'" title="重置密码">重置密码</s:a></td>
+							<td><s:a onclick="checkUserFun();" href="javascript:void(0);" cssClass="easyui-linkbutton" data-options="plain:true,iconCls:'ext-icon-user_go'" title="批量审核">批量审核</s:a></td>
 							<td><a onclick="userGrid.datagrid('reload');" href="javascript:void(0);" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reload'">刷新</a></td>
 						</tr>
 					</table>

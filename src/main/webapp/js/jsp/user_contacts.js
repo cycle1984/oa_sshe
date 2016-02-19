@@ -81,7 +81,6 @@ $(function(){
 						rowspan: rowspan
 					});
 					
-					console.info("i="+index+",r="+rowspan);
 //					if(rowspan!=1&&(rowspan!=(rowspan-1))){
 //						contactsGrip.datagrid('mergeCells',{
 //							index: index,

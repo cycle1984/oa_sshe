@@ -103,9 +103,9 @@ public class SignInfoAction extends BaseAction<SignInfo> {
 	 * 跳转到历史收文页
 	 * @return
 	 */
-	public String historytAcceptGridJSP(){
+	public String historytAcceptGridJsp(){
 		
-		return "historytAcceptGridJSP";
+		return "historytAcceptGridJsp";
 	}
 	
 	/**

@@ -45,6 +45,7 @@ $(function(){
 			title : '内容',
 			hidden:true
 		}]],
+		toolbar:'#news_list_toolbar',//工具面板
 		onClickRow:function(index, row){
 			var dialog = sy.modalDialog({//创建一个模式化的dialog
 				title:row.title,

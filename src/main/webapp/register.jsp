@@ -24,7 +24,7 @@
         <legend>用户基本信息</legend>
             <table style='margin:0px auto;' class="table">
                 <tr>
-                    <th>登陆名</th>
+                    <th>登录名</th>
                     <td><input id="register_loginName" name="loginName" type="text" class="easyui-textbox" data-options="required:true,delay:1000,validType:['username[$(\'#register_loginName\').val()]','remote[\'${pageContext.request.contextPath}/user_searchByLoginName.action\',\'loginName\']']" ></td>
                 </tr>
                 <tr>

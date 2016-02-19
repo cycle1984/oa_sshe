@@ -16,7 +16,7 @@
 		<form id="news_saveUI_form" method="post">
 			<input type="hidden" id="news_saveUI_form_id" name="id">
 			<br>
-			标题：<input id="news_saveUI_title" name="title" type="text" style="width: 550px">
+			标题：<input id="news_saveUI_title" name="title" type="text"  style="width: 90%;">
 			<br>
 			<br>
 			<textarea id="news_saveUI_content" name="content"  rows="12" cols="80" style="width: 80%"></textarea>

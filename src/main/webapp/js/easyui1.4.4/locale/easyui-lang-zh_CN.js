@@ -25,7 +25,8 @@ if ($.fn.validatebox){
 	$.fn.validatebox.defaults.rules.email.message = '请输入有效的电子邮件地址';
 	$.fn.validatebox.defaults.rules.url.message = '请输入有效的URL地址';
 	$.fn.validatebox.defaults.rules.length.message = '输入内容长度必须介于{0}和{1}之间';
-	$.fn.validatebox.defaults.rules.remote.message = '请修正该字段';
+	//$.fn.validatebox.defaults.rules.remote.message = '请修正该字段';
+	$.fn.validatebox.defaults.rules.remote.message = '该用户名已存在，请重新输入';
 }
 if ($.fn.calendar){
 	$.fn.calendar.defaults.weeks = ['日','一','二','三','四','五','六'];

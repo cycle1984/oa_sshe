@@ -57,8 +57,8 @@
   			});
   			$('#role_saveUI_form').form('load',{//表单内数据赋值
   				id : $data.id,
-  				name : $data.name,
-  				description:$data.description
+  				name : $data.name
+//   				description:$data.description
   			});
   			$.messager.progress('close');//关闭数据加载提示窗口
 		};
@@ -74,10 +74,10 @@
 						<th>角色名称</th>
 						<td><input name="name" id="role_saveUI_form_name" class="easyui-textbox" data-options="required:true"></td>
 					</tr>
-					<tr>
-						<th>描述</th>
-						<td><input name="description" class="easyui-textbox" data-options="multiline:true,height:150"></td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<th>描述</th> -->
+<!-- 						<td><input name="description" class="easyui-textbox" data-options="multiline:true,height:150"></td> -->
+<!-- 					</tr> -->
 				</table>
 			</form>
 		</fieldset>

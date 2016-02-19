@@ -10,6 +10,8 @@ $(function(){
 		pagination : true,//DataGrid控件底部显示分页工具栏
 		singleSelect : false,//如果为true，则只允许选择一行
 		border:false,//是否显示面板边框
+		sortName : 'role.id',
+		sortOrder : 'desc',
 		pageSize : 20,//每页显示记录数
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
 		columns:[[{
@@ -80,12 +82,8 @@ $(function(){
 			width : 150,
 			align : 'center',
 			sortable : true
-		}, {
-			field : 'description',
-			title : '描述',
-			width : 100
-		}, {
-			field : 'role',
+		},  {
+			field : 'role.id',
 			title : '权限级别',
 			width : 100,
 			sortable : true,
@@ -96,9 +94,16 @@ $(function(){
 					return value;
 				}
 			}
+		},	{
+			field : 'description',
+			title : '描述',
+			width : 100
 		}]],
-		onLoadError:function(){
-			 $.messager.alert('信息提示','登录超时请重新登录!','error');
+		rowStyler:function(index,row){
+			if(row.role){
+				if(row.role.name=="待审核用户")
+				return 'color:green;';
+			}
 		},
 		toolbar:'#user_list_toolbar'//工具面板
 	});
@@ -143,7 +148,10 @@ var addFunUser = function(){
 			handler : function() {
 				user_saveUI_submitForm(dialog,userGrid);
 			}
-		} ]
+		} ],
+		onLoad:function(){
+			$('#user_saveUI_loginName').textbox('textbox').focus();
+		}
 	});
 };
 
@@ -257,3 +265,37 @@ var resetPwdFun = function(){
 		});
 	}
 };
+
+/**
+ * 批量审核
+ */
+var checkUserFun = function(){
+	var rows = userGrid.datagrid("getChecked");//获取已经选择的用户数据
+	var ids = "";//用于传递用户id的字符串
+	if(rows.length>0){
+		// 将id拼成字符串
+		for (var i = 0; i < rows.length; i++) {
+			ids += rows[i].id + ',';
+		}
+		ids = ids.substring(0, ids.length - 1);//去掉字符串最后的字符（逗号）
+		var dialog = sy.modalDialog({//创建一个模式化的dialog
+			title:'批量审批',
+			width : 200,//dialog宽度
+//			top:'10%',//dialog离页面顶部的距离
+			href:'user_checkUserJsp.action',//从URL读取远程数据并且显示到面板。注意：内容将不会被载入，直到面板打开或扩大，在创建延迟加载面板时是非常有用的
+			buttons: [ {
+				id:'user_checkUser_OKbtn',
+				text : '确定',
+				iconCls:'icon-ok',
+				handler : function() {
+					user_checkUser_submitForm(dialog,userGrid,ids);
+				}
+			} ]
+		});
+	}else {
+		$.messager.show({
+			title : '提示',
+			msg : "请选择要审核的数据"
+		});
+	}
+}

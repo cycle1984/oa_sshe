@@ -132,7 +132,7 @@ public class UserAction extends BaseAction<User> {
 			user.setUnit(unitService.getById(unitId));//设置所属单位
 		}
 		if(roleId!=null){
-			user.setRole(roleService.getById(roleId));//设置所属单位
+			user.setRole(roleService.getById(roleId));//设置所属权限组
 		}
 		try {
 			userService.update(user);
@@ -152,7 +152,6 @@ public class UserAction extends BaseAction<User> {
 	 */
 	public void delete() {
 		Json json = new Json();
-		System.out.println("ids"+ids);
 		String hql = "delete User u where u.id in (";
 		String[] nids = ids.split(",");
 		for (int i = 0; i < nids.length; i++) {
@@ -352,11 +351,53 @@ public class UserAction extends BaseAction<User> {
 	}
 	
 	/**
+	 * 批量修改权限窗口
+	 * 
+	 */
+	public String checkUserJsp(){
+		return "checkUser";
+	}
+	
+	public void checkUser(){
+		Json json = new Json();
+		if(roleId!=null&&ids!=null){
+			Role role = roleService.getById(roleId);
+			Integer[] i = MyUtils.string2Integer(ids);
+				try {
+					for (Integer integer : i) {
+						User user = userService.getById(integer);
+						user.setRole(role);
+						userService.update(user);
+						
+					}
+					json.setSuccess(true);
+					json.setMsg("审批成功");
+				} catch (Exception e) {
+					e.printStackTrace();
+					json.setMsg("审批失败");
+				}
+		}
+		writeJson(json);
+	}
+	
+	/**
 	 * 跳转到通讯录页面
 	 * @return
 	 */
-	public String contactsJsp(){
+	public String contactsGridJsp(){
 		return "contactsJsp";
+	}
+	
+	/**
+	 * 通讯录数据
+	 */
+	public void contactsGrid(){
+		Grid grid = new Grid();
+		HqlFilter hqlFilter = new HqlFilter(getRequest());
+		hqlFilter.addFilter("QUERY_t#loginName_S_NE", "admin");//添加过滤条件,不显示超级管理员
+		grid.setTotal(userService.countByFilter(hqlFilter));//总记录数
+		grid.setRows(userService.findByFilter(hqlFilter,page,rows));//获得当前页显示的数据
+		writeJson(grid);
 	}
 	
 	public Integer getUnitId() {

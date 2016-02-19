@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" />
+
 <!-- easyUI组件 -->
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/easyui1.4.4/jquery.min.js"></script>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/js/xheditor-1.2.2/jquery/jquery-1.4.4.min.js"></script> --%>

@@ -7,7 +7,7 @@
 <title>选择单位查询页面</title>
 </head>
 <body>
-	<input id="unit_searchByUnit_unit" class="easyui-validatebox" style="width: 100%">
+	<input id="unit_searchByUnit_unit" class="easyui-textbox" data-options="prompt:'可直接输入'" style="width: 100%">
 	<div class="easyui-tabs" style="height:400px">
 		<div title="群组列表" style="padding:10px">
 			<ul id="document_searchByUnit_tree">
@@ -36,7 +36,7 @@
 						$(this).tree(node.state === 'closed' ? 'expand' : 'collapse', node.target);  
 				        node.state = node.state === 'closed' ? 'open' : 'closed';
 					}
-			    	$('#unit_searchByUnit_unit').val(text);
+			    	$('#unit_searchByUnit_unit').textbox('setText',text).textbox('setValue',text);
 			    },
 			    onSelect:function(node){
 			    	var isLeaf = $('#document_searchByUnit_tree').tree('isLeaf',node.target);
@@ -48,6 +48,7 @@
 			    }
 			});
 			$(function(){
+				
 				$("#unit_searchByUnit_table").datalist({
 					url: '${pageContext.request.contextPath}/unit_listByInitial.action',
 					border:false,
@@ -55,7 +56,10 @@
 						field : 'name'
 					}]],
 					onSelect:function(index, row){
-						$('#unit_searchByUnit_unit').val(row.name);
+						$('#unit_searchByUnit_unit').textbox('setText',row.name).textbox('setValue',row.name);
+					},
+					onLoadSuccess:function(){
+						$('#unit_searchByUnit_unit').textbox('textbox').focus();
 					}
 				});
 			});

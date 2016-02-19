@@ -57,10 +57,10 @@ public class Installer {
 		
 		MyResource menu3 = new MyResource("历史公文库",null,menu,0);
 		MyResource menu31 = new MyResource("历史发文","document_historyPublishGridJsp",menu3,0);
-		MyResource menu32 = new MyResource("历史收文","documentInfo_historytAcceptGridJsp",menu3,0);
+		MyResource menu32 = new MyResource("历史收文","signInfo_historytAcceptGridJsp",menu3,0);
 		
 		MyResource menu4 = new MyResource("常用工具",null,menu,0);
-		MyResource menu41 = new MyResource("通讯录","user_contactsJsp",menu4,0);
+		MyResource menu41 = new MyResource("通讯录","user_contactsGridJsp",menu4,0);
 		
 		MyResource menu5 = new MyResource("信息资讯",null,menu,0);
 		MyResource menu51 = new MyResource("信息列表","news_gridJsp",menu5,0);

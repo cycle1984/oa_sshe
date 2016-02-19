@@ -13,7 +13,7 @@
 	    <spring.version>4.2.2.RELEASE</spring.version>
 	    <hibernate.version>4.3.11.Final</hibernate.version>
 	    <struts.version>2.3.24.1</struts.version>
-	    <c3p0.version>0.9.5.1</c3p0.version>
+<!-- 	    <c3p0.version>0.9.5.1</c3p0.version> -->
 	    <mysql.version>5.1.37</mysql.version>
     </properties>
   
@@ -205,27 +205,6 @@
 	    <version>1.0.17</version>
 	</dependency>
 
-	<!-- hibernate-c3p0：连接器 -->
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-c3p0</artifactId>
-		<version>${hibernate.version}</version>
-		<type>jar</type>
-		<scope>compile</scope>
-		<!-- 排除hibenrate自带的c3p3 -->
-		<exclusions>
-			<exclusion>
-				<groupId>c3p0</groupId>
-				<artifactId>c3p0</artifactId>
-			</exclusion>
-		</exclusions>
-	</dependency>
-	<!-- c3p0：本身的0.9.1处理clob字段有bug -->
-	<dependency>
-		<groupId>com.mchange</groupId>
-		<artifactId>c3p0</artifactId>
-		<version>${c3p0.version}</version>
-	</dependency>
 	
 	<!-- fastjson -->
 	<dependency>
@@ -265,12 +244,6 @@
 		<scope>test</scope>
 	</dependency>
   	
-  	<!-- kindeditor需要的包 -->
-  	<dependency>
-	    <groupId>org.apache.clerezza.ext</groupId>
-	    <artifactId>org.json.simple</artifactId>
-	    <version>0.4</version>
-	</dependency>
   	
     <dependency>
       <groupId>junit</groupId>
