@@ -1,6 +1,7 @@
 package cycle.oa_sshe.action;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,9 @@ import cycle.oa_sshe.domain.MyFile;
 import cycle.oa_sshe.domain.SignInfo;
 import cycle.oa_sshe.domain.User;
 import cycle.oa_sshe.domain.easyui.Grid;
+import cycle.oa_sshe.domain.easyui.Json;
 import cycle.oa_sshe.utils.HqlFilter;
+import cycle.oa_sshe.utils.IpUtil;
 
 
 @Controller("signInfoAction")
@@ -60,7 +63,7 @@ public class SignInfoAction extends BaseAction<SignInfo> {
 	}
 
 	/**
-	 * 收文列表
+	 * 待办公文列表
 	 */
 	public void receiveListGrid(){
 		Grid grid = new Grid();
@@ -74,11 +77,47 @@ public class SignInfoAction extends BaseAction<SignInfo> {
 			String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
 			hqlFilter.addFilter("QUERY_t#document.createdatetime_D_GE", da);//只查询一年内的发文记录
 			hqlFilter.addFilter("QUERY_t#signUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));//指定收文单位
+			
+			if(model.getState()){
+				hqlFilter.addFilter("QUERY_t#state_B_EQ", "true");//查询已签收
+			}else{
+				hqlFilter.addFilter("QUERY_t#state_B_EQ", "false");//查询未签收
+			}
+			
 			grid.setTotal(signInfoService.countByFilter(hqlFilter));
 			grid.setRows(signInfoService.findByFilter(hqlFilter, page, rows));
 		}
 		writeJson(grid);
 	}
+	
+	/**
+	 * 签收所有
+	 */
+	public void signAll(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");//获得session中的用户
+		if(user!=null&&!user.isAdmin()){
+			HqlFilter hqlFilter = new HqlFilter(getRequest());
+			hqlFilter.addFilter("QUERY_t#state_B_EQ", "false");//查询未签收
+			List<SignInfo> sl = signInfoService.findByFilter(hqlFilter);
+			try {
+				for (SignInfo signInfo : sl) {
+					signInfo.setState(true);
+					signInfo.setSignDate(new Date());//设置签收时间
+					signInfo.setSignUserName(user.getName());//签收人姓名
+					signInfo.setIp(IpUtil.getIpAddr(request));//签收IP
+					signInfoService.update(signInfo);
+				}
+				json.setSuccess(true);
+				json.setMsg("签收成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				json.setMsg("签收失败");
+			}
+		}
+		writeJson(json);
+	}
+	
 	
 	/**
 	 * 根据ID获得签收信息

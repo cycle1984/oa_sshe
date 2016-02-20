@@ -106,10 +106,10 @@ sy.onLoadError = {
 	onLoadError : function(XMLHttpRequest,textStatus,errorThrown) {
 		if (parent.$ && parent.$.messager) {
 			parent.$.messager.progress('close');
-			parent.$.messager.alert('1错误', XMLHttpRequest.responseText);
+			parent.$.messager.alert('错误1', XMLHttpRequest.responseText);
 		} else {
 			$.messager.progress('close');
-			$.messager.alert('2错误', XMLHttpRequest.responseText);
+			$.messager.alert('错误2', XMLHttpRequest.responseText);
 		}
 	}
 };

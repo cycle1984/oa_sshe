@@ -214,7 +214,8 @@ $.ajaxSetup({
 		try {
 			parent.$.messager.progress('close');
 			
-			parent.$.messager.alert('错误', XMLHttpRequest.responseText);
+			//parent.$.messager.alert('错误', XMLHttpRequest.responseText);
+			parent.$.messager.alert('错误5', "未知错误，请关闭整个网页后重新登录，或联系管理员");
 		} catch (e) {
 			alert(XMLHttpRequest.responseText);
 		}

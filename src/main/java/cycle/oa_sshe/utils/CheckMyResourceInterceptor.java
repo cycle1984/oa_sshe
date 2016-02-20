@@ -32,7 +32,7 @@ public class CheckMyResourceInterceptor extends AbstractInterceptor {
 
     static
     {
-        AJAX_TIME_OUT = "ajaxSessionTimeOut 用户登录会话已过期，请重新登录！";
+        AJAX_TIME_OUT = "ajaxSessionTimeOut";
         AJAX_NO_LIMIT = "ajaxNoLimit";
 
     }
