@@ -14,17 +14,17 @@
         <property name="updatedatetime" type="java.util.Date">
             <column name="UPDATEDATE_TIME" />
         </property>
-        <property name="loginName" type="java.lang.String" length="20">
-            <column name="LOGIN_NAME" length="20"/>
+        <property name="loginName" type="java.lang.String" length="20" not-null="true" unique="true">
+            <column name="LOGIN_NAME" length="20" not-null="true" unique="true"/>
         </property>
-        <property name="pwd" type="java.lang.String" length="40">
-            <column name="PWD" length="40"/>
+        <property name="pwd" type="java.lang.String" length="50">
+            <column name="PWD" length="50"/>
         </property>
         <property name="name" type="java.lang.String" length="20">
             <column name="NAME" length="20"/>
         </property>
         <property name="phone" type="java.lang.String" length="15">
-            <column name="PHONE" length="15"/>
+            <column name="PHONE" length="50"/>
         </property>
         <property name="tel" type="java.lang.String" length="12">
             <column name="TEL" length="12"/>
@@ -32,8 +32,8 @@
         <property name="gender" type="java.lang.String" length="1">
             <column name="GENDER" length="1"/>
         </property>
-        <property name="photo" type="java.lang.String">
-            <column name="PHOTO" />
+        <property name="photo" type="java.lang.String" length="50">
+            <column name="PHOTO" length="50"/>
         </property>
         <property name="description" type="java.lang.String" length="100">
             <column name="DESCRIPTION" length="100"/>

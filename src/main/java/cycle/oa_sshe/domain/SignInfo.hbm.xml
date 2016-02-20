@@ -8,11 +8,11 @@
             <column name="ID" />
             <generator class="native" />
         </id>
-        <property name="publishUserName" type="java.lang.String">
-            <column name="PUBLISHUSERNAME" />
+        <property name="publishUserName" type="java.lang.String" length="20">
+            <column name="PUBLISHUSERNAME" length="20"/>
         </property>
-        <property name="publishUnitName" type="java.lang.String">
-            <column name="PUBLISHUNITNAME" />
+        <property name="publishUnitName" type="java.lang.String" length="20">
+            <column name="PUBLISHUNITNAME" length="20"/>
         </property>
         <property name="state" type="java.lang.Boolean">
             <column name="STATE" />
@@ -20,11 +20,11 @@
         <property name="signDate" type="java.util.Date">
             <column name="SIGNDATE" />
         </property>
-        <property name="ip" type="java.lang.String">
-            <column name="IP" />
+        <property name="ip" type="java.lang.String" length="20">
+            <column name="IP" length="20"/>
         </property>
-        <property name="signUserName" type="java.lang.String">
-            <column name="SIGNUSERNAME" />
+        <property name="signUserName" type="java.lang.String" length="20">
+            <column name="SIGNUSERNAME"  length="20"/>
         </property>
         
         <!-- 收文信息和公文关系，多对一 -->

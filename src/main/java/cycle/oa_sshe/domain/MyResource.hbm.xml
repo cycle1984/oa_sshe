@@ -17,8 +17,8 @@
         <property name="description" type="java.lang.String">
             <column name="DESCRIPTION" length="100"/>
         </property>
-        <property name="iconCls" type="java.lang.String">
-            <column name="ICONCLS" />
+        <property name="iconCls" type="java.lang.String" length="50">
+            <column name="ICONCLS" length="50"/>
         </property>
         <property name="seq" type="java.lang.Integer">
             <column name="SEQ" length="2"/>
