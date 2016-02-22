@@ -4,7 +4,7 @@ var ref;//定时器
  * 定时刷新
  */
 var rf = function (){
-	$('#signInfo_documentAcceptList_grid').datagrid('load');
+	$('#signInfo_nDocumentAcceptList_grid').datagrid('load');
 };
 //var setreflesh = function(){
 //	setTimeout(rf,refleshtime);//定时（refleshtime），执行一次rf方法
@@ -16,25 +16,25 @@ var setreflesh = function(){
 /**
  * 确定签收
  */
-var signInfo_documentAcceptList_acceptDialog_submit = function(rowData){
-	if($('#signInfo_documentAcceptList_acceptDialog_form').form('validate')){
-		$('#signInfo_documentAcceptList_accept_OKbnt').linkbutton('disable');
+var signInfo_nDocumentAcceptList_acceptDialog_submit = function(rowData){
+	if($('#signInfo_nDocumentAcceptList_acceptDialog_form').form('validate')){
+		$('#signInfo_nDocumentAcceptList_accept_OKbnt').linkbutton('disable');
 		$.post('user_searchByLoginNameAndPwd.action',{
 			pwd:$('#accept_pwd').val(),
 			id:rowData.id
 		},function(r){
 			if(r.success){
-				$('#signInfo_documentAcceptList_grid').datagrid('load');
+				$('#signInfo_nDocumentAcceptList_grid').datagrid('load');
 				$.messager.show({
 					title : '提示',
 					msg : r.msg
 				});
-				$('#signInfo_documentAcceptList_acceptDialog').show().dialog('close');
+				$('#signInfo_nDocumentAcceptList_acceptDialog').show().dialog('close');
 				downDocumentDialog(rowData);
 			}else{
 				$.messager.alert('错误提示',r.msg,'error',function(){
 					$('#accept_pwd').textbox('clear').textbox('textbox').focus();
-					$('#signInfo_documentAcceptList_accept_OKbnt').linkbutton('enable');
+					$('#signInfo_nDocumentAcceptList_accept_OKbnt').linkbutton('enable');
 				});
 			}
 		},'json');
@@ -54,11 +54,78 @@ var downDocumentDialog = function(row){
 	});
 }
 
+/**
+ * 签收所有
+ */
+var signAll = function(){
+	$('#signInfo_nDocumentAcceptList_acceptDialog').show().dialog({
+		title:'公文签收',
+		width:600,
+		height:160,
+		modal:true,
+		top:40,
+		buttons:[{
+			text:'确定签收',
+			id:'signInfo_documentAcceptList_accept_signAll_OKbnt',
+			iconCls:'icon-ok',
+			handler:function(){
+				
+				$.post("${pageContext.request.contextPath}/user_signAll.action",{
+					pwd:$('#accept_pwd').val()
+				},function(result){
+					if(result.success){
+						$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载已办公文列表
+						$.messager.show({
+							title : '提示',
+							msg : result.msg
+						});
+						$('#signInfo_nDocumentAcceptList_acceptDialog').dialog('close');
+					}else{
+						$.messager.alert('提示', result.msg, 'error');
+					}
+				},"json");
+				
+			}
+		},{
+			text:'关闭',
+			handler:function(){
+				$('#signInfo_documentAcceptList_acceptDialog').hide().dialog('close');
+			}
+		}],
+		onOpen : function() {
+			$('form :input').keyup(function(event) {
+				if (event.keyCode == 13) {//按下键盘上的enter执行
+					
+					$.post("${pageContext.request.contextPath}/user_signAll.action",{
+						pwd:$('#accept_pwd').val()
+					},function(result){
+						if(result.success){
+							$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载发文列表
+							$.messager.show({
+								title : '提示',
+								msg : result.msg
+							});
+							$('#signInfo_nDocumentAcceptList_acceptDialog').dialog('close');
+						}else{
+							$.messager.alert('提示', result.msg, 'error');
+						}
+					},"json");
+					
+				}
+			});
+		}
+	
+	});
+	$('#accept_pwd').textbox('clear').textbox('textbox').focus();
+	
+	
+}
+
 $(function(){
 	
-	$('#signInfo_documentAcceptList_grid').datagrid({
+	$('#signInfo_nDocumentAcceptList_grid').datagrid({
 		idField:'id',//指定标识字段
-		url:'${pageContext.request.contextPath}/signInfo_receiveListGrid.action',//URL从远程站点请求数据
+		url:'${pageContext.request.contextPath}/signInfo_receiveListGrid.action?state=false',//URL从远程站点请求数据
 		fit:true,//当设置为true的时候面板大小将自适应父容器
 		fitColumns:true,//适应网格的宽度，防止水平滚动
 		striped : true,//是否显示斑马线
@@ -69,7 +136,6 @@ $(function(){
 		pageSize : 20,//每页显示记录数
 		sortName : 'document.createdatetime',
 		sortOrder : 'desc',
-		multiSort:true,
 		pageList : [10, 20, 30, 40, 50, 100, 500],//在设置分页属性的时候 初始化页面大小选择列表
 		rowStyler:function(index,row){
 			if(row.document){
@@ -153,10 +219,9 @@ $(function(){
 				}else{
 					return '<span style="color:red;">未签收</span>';
 				}
-			},
-			sortable : true
+			}
 		}]],
-		toolbar : '#signInfo_documentAcceptList_toolbar',
+		toolbar : '#signInfo_nDocumentAcceptList_toolbar',
 		onLoadSuccess:function(data){//数据加载成功后执行的代码,检测是否有未签收的公文，有则弹出提示窗，循环播放提示音
 			var num=0;
 			for(var i=0;i<data.rows.length;i++){//遍历当前页数据，
@@ -177,7 +242,7 @@ $(function(){
 			    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);  
 				$.messager.show({
 					title:'提示信息',
-					msg:'您有<span style="color:red">'+num+'+'+'</span>份新文件未签收请您及时办理!'
+					msg:'您有<span style="color:red">'+data.total+'</span>份新文件未签收请您及时办理!'
 						+'<object height="0" width="0" data="'+localhostPaht+projectName+'/style/Alarm.mp3"></object></div>',
 					timeout:5000,
 					showType:'slide'
@@ -185,7 +250,7 @@ $(function(){
 				refleshtime = 1000*60*5;//文件都未签收的情况5分钟刷新一次
 				setreflesh();
 			}else{//文件都签收的情况
-				var i = $('#signInfo_documentAcceptList_refleshtime').val();
+				var i = $('#signInfo_nDocumentAcceptList_refleshtime').val();
 				refleshtime=1000*60*10;//默认10分钟刷新一次
 				if(i!=undefined){
 					refleshtime=1000*60*i;
@@ -198,7 +263,7 @@ $(function(){
 				downDocumentDialog(row);
 			}else{
 				
-				$('#signInfo_documentAcceptList_acceptDialog').show().dialog({
+				$('#signInfo_nDocumentAcceptList_acceptDialog').show().dialog({
 					title:'公文签收',
 					width:600,
 					height:160,
@@ -206,21 +271,21 @@ $(function(){
 					top:40,
 					buttons:[{
 						text:'确定签收',
-						id:'signInfo_documentAcceptList_accept_OKbnt',
+						id:'signInfo_nDocumentAcceptList_accept_OKbnt',
 						iconCls:'icon-ok',
 						handler:function(){
-							signInfo_documentAcceptList_acceptDialog_submit(row);
+							signInfo_nDocumentAcceptList_acceptDialog_submit(row);
 						}
 					},{
 						text:'关闭',
 						handler:function(){
-							$('#signInfo_documentAcceptList_acceptDialog').hide().dialog('close');
+							$('#signInfo_nDocumentAcceptList_acceptDialog').hide().dialog('close');
 						}
 					}],
 					onOpen : function() {
 		    			$('form :input').keyup(function(event) {
 		    				if (event.keyCode == 13) {//按下键盘上的enter执行
-		    					signInfo_documentAcceptList_acceptDialog_submit(row);
+		    					signInfo_nDocumentAcceptList_acceptDialog_submit(row);
 		    				}
 		    			});
 		    		}
@@ -235,20 +300,20 @@ $(function(){
 		},
 	});
 	
-	$('#signInfo_documentAcceptList_searchForm_unit_td').on('click', function(){
-		$('#signInfo_documentAcceptList_searchForm_unit').textbox('clear');
+	$('#signInfo_nDocumentAcceptList_searchForm_unit_td').on('click', function(){
+		$('#signInfo_nDocumentAcceptList_searchForm_unit').textbox('clear');
 		dialog = sy.modalDialog({
 			title:'选择单位查询',
 			width : 350,
 			top:'10%',
 			href:'${pageContext.request.contextPath}/unit_searchByUnit.action',
 			buttons : [ {
-				id:'signInfo_documentAcceptList_searchForm_OKbtn',
+				id:'signInfo_nDocumentAcceptList_searchForm_OKbtn',
 				text : '确定',
 				iconCls:'icon-ok',
 				handler : function() {
-					$('#signInfo_documentAcceptList_searchForm_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
-					$('#signInfo_documentAcceptList_searchForm_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
+					$('#signInfo_nDocumentAcceptList_searchForm_unit').textbox('setText',$('#unit_searchByUnit_unit').val());
+					$('#signInfo_nDocumentAcceptList_searchForm_unit').textbox('setValue',$('#unit_searchByUnit_unit').val());
 					dialog.dialog('close');
 				}
 			} ]

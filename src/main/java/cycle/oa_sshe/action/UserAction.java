@@ -271,12 +271,12 @@ public class UserAction extends BaseAction<User> {
 	}
 	
 	/**
-	 * 签收
+	 * 签收单个
 	 */
 	public void searchByLoginNameAndPwd(){
 		Json json = new Json();
 		User user = (User) session.getAttribute("userSession");//获得session中的当前登录用户
-		if(user!=null){
+		if(user!=null&&!user.isAdmin()){
 			if(user.getPwd().equals(DigestUtils.md5Hex(model.getPwd()))){//和当前登录用户密码一致
 				SignInfo si = signInfoService.getById(model.getId());//获得本单位的签收信息对象
 				si.setState(true);//设为已签收
@@ -288,12 +288,47 @@ public class UserAction extends BaseAction<User> {
 					json.setSuccess(true);
 					json.setMsg("签收成功");
 				} catch (Exception e) {
-					json.setMsg("操作失败!!");
+					json.setMsg("签收失败!!");
 					e.printStackTrace();
 				}
 			}else{
-				json.setMsg("密码错误，请重新输入!!");
+				json.setMsg("密码错误，请重新输入!!!");
 			}
+		}
+		writeJson(json);
+	}
+	
+	
+	/**
+	 * 签收所有
+	 */
+	public void signAll(){
+		Json json = new Json();
+		User user = (User) session.getAttribute("userSession");//获得session中的用户
+		if(user!=null&&!user.isAdmin()){
+			if(user.getPwd().equals(DigestUtils.md5Hex(model.getPwd()))){//和当前登录用户密码一致
+				HqlFilter hqlFilter = new HqlFilter(getRequest());
+				hqlFilter.addFilter("QUERY_t#signUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));
+				hqlFilter.addFilter("QUERY_t#state_B_EQ", "false");//查询未签收
+				List<SignInfo> sl = signInfoService.findByFilter(hqlFilter);
+				try {
+					for (SignInfo signInfo : sl) {
+						signInfo.setState(true);
+						signInfo.setSignDate(new Date());//设置签收时间
+						signInfo.setSignUserName(user.getName());//签收人姓名
+						signInfo.setIp(IpUtil.getIpAddr(request));//签收IP
+						signInfoService.update(signInfo);
+					}
+					json.setSuccess(true);
+					json.setMsg("签收成功");
+				} catch (Exception e) {
+					e.printStackTrace();
+					json.setMsg("签收失败");
+				}
+			}else{
+				json.setMsg("密码错误，请重新输入!!!");
+			}
+			
 		}
 		writeJson(json);
 	}
