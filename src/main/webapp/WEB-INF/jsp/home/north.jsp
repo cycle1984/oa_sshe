@@ -111,8 +111,8 @@
 	});
 	</script>
 	<div style="overflow: scroll;overflow: hidden;background: url(style/images/sys/login_topBg.jpg);background-color: white;">
-<!-- 		<img  src="style/images/sys/top_np.jpg"> -->
-		<img  src="style/images/sys/top_jx.jpg">
+		<img  src="style/images/sys/top_np.jpg">
+<!-- 		<img  src="style/images/sys/top_jx.jpg"> -->
 		<div id="sessionInfoDiv" style="color: white;position: absolute; right: 370px; bottom: -13px;">
 			<marquee direction="left" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="4" behavior="scroll"  scrolldelay="0" loop="-1" width="600" height="25" hspace="10" vspace="10">
 			<span style="color:red;">最新消息：</span>

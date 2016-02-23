@@ -24,7 +24,8 @@ var signInfo_nDocumentAcceptList_acceptDialog_submit = function(rowData){
 			id:rowData.id
 		},function(r){
 			if(r.success){
-				$('#signInfo_nDocumentAcceptList_grid').datagrid('load');
+				$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载待办公文列表
+				$('#signInfo_yDocumentAcceptList_grid').datagrid('load');//重新加载已办公文列表
 				$.messager.show({
 					title : '提示',
 					msg : r.msg
@@ -74,7 +75,8 @@ var signAll = function(){
 					pwd:$('#accept_pwd').val()
 				},function(result){
 					if(result.success){
-						$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载已办公文列表
+						$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载待办公文列表
+						$('#signInfo_yDocumentAcceptList_grid').datagrid('load');//重新加载已办公文列表
 						$.messager.show({
 							title : '提示',
 							msg : result.msg
@@ -100,7 +102,8 @@ var signAll = function(){
 						pwd:$('#accept_pwd').val()
 					},function(result){
 						if(result.success){
-							$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载发文列表
+							$('#signInfo_nDocumentAcceptList_grid').datagrid('load');//重新加载待办公文列表
+							$('#signInfo_yDocumentAcceptList_grid').datagrid('load');//重新加载已办公文列表
 							$.messager.show({
 								title : '提示',
 								msg : result.msg

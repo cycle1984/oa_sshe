@@ -18,7 +18,7 @@
 				<tr>
                     <th style="width: 100;font-size: 13px;">级别</th>
                     <td>
-                    <input id="document_saveUI_level" name="level" class="easyui-combobox" data-options="width:70,value:'加急',editable:false,valueField: 'label',textField: 'value',data:[{
+                    <input id="document_saveUI_level" name="level" class="easyui-combobox" data-options="width:153,value:'加急',editable:false,valueField: 'label',textField: 'value',data:[{
                     	label:'特提',
                     	value:'特提'
                     },{
@@ -32,20 +32,24 @@
                     	value:'平急'
                     }]"></input> 
                     </td>
+                    
+                </tr>
+                <tr>
+                	<th style="font-size: 13px;">发文字号</th><td><input id="document_saveUI_docNum" name="docNum" class="easyui-textbox" value="new date()"></td>
                 </tr>
                 <tr>
                    <th style="width: 100;font-size: 13px;">公文标题</th>
-                   <td>
+                   <td colspan="3">
                    <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true,prompt:'不能包含空格和+号等特殊字符'" style="width:100%;"> 
                    </td>
                </tr>
                <tr>
                    <th style="width: 100;font-size: 13px;">备注</th>
-                   <td><input id="document_saveUI_description" class="easyui-textbox" data-options="multiline:true,height:40"  style="width:100%;" name="description"> </td>
+                   <td ><input id="document_saveUI_description" class="easyui-textbox" data-options="multiline:true,height:40"  style="width:100%;" name="description"> </td>
                </tr>
                <tr>
                    <th style="width: 100;font-size: 13px;">文件上传</th>
-                   <td><div id="container">
+                   <td ><div id="container">
                        <a id="pickfiles" href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'">选择文件</a><span style="font-size: 13px;">(最大20Mb)</span>
                        <div id="filelist">您的浏览器没有安装Flash插件,或不支持HTML5!</div>
                    </div> </td>

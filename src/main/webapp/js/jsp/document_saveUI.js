@@ -1,5 +1,9 @@
 var uploader;
 $(function(){
+	
+	var date = new Date();
+	$('#document_saveUI_docNum').textbox().textbox('setText','（'+date.getFullYear()+'）号');//设置默认文号的显示
+	
 	uploader = new plupload.Uploader({//上传插件定义
 		browse_button : 'pickfiles',//选择文件的按钮,触发文件选择对话框的DOM元素，当点击该元素后便后弹出文件选择对话框。该值可以是DOM元素对象本身，也可以是该DOM元素的id
 		container : 'container',//文件上传容器
@@ -160,6 +164,7 @@ $(function(){
  * 发布按钮定义 
  */
 var document_saveUI_submit =function($dialog){
+	console.info($('#document_saveUI_docNum').textbox().textbox('getValue'));
 	if($('#document_saveUI_form').form('validate')){//验证表单
 		if (uploader.files.length > 0) {//>0则有附件
 			$.messager.progress({
