@@ -165,6 +165,19 @@ $(function(){
 
 			}
 		},{
+			field : 'document.docNum',
+			title : '发文字号',
+			width : 80,
+			sortable : true,
+			formatter:function(value,row,index){
+				if(row.document){
+					return row.document.docNum;
+				}else {
+					return value;
+				}
+
+			}
+		},{
 			field : 'document.level',
 			title : '等级',
 			width : 50,

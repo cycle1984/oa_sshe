@@ -8,6 +8,10 @@
             <column name="ID" />
             <generator class="native" />
         </id>
+        
+        <property name="docNum" type="java.lang.String" length="25">
+            <column name="doc_num" length="25"/>
+        </property>
         <property name="documentTitle" type="java.lang.String" length="50">
             <column name="DOCUMENT_TITLE" length="50"/>
         </property>

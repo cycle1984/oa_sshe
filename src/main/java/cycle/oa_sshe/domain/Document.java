@@ -19,6 +19,7 @@ public class Document implements Serializable {
 	private static final long serialVersionUID = 5181850655256922166L;
 	
 	private Integer id ;
+	private String docNum;
 	private String documentTitle;
 	private String level;//公文紧急等级
 	private Date createdatetime;//创建日期
@@ -35,6 +36,12 @@ public class Document implements Serializable {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getDocNum() {
+		return docNum;
+	}
+	public void setDocNum(String docNum) {
+		this.docNum = docNum;
 	}
 	public String getDocumentTitle() {
 		return documentTitle;

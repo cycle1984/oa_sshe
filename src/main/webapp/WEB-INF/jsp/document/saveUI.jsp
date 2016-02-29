@@ -35,12 +35,12 @@
                     
                 </tr>
                 <tr>
-                	<th style="font-size: 13px;">发文字号</th><td><input id="document_saveUI_docNum" name="docNum" class="easyui-textbox" value="new date()"></td>
+                	<th style="font-size: 13px;">发文字号</th><td><input id="document_saveUI_docNum" name="docNum" data-options="required:true,validType:'maxLength[25]'" class="easyui-textbox" value="new date()"></td>
                 </tr>
                 <tr>
                    <th style="width: 100;font-size: 13px;">公文标题</th>
                    <td colspan="3">
-                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true,prompt:'不能包含空格和+号等特殊字符'" style="width:100%;"> 
+                   <input id="document_saveUI_documentTitle" name="documentTitle" class="easyui-textbox" data-options="required:true,validType:'maxLength[50]'" style="width:100%;"> 
                    </td>
                </tr>
                <tr>

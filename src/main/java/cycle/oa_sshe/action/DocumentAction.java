@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -181,7 +182,7 @@ public class DocumentAction extends BaseAction<Document> {
 						document.setSignInfos(null);
 						documentService.delete(document);//删除公文
 					}else{//非超级管理员，只能删除属于自己单位发布的公文
-						if(user.getUnit().getId().equals(document.getPublishUnit())){//判断用户是否属于公文的发文单位
+						if(user.getUnit().getId().equals(document.getPublishUnit().getId())){//判断用户是否属于公文的发文单位
 							Set<MyFile> myFiles = document.getMyFiles();//获得公文管理的附件，需要把附件一起删除
 							for (MyFile myFile : myFiles) {//删除硬盘里的附件
 								File f = new File(path+"/"+myFile.getFileName());
@@ -201,14 +202,15 @@ public class DocumentAction extends BaseAction<Document> {
 							document.setPublishUnit(null);
 							document.setSignInfos(null);
 							documentService.delete(document);//删除公文
+							json.setSuccess(true);
+							json.setMsg("成功删除【" + docIds.length + "】条数据！");
 						}else{
 							json.setMsg("删除失败！您没有权限删除不属于自己单位的公文！");
 						}
 					}
 				}
 				
-				json.setSuccess(true);
-				json.setMsg("成功删除【" + docIds.length + "】条数据！");
+				
 			}else{
 				json.setMsg("删除失败！您还没有登录或登录已经失效！");
 			}
@@ -282,8 +284,9 @@ public class DocumentAction extends BaseAction<Document> {
 		if(sign){
 			String fileName = myFile.getFileName();
 			int i =fileName.indexOf("-");
-			fileFileName = java.net.URLEncoder.encode(fileName.substring(i+1, fileName.length()), "UTF-8");//写出到硬盘的文件名（去掉时间前缀）
-			
+			fileFileName = fileName.substring(i+1, fileName.length());//已在getFileFileName方法解决中文乱码问题
+//			fileFileName = java.net.URLEncoder.encode(fileName.substring(i+1, fileName.length()), "UTF-8");//写出到硬盘的文件名（去掉时间前缀）
+//			fileFileName = StringUtils.replace(fileFileName,"+", "%20"); //解决URLEncoder转码后空格变成+号的问题，把+号转回空格
 			List<SysBase> li = sysBaseService.find("from SysBase");
 			SysBase config = null;
 			if(!li.isEmpty()){
@@ -363,7 +366,14 @@ public class DocumentAction extends BaseAction<Document> {
 	}
 
 	public String getFileFileName() {
-		return fileFileName;
+		
+		 try {  
+//             Struts2Utils.getResponse().setHeader("charset","ISO8859-1");  
+             return new String(this.fileFileName.getBytes(), "ISO8859-1"); //解决上传的文件名中文乱码问题    
+        } catch (UnsupportedEncodingException e) {  
+            return "获取文件名出现了错误!";  
+        }
+//		return fileFileName;
 	}
 
 	public void setFileFileName(String fileFileName) {

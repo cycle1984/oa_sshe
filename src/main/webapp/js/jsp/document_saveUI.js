@@ -81,6 +81,7 @@ $(function(){
 		required: true,//是否为必选
 		prompt:'点击下拉列表左侧白色小三角形可展开单位列表',//提示信息
 		width:550,
+		panelHeight:300,//下拉面板高度
 		onClick:function(node){//因为onCheck和onClick捆绑在一起，所以2个需要一样的设置
 	    	var nodes = $('#document_saveUI_unitCombotree').combotree('tree').tree('getChecked');//勾选的节点数
 	    	var num=0;//收文的单位数
@@ -194,15 +195,20 @@ var document_saveUI_submit =function($dialog){
 					}
 				}
 				ids = ids.substring(0, ids.length - 1);
-				var url = 'document_save.action?ids='+ids+'&fileNewNames='+encodeURI(fileNewNames);
-				$.post(url,sy.serializeObject($('#document_saveUI_form'))
-						//{
-//							ids:ids,
-//							fileNewNames:fileNewNames,
-//							documentTitle:$('#document_saveUI_documentTitle').val(),
-//							level:$('#document_saveUI_level').val(),
-//							description:$('#document_saveUI_description').val()
-							//}
+				var url = 'document_save.action?ids='+ids+'&fileNewNames='+fileNewNames;
+				console.info(fileNewNames);
+//				var url = 'document_save.action?ids='+ids+'&fileNewNames='+encodeURI(fileNewNames);
+				var url = 'document_save.action';
+				$.post(url,
+//						sy.serializeObject($('#document_saveUI_form'))
+						{
+							ids:ids,//所选单位id字符串
+							fileNewNames:fileNewNames,//上传的文件名字符串
+							docNum:$('#document_saveUI_docNum').val(),
+							documentTitle:$('#document_saveUI_documentTitle').val(),
+							level:$('#document_saveUI_level').val(),
+							description:$('#document_saveUI_description').val()
+							}
 						,function(result){
 								if(result.success){
 									$dialog.dialog('close');

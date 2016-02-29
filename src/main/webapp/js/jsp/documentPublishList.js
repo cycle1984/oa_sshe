@@ -28,28 +28,35 @@ $(function(){
 		columns:[[{
 			field : 'id',
 			title : '主键',
-			width : 60,
 			checkbox : true
 		},{
 			field : 'createdatetime',
 			title : '发布时间',
+			width : 60,
+			align:'center',
+			sortable : true
+		},{
+			field : 'docNum',
+			title : '发文字号',
 			width : 80,
+			align:'center',
 			sortable : true
 		},{
 			field : 'level',
 			title : '等级',
-			width : 50,
+			width : 20,
+			align:'center',
 			sortable : true
 		}, {
 			field : 'documentTitle',
 			title : '标题',
-			width : 200	,
+			width : 300	,
 			halign:'center',
 			sortable : true
 		}, {
 			field : 'publishUnit',
 			title : '发布单位',
-			width : 100,
+			width : 50,
 			formatter: function(value,row,index){
 				if(value){return value.name;}
 			},
@@ -57,7 +64,7 @@ $(function(){
 		}, {
 			field : 'publishUserName',
 			title : '发布人',
-			width : 100,
+			width : 50,
 			sortable : true
 		}, {
 			field : 'signInfoString',
