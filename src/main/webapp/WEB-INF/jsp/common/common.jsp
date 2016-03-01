@@ -29,8 +29,8 @@
 
 <!-- 公用附件下载方法 -->
 <script type="text/javascript">
-      function fileDown(fileId)
-      {
+      function fileDown(fileId){
+      
     	  window.location.href="${pageContext.request.contextPath}/document_fileDown.action?fileId="+fileId;
       }
 </script>

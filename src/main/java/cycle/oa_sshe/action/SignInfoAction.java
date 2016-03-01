@@ -1,7 +1,6 @@
 package cycle.oa_sshe.action;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -16,9 +15,7 @@ import cycle.oa_sshe.domain.MyFile;
 import cycle.oa_sshe.domain.SignInfo;
 import cycle.oa_sshe.domain.User;
 import cycle.oa_sshe.domain.easyui.Grid;
-import cycle.oa_sshe.domain.easyui.Json;
 import cycle.oa_sshe.utils.HqlFilter;
-import cycle.oa_sshe.utils.IpUtil;
 
 
 @Controller("signInfoAction")
@@ -72,9 +69,9 @@ public class SignInfoAction extends BaseAction<SignInfo> {
 		if(user.getUnit().getId()!=null){
 			Calendar cal = Calendar.getInstance();
 	        int year = cal.get(Calendar.YEAR);//获取年份
-	        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+	        int month=cal.get(Calendar.MONTH)+1;//获取月份，Calendar.MONTH从0算起，也就是一月份是0,所以当前月份需要加1
 	        int day=cal.get(Calendar.DATE);//获取日
-			String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+			String da = (year-1)+"-"+month+"-"+day;//过滤条件，当前年-1
 			hqlFilter.addFilter("QUERY_t#document.createdatetime_D_GE", da);//只查询一年内的发文记录
 			hqlFilter.addFilter("QUERY_t#signUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));//指定收文单位
 			
@@ -130,9 +127,9 @@ public class SignInfoAction extends BaseAction<SignInfo> {
 		if(user.getUnit().getId()!=null){
 			Calendar cal = Calendar.getInstance();
 	        int year = cal.get(Calendar.YEAR);//获取年份
-	        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+	        int month=cal.get(Calendar.MONTH)+1;//获取月份，从0算起，也就是一月份是0
 	        int day=cal.get(Calendar.DATE);//获取日
-			String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+			String da = (year-1)+"-"+month+"-"+day;//过滤条件，当前年-1
 			hqlFilter.addFilter("QUERY_t#document.createdatetime_D_LT", da);//只查询一年内的发文记录
 			hqlFilter.addFilter("QUERY_t#signUnit.id_I_EQ", String.valueOf(user.getUnit().getId()));//指定收文单位
 			grid.setTotal(signInfoService.countByFilter(hqlFilter));

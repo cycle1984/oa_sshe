@@ -13,12 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
-import com.opensymphony.xwork2.ActionContext;
 
 import cycle.oa_sshe.base.BaseAction;
 import cycle.oa_sshe.domain.Document;
@@ -58,11 +55,11 @@ public class DocumentAction extends BaseAction<Document> {
 		}
 		Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);//获取年份
-        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+        int month=cal.get(Calendar.MONTH)+1;//获取月份，从0算起，也就是一月份是0
         int day=cal.get(Calendar.DATE);//获取日
 		//SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
 		//String da = dateFormater.format(new Date());
-		String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+		String da = (year-1)+"-"+month+"-"+day;//过滤条件，当前年-1
 		hqlFilter.addFilter("QUERY_t#createdatetime_D_GE", da);//只查询一年内的发文记录
 		grid.setTotal(documentService.countByFilter(hqlFilter));//总记录数
 		List<Document> list = documentService.findByFilter(hqlFilter,page,rows);
@@ -323,11 +320,11 @@ public class DocumentAction extends BaseAction<Document> {
 		}
 		Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);//获取年份
-        int month=cal.get(Calendar.MONTH);//获取月份，从0算起，也就是一月份是0
+        int month=cal.get(Calendar.MONTH)+1;//获取月份，从0算起，也就是一月份是0
         int day=cal.get(Calendar.DATE);//获取日
 		//SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
 		//String da = dateFormater.format(new Date());
-		String da = (year-1)+"-"+month+1+"-"+day;//过滤条件，当前年-1
+		String da = (year-1)+"-"+month+"-"+day;//过滤条件，当前年-1
 		hqlFilter.addFilter("QUERY_t#createdatetime_D_LT", da);//只查询一年前的发文记录
 		grid.setTotal(documentService.countByFilter(hqlFilter));//总记录数
 		List<Document> list = documentService.findByFilter(hqlFilter,page,rows);
@@ -368,8 +365,7 @@ public class DocumentAction extends BaseAction<Document> {
 	public String getFileFileName() {
 		
 		 try {  
-//             Struts2Utils.getResponse().setHeader("charset","ISO8859-1");  
-             return new String(this.fileFileName.getBytes(), "ISO8859-1"); //解决上传的文件名中文乱码问题    
+             return new String(this.fileFileName.getBytes(),"ISO8859-1"); //解决上传的文件名中文乱码问题    
         } catch (UnsupportedEncodingException e) {  
             return "获取文件名出现了错误!";  
         }
